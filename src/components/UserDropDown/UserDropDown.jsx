@@ -1,11 +1,27 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import UserIcon from "../../assets/icons/user.png";
+import {
+    selectUser,
+    USER_LOGOUT_REQUEST,
+    USER_LOGOUT_SUCCESS,
+} from "../../features/user/userSlice";
 
 const UserDropDown = () => {
+    const user = useSelector(selectUser);
+    const dispatch = useDispatch();
     const [userDropDown, setUserDropDown] = useState("hidden");
+
+    const handleLogout = async () => {
+        const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+        dispatch(USER_LOGOUT_REQUEST());
+        localStorage.removeItem("token");
+        await delay(500);
+        dispatch(USER_LOGOUT_SUCCESS());
+    };
 
     return (
         <div>
@@ -47,17 +63,27 @@ const UserDropDown = () => {
                         >
                             Đơn mua
                         </a>
-                        <form method="POST" action="#" role="none">
-                            <button
-                                type="submit"
+                        {user.token ? (
+                            <div
+                                className="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-200"
+                                role="menuitem"
+                                tabIndex={-1}
+                                id="menu-item-3"
+                                onClick={() => handleLogout()}
+                            >
+                                Đăng xuất
+                            </div>
+                        ) : (
+                            <Link
+                                to="/sign-in"
                                 className="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-200"
                                 role="menuitem"
                                 tabIndex={-1}
                                 id="menu-item-3"
                             >
-                                Đăng xuất
-                            </button>
-                        </form>
+                                Đăng nhập
+                            </Link>
+                        )}
                     </div>
                 </div>
             </div>

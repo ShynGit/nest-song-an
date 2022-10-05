@@ -31,11 +31,23 @@ export const userSlice = createSlice({
             state.loginErrorMessage = action.payload;
             state.loading = false;
         },
+        USER_LOGOUT_REQUEST: (state) => {
+            state.loading = true;
+        },
+        USER_LOGOUT_SUCCESS: (state) => {
+            state.token = null;
+            state.loading = false;
+        },
     },
 });
 
-export const { USER_LOGIN_SUCCESS, USER_LOGIN_FAIL, USER_LOGIN_REQUEST } =
-    userSlice.actions;
+export const {
+    USER_LOGIN_SUCCESS,
+    USER_LOGIN_FAIL,
+    USER_LOGIN_REQUEST,
+    USER_LOGOUT_REQUEST,
+    USER_LOGOUT_SUCCESS,
+} = userSlice.actions;
 
 export const selectUser = (state) => state.user;
 
