@@ -7,9 +7,10 @@ import { Production } from "./pages/Production/Production";
 import { UserProfile } from "./pages/UserProfile";
 import { New } from "./pages/New/New";
 import Header from "./components/Header/Header";
-import { ShoppingCart } from "./pages/ShoppingCart";
+import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { ProductDetail } from "./pages/Production/ProductDetail";
 import { NewDetail } from "./pages/New/NewDetail";
+import NotFound from "./pages/NotFound";
 
 export const App = () => {
     return (
@@ -29,7 +30,7 @@ export const App = () => {
                     element={<ProductDetail />}
                 />
                 <Route path="/new/new-detail" element={<NewDetail />} />
-                <Route path="*" element={<Home />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );

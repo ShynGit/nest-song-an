@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     FILTER_ADD,
@@ -13,23 +13,30 @@ const FILTER_CARD = [
     { cate: "price", name: "Filter 3" },
     { cate: "price", name: "Filter 4" },
     { cate: "price", name: "Filter 5" },
+    { cate: "weight", name: "Filter 6" },
 ];
 
 export const Filter = () => {
     const filter = useSelector(selectFilter);
-    console.log(filter);
     const dispatch = useDispatch();
 
     const handleCheck = (value) => {
         const isChecked = filter.includes(value);
-        //console.log(isChecked);
         isChecked
             ? dispatch(FILTER_REMOVE(value))
             : dispatch(FILTER_ADD(value));
     };
 
     useEffect(() => {
-        console.log("Render product again");
+        // const fetchAccount = async () => {
+        //     try {
+        //         const response = await accountApi.getAllAccount();
+        //         setUser(response);
+        //     } catch (error) {
+        //         if (error.response) console.log(error.response.data);
+        //     }
+        // };
+        // fetchAccount();
     }, [filter]);
 
     return (

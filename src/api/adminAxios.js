@@ -4,8 +4,10 @@ const adminAxios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
         Accept: "application/json",
-        "Content-Type": "application/json; charset=utf-8",
-        token: "expired=2023/10/0600:00:00-id=1-fullname=admin-role=admin",
+        "Content-Type": "application/json;charset=UTF-8",
+        // Accept: "*/*",
+        // "Content-Type": "text/html; charset=UTF-8",
+        // "Content-Type": "multipart/form-data; boundary=something",
     },
 });
 

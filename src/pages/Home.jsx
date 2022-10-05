@@ -17,17 +17,9 @@ const CARDS_DETAILS = [
 ];
 
 export const Home = () => {
-    //useEffect(() => {
-    //    const fetchAccount = async () => {
-    //        try {
-    //            const response = await accountApi.getAllAccount();
-    //            console.log(response.data);
-    //        } catch (error) {
-    //            if (error.response) console.log(error.response.data);
-    //        }
-    //    };
-    //    fetchAccount();
-    //}, []);
+    // useEffect(() => {
+
+    // }, []);
 
     return (
         <div>

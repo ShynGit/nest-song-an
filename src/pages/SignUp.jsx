@@ -45,7 +45,7 @@ export const SignUp = () => {
                                         aria-label="Filter projects"
                                         placeholder="Tên đăng nhập"
                                         maxLength={70}
-                                        minLength={1}
+                                        minLength={3}
                                         required
                                     />
                                     <input
@@ -54,7 +54,7 @@ export const SignUp = () => {
                                         aria-label="Filter projects"
                                         placeholder="Mật khẩu"
                                         maxLength={70}
-                                        minLength={1}
+                                        minLength={8}
                                         required
                                     />
                                     <input

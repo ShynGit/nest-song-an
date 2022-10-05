@@ -17,8 +17,8 @@ const CARDS_DETAILS = [
 export const List = () => {
     return (
         <div className="grid-cols-3 grid gap-7">
-            {CARDS_DETAILS.map((card) => (
-                <div className="mb-6">
+            {CARDS_DETAILS.map((card, index) => (
+                <div className="mb-6" key={index}>
                     <Link
                         to="/production/product-detail"
                         onClick={() => window.scrollTo(0, 0)}
