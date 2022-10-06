@@ -70,7 +70,7 @@ export const Production = () => {
                                     </div>
                                 </div>
                             </div>
-                            <List />
+                            <List inProductPage={true} />
                         </div>
                     </div>
                 </div>

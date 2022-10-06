@@ -1,5 +1,3 @@
-import Image1 from "../assets/images/banner-1.jpg";
-
 export const Introduction = () => {
     return (
         <>
@@ -23,7 +21,7 @@ export const Introduction = () => {
                         Đặc điểm, lợi ích của yến sào
                     </div>
                     <div className="border p-[0.7px] mt-1.5 w-4/12 m-auto border-cyan-700" />
-                    <p className="p-10 px-36 font-sans">
+                    <div className="p-10 px-36 font-sans">
                         <p>
                             Sử dụng yến sào thường xuyên giúp bồi bổ cơ thể,
                             chống suy nhược, giúp ăn ngon miệng, ngủ sâu giấc,
@@ -45,7 +43,7 @@ export const Introduction = () => {
                             học cũng như giúp cơ thể phục hồi một cách mau
                             chóng.
                         </p>
-                    </p>
+                    </div>
                 </div>
                 <div>
                     <div className="text-3xl font-bold mt-16">
@@ -65,7 +63,7 @@ export const Introduction = () => {
                         Giá trị cốt lõi
                     </div>
                     <div className="border p-[0.7px] mt-1.5 w-4/12 m-auto border-cyan-700" />
-                    <p className="p-10 px-36 flex flex-col gap-5 font-sans">
+                    <div className="p-10 px-36 flex flex-col gap-5 font-sans">
                         <p>
                             Chất lượng: Tổ yến sào Song Ân có nguồn gốc từ yến
                             nuôi và yến đảo Nha Trang 100% nguyên chất. Chúng
@@ -88,7 +86,7 @@ export const Introduction = () => {
                             bền vững, đặt trọng tâm và lợi ích lâu dài cho quý
                             khách hàng và đối tác.
                         </p>
-                    </p>
+                    </div>
                 </div>
             </div>
         </>

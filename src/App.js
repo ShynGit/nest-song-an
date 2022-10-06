@@ -25,10 +25,7 @@ export const App = () => {
                 <Route path="/user" element={<UserProfile />} />
                 <Route path="/new" element={<New />} />
                 <Route path="/shopping-cart" element={<ShoppingCart />} />
-                <Route
-                    path="/production/product-detail"
-                    element={<ProductDetail />}
-                />
+                <Route path="/production/:id" element={<ProductDetail />} />
                 <Route path="/new/new-detail" element={<NewDetail />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>

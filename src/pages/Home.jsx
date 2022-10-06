@@ -35,10 +35,10 @@ export const Home = () => {
             ) : (
                 <div>
                     <div className="pb-10">
-                        {/* <div
+                        <div
                             className="pt-56 bg-fixed relative bg-auto h-[32rem] bg-no-repeat bg-center text-center text-white"
                             style={{
-                                backgroundImage: `url(https://cf.shopee.vn/file/911dc69ba06a7473d350e98c928b1716)`,
+                                backgroundImage: `url(https://lh3.googleusercontent.com/3WO5NY5kdrrz5dLUZBnJWBMTzr0nrp9O0bC5Wu1ssLtFvt8672Jst8lxPxXxIbiPKwGTOzyMOmjf_eVWvkuIhARPae-sjCWBosFhaZdr3KuGgPQ2nQMs-ewDvvFkWJO7poZvCT2g)`,
                             }}
                         >
                             <h1 className="font-cur text-6xl text-cyan-400">
@@ -48,8 +48,8 @@ export const Home = () => {
                                 Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến
                                 Sào chất lượng nhất cho người Việt
                             </p>
-                        </div> */}
-                        <Banner />
+                        </div>
+                        {/* <Banner /> */}
                     </div>
                     <div>
                         <div className="md:mx-48 md:my-10 mx-4 my-4">
@@ -77,7 +77,7 @@ export const Home = () => {
                         <div className="font-medium md:text-3xl text-md md:mb-8 mb-5">
                             Yến sào
                         </div>
-                        <List />
+                        <List inProductPage={false} />
                     </div>
                     <Link
                         to="/production"
