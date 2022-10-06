@@ -1,13 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getTokenDataFromLocalStorage } from "../../utils/serverUtils";
+import { convertTokenToObject } from "../../utils/serverUtils";
 
 const initialState = {
     token: getTokenDataFromLocalStorage(),
-    userInfor: {
-        id: "",
-        fullName: "",
-        role: "",
-    },
+
+    userInfor: convertTokenToObject(),
 };
 
 export const userSlice = createSlice({
@@ -21,6 +19,7 @@ export const userSlice = createSlice({
 
         USER_LOGIN_SUCCESS: (state, action) => {
             state.token = action.payload;
+            state.userInfor = convertTokenToObject();
             state.isloggedInSuccess = true;
             state.loading = false;
         },

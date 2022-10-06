@@ -1,6 +1,27 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { userApi } from "../api/userApi";
 import Avatar from "../assets/images/avatar.jpg";
+import { selectUser } from "../features/user/userSlice";
 
 export const UserProfile = () => {
+    const [userInfor, setUserInfor] = useState({});
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        const fetchInfor = async () => {
+            try {
+                const response = await userApi.getUserInfor(user.userInfor.id);
+                console.log(response);
+                setUserInfor(response);
+            } catch (error) {
+                if (error.response) console.log(error.response.data);
+            }
+        };
+        fetchInfor();
+    }, [user]);
+
     return (
         <div className="bg-gray-100 w-full h-screen p-32 pb-20 flex justify-center">
             <div className="shadow-lg w-9/12 h-full bg-white flex">
@@ -12,7 +33,7 @@ export const UserProfile = () => {
                         />
                     </div>
                     <div className="text-center font-medium text-black/70">
-                        Nguyễn Hữu Sỹ
+                        {userInfor.fullname}
                     </div>
                     <div className="text-sm p-7 pt-4 text-center text-gray-500">
                         Thông tin tóm tắt Lorem ipsum dolor sit amet consectetur
@@ -52,7 +73,7 @@ export const UserProfile = () => {
                                     </svg>
                                 </div>
                                 <p className="text-xs font-medium opacity-60">
-                                    (+84) 0365444461
+                                    (+84) {userInfor.phoneNumber}
                                 </p>
                             </div>
                             <div className="w-4/12 py-1">
@@ -100,8 +121,7 @@ export const UserProfile = () => {
                                     </svg>
                                 </div>
                                 <p className="text-xs font-medium opacity-60">
-                                    Tòa S302, Vinhome Grand Park, Thành phố Thủ
-                                    Đức
+                                    {userInfor.address}
                                 </p>
                             </div>
                         </div>

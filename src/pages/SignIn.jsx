@@ -52,10 +52,10 @@ export const SignIn = () => {
             >
                 {user.loading ? (
                     <div
-                        class="spinner-grow inline-block w-20 h-20 bg-current rounded-full opacity-0 text-regal-blue absolute top-[50%] left-[50%] -ml-10 -mt-10"
+                        className="spinner-grow inline-block w-20 h-20 bg-current rounded-full opacity-0 text-regal-blue absolute top-[50%] left-[50%] -ml-10 -mt-10"
                         role="status"
                     >
-                        <span class="visually-hidden">Loading...</span>
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 ) : (
                     <div className="flex flex-col xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full">
@@ -71,7 +71,7 @@ export const SignIn = () => {
                                     <div>
                                         {user.isloggedInSuccess === false && (
                                             <div
-                                                class="bg-red-100 rounded-lg py-3 px-6 mt-3 text-sm text-red-700 inline-flex items-center w-full"
+                                                className="bg-red-100 rounded-lg py-3 px-6 mt-3 text-sm text-red-700 inline-flex items-center w-full"
                                                 role="alert"
                                             >
                                                 <svg
@@ -79,7 +79,7 @@ export const SignIn = () => {
                                                     focusable="false"
                                                     data-prefix="fas"
                                                     data-icon="times-circle"
-                                                    class="w-4 h-4 mr-2 fill-current"
+                                                    className="w-4 h-4 mr-2 fill-current"
                                                     role="img"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 512 512"
