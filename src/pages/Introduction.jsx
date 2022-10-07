@@ -1,10 +1,11 @@
+import background from "../assets/images/background-image.jpg";
 export const Introduction = () => {
     return (
         <>
             <div
-                className="pt-56 bg-fixed relative bg-auto h-[32rem] bg-no-repeat bg-center text-center text-white"
+                className="pt-56 bg-fixed relative bg-cover h-[32rem] bg-no-repeat bg-center text-center text-white"
                 style={{
-                    backgroundImage: `url(https://lh3.googleusercontent.com/3WO5NY5kdrrz5dLUZBnJWBMTzr0nrp9O0bC5Wu1ssLtFvt8672Jst8lxPxXxIbiPKwGTOzyMOmjf_eVWvkuIhARPae-sjCWBosFhaZdr3KuGgPQ2nQMs-ewDvvFkWJO7poZvCT2g)`,
+                    backgroundImage: `url(${background})`,
                 }}
             >
                 <h1 className="font-cur text-6xl text-cyan-400">

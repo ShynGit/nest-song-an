@@ -12,6 +12,7 @@ import {
 } from "../features/user/userSlice";
 import { getErrorMessageFromServer } from "../utils/serverUtils";
 import { useEffect } from "react";
+import { Loading } from "../components/Loading/Loading";
 
 export const SignIn = () => {
     const user = useSelector(selectUser);
@@ -51,12 +52,7 @@ export const SignIn = () => {
                 }}
             >
                 {user.loading ? (
-                    <div
-                        className="spinner-grow inline-block w-20 h-20 bg-current rounded-full opacity-0 text-regal-blue absolute top-[50%] left-[50%] -ml-10 -mt-10"
-                        role="status"
-                    >
-                        <span className="visually-hidden">Loading...</span>
-                    </div>
+                    <Loading />
                 ) : (
                     <div className="flex flex-col xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full">
                         <div className="md:w-fit w-11/12 border border-gray-300 bg-white flex blocks rounded-lg p-10 pb-7 shadow-2xl shadow-gray-800">

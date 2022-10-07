@@ -11,24 +11,32 @@ import { ShoppingCart } from "./pages/ShoppingCart/ShoppingCart";
 import { ProductDetail } from "./pages/Production/ProductDetail";
 import { NewDetail } from "./pages/New/NewDetail";
 import NotFound from "./pages/NotFound";
+import { useSelector } from "react-redux";
+import { selectUser } from "./features/user/userSlice";
+import { Loading } from "./components/Loading/Loading";
 
 export const App = () => {
+    const user = useSelector(selectUser);
     return (
         <BrowserRouter>
             <Header />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/sign-in" element={<SignIn />} />
-                <Route path="/sign-up" element={<SignUp />} />
-                <Route path="/introduction" element={<Introduction />} />
-                <Route path="/production" element={<Production />} />
-                <Route path="/user" element={<UserProfile />} />
-                <Route path="/new" element={<New />} />
-                <Route path="/shopping-cart" element={<ShoppingCart />} />
-                <Route path="/production/:id" element={<ProductDetail />} />
-                <Route path="/new/new-detail" element={<NewDetail />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+            {user.loading ? (
+                <Loading />
+            ) : (
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/sign-in" element={<SignIn />} />
+                    <Route path="/sign-up" element={<SignUp />} />
+                    <Route path="/introduction" element={<Introduction />} />
+                    <Route path="/production" element={<Production />} />
+                    <Route path="/user" element={<UserProfile />} />
+                    <Route path="/new" element={<New />} />
+                    <Route path="/shopping-cart" element={<ShoppingCart />} />
+                    <Route path="/production/:id" element={<ProductDetail />} />
+                    <Route path="/new/new-detail" element={<NewDetail />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            )}
         </BrowserRouter>
     );
 };

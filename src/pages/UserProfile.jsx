@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { userApi } from "../api/userApi";
 import Avatar from "../assets/images/avatar.jpg";
 import { selectUser } from "../features/user/userSlice";
@@ -8,6 +9,7 @@ import { selectUser } from "../features/user/userSlice";
 export const UserProfile = () => {
     const [userInfor, setUserInfor] = useState({});
     const user = useSelector(selectUser);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchInfor = async () => {
@@ -21,6 +23,10 @@ export const UserProfile = () => {
         };
         fetchInfor();
     }, [user]);
+
+    useEffect(() => {
+        if (!user.token) navigate("/sign-in");
+    }, []);
 
     return (
         <div className="bg-gray-100 w-full h-screen p-32 pb-20 flex justify-center">

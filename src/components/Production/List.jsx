@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { productApi } from "../../api/productApi";
@@ -10,6 +11,7 @@ import {
     selectProduct,
 } from "../../features/production/productSlice";
 import { getErrorMessageFromServer } from "../../utils/serverUtils";
+import { Loading } from "../Loading/Loading";
 import { Pagination } from "./Pagination";
 
 export const List = ({ inProductPage }) => {
@@ -35,14 +37,9 @@ export const List = ({ inProductPage }) => {
     return (
         <>
             {products.loading ? (
-                <div
-                    className="spinner-grow inline-block w-20 h-20 bg-current rounded-full opacity-0 text-regal-blue absolute top-[50%] left-[50%] -ml-10 -mt-10"
-                    role="status"
-                >
-                    <span className="visually-hidden">Loading...</span>
-                </div>
+                inProductPage && <Loading />
             ) : (
-                <div>
+                <div className="flex flex-col justify-around">
                     <div className="grid-cols-3 grid gap-7">
                         {products.products.map(
                             (card, index) =>
@@ -65,15 +62,15 @@ export const List = ({ inProductPage }) => {
                                                 <div className="truncate text-xs text-gray-400/80">
                                                     {card.description}
                                                 </div>
-                                                <div className="text-orange-500 font-semibold font-trebu">
-                                                    <div>
+                                                <div className="text-orange-500 font-trebu">
+                                                    <div className="font-semibold">
                                                         {card.basePrice -
                                                             card.basePrice *
                                                                 card.deal}{" "}
                                                         VNĐ
                                                     </div>
                                                     {card.deal === 0 || (
-                                                        <div className="text-gray-400 line-through">
+                                                        <div className="text-gray-400/60 text-sm font-thin line-through">
                                                             {card.basePrice} VNĐ
                                                         </div>
                                                     )}
