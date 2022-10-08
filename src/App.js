@@ -33,7 +33,7 @@ export const App = () => {
                     <Route path="/new" element={<New />} />
                     <Route path="/shopping-cart" element={<ShoppingCart />} />
                     <Route path="/production/:id" element={<ProductDetail />} />
-                    <Route path="/new/new-detail" element={<NewDetail />} />
+                    <Route path="/new/:id" element={<NewDetail />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             )}

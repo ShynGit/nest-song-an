@@ -47,6 +47,7 @@ export const SignIn = () => {
             <div
                 className="h-full w-full text-gray-800 bg-fixed bg-gray-100/40"
                 style={{
+                    backgroundImage: "url(bg-image.jpg)",
                     backgroundSize: "100%",
                     backgroundPosition: "100%",
                 }}

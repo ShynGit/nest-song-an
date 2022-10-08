@@ -10,7 +10,10 @@ import {
     PRODUCT_LOADING_REQUEST,
     selectProduct,
 } from "../../features/production/productSlice";
-import { getErrorMessageFromServer } from "../../utils/serverUtils";
+import {
+    convertPriceToString,
+    getErrorMessageFromServer,
+} from "../../utils/serverUtils";
 import { Loading } from "../Loading/Loading";
 
 export const Sale = () => {
@@ -36,6 +39,8 @@ export const Sale = () => {
     if (products.length !== 0)
         saleProduct = products.sort((a, b) => b.deal - a.deal).slice(0, 6);
 
+    const salePrice = (item) => item.basePrice - item.basePrice * item.deal;
+
     return (
         <>
             {products.loading ? (
@@ -57,13 +62,15 @@ export const Sale = () => {
                                 </div>
                                 <div className="text-red-500 font-trebu">
                                     <div className="font-semibold">
-                                        {item.basePrice -
-                                            item.basePrice * item.deal}{" "}
+                                        {convertPriceToString(salePrice(item))}{" "}
                                         VNĐ
                                     </div>
                                     {item.deal === 0 || (
                                         <div className="text-gray-400/60 text-sm font-thin line-through">
-                                            {item.basePrice} VNĐ
+                                            {convertPriceToString(
+                                                item.basePrice
+                                            )}{" "}
+                                            VNĐ
                                         </div>
                                     )}
                                 </div>
@@ -78,23 +85,23 @@ export const Sale = () => {
                                 </div>
                                 <div className="text-red-500 font-trebu">
                                     <div className="font-semibold">
-                                        {array[(index + 1) % array.length]
-                                            .basePrice -
-                                            array[(index + 1) % array.length]
-                                                .basePrice *
+                                        {convertPriceToString(
+                                            salePrice(
                                                 array[
                                                     (index + 1) % array.length
-                                                ].deal}{" "}
+                                                ]
+                                            )
+                                        )}{" "}
                                         VNĐ
                                     </div>
                                     {array[(index + 1) % array.length].deal ===
                                         0 || (
                                         <div className="text-gray-400/60 text-sm font-thin line-through">
-                                            {
+                                            {convertPriceToString(
                                                 array[
                                                     (index + 1) % array.length
                                                 ].basePrice
-                                            }{" "}
+                                            )}{" "}
                                             VNĐ
                                         </div>
                                     )}
@@ -110,23 +117,23 @@ export const Sale = () => {
                                 </div>
                                 <div className="text-red-500 font-trebu">
                                     <div className="font-semibold">
-                                        {array[(index + 2) % array.length]
-                                            .basePrice -
-                                            array[(index + 2) % array.length]
-                                                .basePrice *
+                                        {convertPriceToString(
+                                            salePrice(
                                                 array[
                                                     (index + 2) % array.length
-                                                ].deal}{" "}
+                                                ]
+                                            )
+                                        )}{" "}
                                         VNĐ
                                     </div>
                                     {array[(index + 2) % array.length].deal ===
                                         0 || (
                                         <div className="text-gray-400/60 text-sm font-thin line-through">
-                                            {
+                                            {convertPriceToString(
                                                 array[
                                                     (index + 2) % array.length
                                                 ].basePrice
-                                            }{" "}
+                                            )}{" "}
                                             VNĐ
                                         </div>
                                     )}

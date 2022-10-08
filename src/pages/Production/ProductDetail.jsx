@@ -26,14 +26,14 @@ export const ProductDetail = () => {
             try {
                 dispatch(PRODUCT_LOADING_REQUEST());
                 const response = await productApi.getProductById(productId.id);
-                dispatch(PRODUCT_LOADING_ONE(response[0]));
+                dispatch(PRODUCT_LOADING_ONE(response));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
                 dispatch(PRODUCT_LOADING_FAIL(errorMessage));
             }
         };
         fetchProduct();
-    }, []);
+    }, [productId.id]);
 
     return (
         <>

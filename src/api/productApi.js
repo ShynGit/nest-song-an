@@ -2,14 +2,17 @@ import adminAxios from "./adminAxios";
 
 export const productApi = {
     getAllProduct: () => {
-        return adminAxios.get("/Product");
+        return adminAxios.get("/product");
     },
 
     getProductByPage: (offset, limit) => {
-        return adminAxios.get(`/Product/page?page=${offset}&products=${limit}`);
+        return adminAxios.get(`/product/page?page=${offset}&products=${limit}`);
     },
 
     getProductById: (id) => {
-        return adminAxios.get(`/Product/${id}`);
+        return adminAxios.get(`/product/${id}`);
+    },
+    getCategory: () => {
+        return adminAxios.get("/category");
     },
 };

@@ -2,6 +2,6 @@ import adminAxios from "./adminAxios";
 
 export const accountApi = {
     getAllAccount: () => {
-        return adminAxios.get("/User");
+        return adminAxios.get("/user");
     },
 };

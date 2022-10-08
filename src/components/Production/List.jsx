@@ -10,11 +10,14 @@ import {
     PRODUCT_LOADING_REQUEST,
     selectProduct,
 } from "../../features/production/productSlice";
-import { getErrorMessageFromServer } from "../../utils/serverUtils";
+import {
+    convertPriceToString,
+    getErrorMessageFromServer,
+} from "../../utils/serverUtils";
 import { Loading } from "../Loading/Loading";
 import { Pagination } from "./Pagination";
 
-export const List = ({ inProductPage }) => {
+export const List = ({ inProductPage, category }) => {
     const [page, setPage] = useState(1);
     const products = useSelector(selectProduct);
     const dispatch = useDispatch();
@@ -24,7 +27,7 @@ export const List = ({ inProductPage }) => {
             try {
                 dispatch(PRODUCT_LOADING_REQUEST());
                 const response = await productApi.getAllProduct();
-                localStorage.setItem("products", response);
+                //localStorage.setItem("products", response);
                 dispatch(PRODUCT_LOADING_BY_PAGE_SUCCESS(response));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
@@ -34,6 +37,13 @@ export const List = ({ inProductPage }) => {
         fetchProduct();
     }, []);
 
+    let productList = [...products.products];
+    if (products.products.length !== 0 && category !== undefined)
+        if (category.id !== 0)
+            productList = [...products.products].filter(
+                (product) => product.cateId === category.id
+            );
+
     return (
         <>
             {products.loading ? (
@@ -41,7 +51,7 @@ export const List = ({ inProductPage }) => {
             ) : (
                 <div className="flex flex-col justify-around">
                     <div className="grid-cols-3 grid gap-7">
-                        {products.products.map(
+                        {productList.map(
                             (card, index) =>
                                 index < page * 9 &&
                                 index >= (page - 1) * 9 && (
@@ -64,14 +74,19 @@ export const List = ({ inProductPage }) => {
                                                 </div>
                                                 <div className="text-orange-500 font-trebu">
                                                     <div className="font-semibold">
-                                                        {card.basePrice -
-                                                            card.basePrice *
-                                                                card.deal}{" "}
+                                                        {convertPriceToString(
+                                                            card.basePrice -
+                                                                card.basePrice *
+                                                                    card.deal
+                                                        )}{" "}
                                                         VNĐ
                                                     </div>
                                                     {card.deal === 0 || (
                                                         <div className="text-gray-400/60 text-sm font-thin line-through">
-                                                            {card.basePrice} VNĐ
+                                                            {convertPriceToString(
+                                                                card.basePrice
+                                                            )}{" "}
+                                                            VNĐ
                                                         </div>
                                                     )}
                                                 </div>

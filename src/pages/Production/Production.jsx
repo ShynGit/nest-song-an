@@ -1,7 +1,27 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { productApi } from "../../api/productApi";
 import { Filter } from "../../components/Production/Filter";
 import { List } from "../../components/Production/List";
+import { getErrorMessageFromServer } from "../../utils/serverUtils";
 
 export const Production = () => {
+    const [category, setCategory] = useState({ id: 0, name: "Phân loại" });
+    const [cateList, setCateList] = useState([]);
+
+    useEffect(() => {
+        const fetchCategory = async () => {
+            try {
+                const response = await productApi.getCategory();
+                setCateList(response);
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+                setCategory(errorMessage);
+            }
+        };
+        fetchCategory();
+    }, []);
+
     return (
         <div>
             <div className="flex md:pt-16 pt-20">
@@ -21,7 +41,7 @@ export const Production = () => {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                         >
-                                            Phân loại
+                                            {category.name}
                                             <svg
                                                 aria-hidden="true"
                                                 focusable="false"
@@ -42,35 +62,23 @@ export const Production = () => {
                                             className=" dropdown-menu min-w-max absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border "
                                             aria-labelledby="dropdownMenuButton1"
                                         >
-                                            <li>
-                                                <a
-                                                    className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                                                    href="#"
-                                                >
-                                                    Action
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                                                    href="#"
-                                                >
-                                                    Another action
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    className=" dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
-                                                    href="#"
-                                                >
-                                                    Something else here
-                                                </a>
-                                            </li>
+                                            {cateList.map((cate) => (
+                                                <li key={cate.id}>
+                                                    <div
+                                                        className="cursor-pointer dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                                                        onClick={() =>
+                                                            setCategory(cate)
+                                                        }
+                                                    >
+                                                        {cate.name}
+                                                    </div>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <List inProductPage={true} />
+                            <List inProductPage={true} category={category} />
                         </div>
                     </div>
                 </div>

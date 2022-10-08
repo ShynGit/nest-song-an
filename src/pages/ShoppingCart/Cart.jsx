@@ -1,25 +1,45 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Image1 from "../../assets/images/banner-1.jpg";
-import Image2 from "../../assets/images/banner-2.jpg";
-
-const CARDS_DETAILS = [
-    { image: Image1, title: "h" },
-    { image: Image2, title: "a" },
-    { image: Image2, title: "a" },
-    { image: Image2, title: "a" },
-    { image: Image2, title: "a" },
-    { image: Image2, title: "a" },
-];
+import {
+    CART_LOADING_FAIL,
+    CART_LOADING_REQUEST,
+    CART_LOADING_SUCCESS,
+    selectCart,
+} from "../../features/cart/cartSlice";
+import { selectUser } from "../../features/user/userSlice";
+import { billApi } from "../../api/billApi";
+import { getErrorMessageFromServer } from "../../utils/serverUtils";
 
 export const Cart = ({ setStep }) => {
+    const cart = useSelector(selectCart);
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                dispatch(CART_LOADING_REQUEST());
+                const response = await billApi.getCart(user.userInfor.id);
+                localStorage.setItem("cart", response);
+                dispatch(CART_LOADING_SUCCESS(response));
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+                dispatch(CART_LOADING_FAIL(errorMessage));
+            }
+        };
+        fetchCart();
+    }, []);
+
     return (
         <div className="flex justify-center">
             <div className="w-7/12">
-                {CARDS_DETAILS.map((card, index) => (
+                {cart.products.map((card, index) => (
                     <Link
-                        to="/production/product-detail"
+                        to={`/production/${card.id}`}
                         onClick={() => window.scrollTo(0, 0)}
                     >
+                        {console.log(card)}
                         <div
                             key={index}
                             className="flex m-4 mx-10 p-4 bg-white"
@@ -34,14 +54,8 @@ export const Cart = ({ setStep }) => {
                                 />
                             </div>
                             <div className="w-8/12 ml-6 text-xs">
-                                <div className="text-xl">{card.title}</div>
-                                <div>
-                                    Lorem ipsum dolor sit, amet consectetur
-                                    adipisicing elit. Optio nobis debitis ut?
-                                    Natus sint quos, delectus sequi optio nam
-                                    nostrum. Cumque facilis omnis est atque?
-                                    Laudantium vel enim iure temporibus?
-                                </div>
+                                <div className="text-xl">{card.name}</div>
+                                <div>{card.description}</div>
                                 <div></div>
                             </div>
                         </div>

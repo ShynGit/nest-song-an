@@ -23,3 +23,7 @@ export const convertTokenToObject = () => {
     });
     return object;
 };
+
+export const convertPriceToString = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};

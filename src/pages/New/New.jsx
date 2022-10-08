@@ -1,54 +1,73 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Image1 from "../../assets/images/banner-1.jpg";
-import Image2 from "../../assets/images/banner-2.jpg";
-
-const CARDS_DETAILS = [
-    { image: Image1, title: "Tin tức yến sào" },
-    { image: Image2, title: "Tin tức yến sào" },
-    { image: Image2, title: "Tin tức yến sào" },
-    { image: Image2, title: "Tin tức yến sào" },
-    { image: Image2, title: "Tin tức yến sào" },
-    { image: Image2, title: "Tin tức yến sào" },
-];
+import { newApi } from "../../api/newApi";
+import { Loading } from "../../components/Loading/Loading";
+import {
+    NEWS_LOADING_ALL_SUCCESS,
+    NEWS_LOADING_FAIL,
+    NEWS_LOADING_REQUEST,
+    selectNew,
+} from "../../features/new/newSlice";
+import { getErrorMessageFromServer } from "../../utils/serverUtils";
 
 export const New = () => {
+    const [page, setPage] = useState(1);
+    const news = useSelector(selectNew);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchNews = async () => {
+            try {
+                dispatch(NEWS_LOADING_REQUEST());
+                const response = await newApi.getAllNew();
+                //localStorage.setItem("news", response);
+                dispatch(NEWS_LOADING_ALL_SUCCESS(response));
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+                dispatch(NEWS_LOADING_FAIL(errorMessage));
+            }
+        };
+        fetchNews();
+    }, []);
+
     return (
-        <div className="pt-16">
-            <div className="p-16 px-32">
-                <h1 className="font-semibold md:text-3xl text-md md:mb-16 mb-5">
-                    Tin tức
-                </h1>
-                <div>
-                    {CARDS_DETAILS.map((card) => (
+        <>
+            {news.loading ? (
+                <Loading />
+            ) : (
+                <div className="pt-16">
+                    <div className="p-16 px-32">
+                        <h1 className="font-semibold md:text-3xl text-md md:mb-16 mb-5">
+                            Tin tức
+                        </h1>
                         <div>
-                            <div className="flex my-5 gap-4">
+                            {news.news.map((card) => (
                                 <Link
-                                    to="new-detail"
-                                    className="w-4/12 rounded-sm"
+                                    to={`/new/${card.id}`}
+                                    key={card.id}
                                     onClick={() => window.scrollTo(0, 0)}
                                 >
-                                    <img src={card.image} />
+                                    <div className="flex my-5 gap-4">
+                                        <div className="w-3/12 rounded-sm">
+                                            <img src={card.image} />
+                                        </div>
+                                        <div className="p-6 px-10 w-8/12">
+                                            <h1 className="text-2xl font-bold leading-6 mb-5 uppercase">
+                                                {card.title}
+                                            </h1>
+                                            <p className="text-gray-500/80">
+                                                {card.shortDescription}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="border-t-2 w-full border-gray-200" />
                                 </Link>
-                                <div className="p-6 px-10">
-                                    <h1 className="text-2xl font-bold leading-6 mb-5 uppercase">
-                                        {card.title}
-                                    </h1>
-                                    <p className="text-gray-500/80">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Harum, culpa!
-                                        Temporibus amet vitae aliquid. Corporis
-                                        repellendus, tempore accusantium
-                                        veritatis consequuntur, quos hic minus
-                                        eius vel eum earum suscipit iusto
-                                        ducimus.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="border-t-2 w-full border-gray-200" />
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     );
 };
