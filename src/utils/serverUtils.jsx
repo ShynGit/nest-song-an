@@ -25,5 +25,6 @@ export const convertTokenToObject = () => {
 };
 
 export const convertPriceToString = (price) => {
+    if (price === undefined) return "";
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };

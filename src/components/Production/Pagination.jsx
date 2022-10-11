@@ -59,7 +59,7 @@ export const Pagination = ({ page, products, setPage }) => {
             </div>
 
             {/* Number next button */}
-            {page * 9 < products.products.length ? (
+            {page * 9 < products.length ? (
                 <div
                     className="border py-1 px-3 rounded-full  hover:bg-regal-blue/25  hover:text-white cursor-pointer"
                     onClick={() => setPage(page + 1)}
@@ -72,7 +72,7 @@ export const Pagination = ({ page, products, setPage }) => {
             )}
 
             {/* Arrow next button */}
-            {page * 9 < products.products.length ? (
+            {page * 9 < products.length ? (
                 <div
                     className="border py-1 px-3 rounded-full flex items-center  hover:bg-regal-blue/25  hover:text-white cursor-pointer"
                     onClick={() => setPage(page + 1)}

@@ -34,7 +34,7 @@ export const Home = () => {
                         <Sale />
                     </div>
                 </div>
-                <div className="md:mx-48 md:my-10 mx-4 my-4">
+                <div className="md:mx-48 md:my-10 md:mb-4 mx-4 my-4">
                     <div className="font-medium md:text-3xl text-md md:mb-8 mb-5">
                         Yến sào
                     </div>

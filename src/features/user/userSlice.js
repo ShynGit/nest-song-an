@@ -35,6 +35,7 @@ export const userSlice = createSlice({
         },
         USER_LOGOUT_SUCCESS: (state) => {
             state.token = null;
+            state.userInfor = null;
             state.loading = false;
         },
     },

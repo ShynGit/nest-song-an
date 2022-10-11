@@ -7,14 +7,7 @@ import {
 } from "../../features/production/filterSlice";
 import { CheckBox } from "../CheckBox/CheckBox";
 
-const FILTER_CARD = [
-    { cate: "price", name: "Filter 1" },
-    { cate: "price", name: "Filter 2" },
-    { cate: "price", name: "Filter 3" },
-    { cate: "price", name: "Filter 4" },
-    { cate: "price", name: "Filter 5" },
-    { cate: "weight", name: "Filter 6" },
-];
+const FILTER_CARD = ["50g", "100g"];
 
 export const Filter = () => {
     const filter = useSelector(selectFilter);
@@ -42,15 +35,27 @@ export const Filter = () => {
     return (
         <div>
             <div className="md:mt-28 mt-6 ml-14">
-                <div className="md:m-10 m-2 flex flex-col md:text-base text-xs">
-                    <div>Filter</div>
+                <div className="m-1 flex flex-col md:text-base text-xs">
+                    <div className="flex mb-4 border-b-2 pb-1">
+                        <div className="mr-3 font-semibold text-zinc-500">
+                            &#43;
+                        </div>
+                        <div>Khối lượng</div>
+                    </div>
                     {FILTER_CARD.map((item, index) => (
                         <CheckBox
-                            value={item.name}
+                            value={item}
                             handleCheck={handleCheck}
                             key={index}
                         />
                     ))}
+                    <div className="flex mt-10 mb-4 border-b-2 pb-1">
+                        <div className="mr-3 font-semibold text-zinc-500">
+                            &#43;
+                        </div>
+                        <div>Giá</div>
+                    </div>
+                    <input type="range" />
                 </div>
             </div>
         </div>

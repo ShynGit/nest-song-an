@@ -3,48 +3,48 @@ import { Cart } from "./Cart";
 
 export const ShoppingCart = () => {
     const [step, setStep] = useState("cart");
-    console.log(step);
+    // console.log(step);
     return (
         <>
             <div className="bg-gray-100 absolute w-full">
                 <div className="bg-white shadow-lg shadow-gray-200 m-24">
                     <div className="py-10">
-                        <div className="flex justify-between w-8/12 text-[10px] font-semibold font-verda border-2 rounded-full text-center text-black m-auto">
+                        <div className="flex justify-between w-9/12 text-[10px] font-semibold font-verda uppercase border-2 rounded-full text-center text-black m-auto">
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "cart"
-                                        ? "bg-zinc-700 text-white"
+                                        ? "bg-zinc-600 text-white"
                                         : ""
                                 }`}
                             >
-                                CART
+                                Giỏ hàng
                             </div>
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "delivery"
-                                        ? "bg-zinc-700 text-white"
+                                        ? "bg-zinc-600 text-white"
                                         : ""
                                 }`}
                             >
-                                DELIVERY
+                                Thông tin
                             </div>
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "payment"
-                                        ? "bg-zinc-700 text-white"
+                                        ? "bg-zinc-600 text-white"
                                         : ""
                                 }`}
                             >
-                                PAYMENT
+                                Thanh toán
                             </div>
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "receipt"
-                                        ? "bg-zinc-700 text-white"
+                                        ? "bg-zinc-600 text-white"
                                         : ""
                                 }`}
                             >
-                                RECEIPT
+                                Biên nhận
                             </div>
                         </div>
                     </div>

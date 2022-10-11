@@ -74,6 +74,19 @@ export const Production = () => {
                                                     </div>
                                                 </li>
                                             ))}
+                                            <li key={0}>
+                                                <div
+                                                    className="cursor-pointer dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 "
+                                                    onClick={() =>
+                                                        setCategory({
+                                                            id: 0,
+                                                            name: "Phân loại",
+                                                        })
+                                                    }
+                                                >
+                                                    Phân loại
+                                                </div>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

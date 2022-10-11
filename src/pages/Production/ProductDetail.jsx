@@ -10,7 +10,10 @@ import {
     PRODUCT_LOADING_REQUEST,
     selectProduct,
 } from "../../features/production/productSlice";
-import { getErrorMessageFromServer } from "../../utils/serverUtils";
+import {
+    convertPriceToString,
+    getErrorMessageFromServer,
+} from "../../utils/serverUtils";
 
 export const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -72,9 +75,19 @@ export const ProductDetail = () => {
                                 </h1>
                                 <p className="text-orange-500 font-trebu font-semibold text-lg mt-10">
                                     Giá:{" "}
-                                    {product.basePrice -
-                                        product.basePrice * product.deal}{" "}
-                                    VNĐ
+                                    {convertPriceToString(
+                                        product.basePrice -
+                                            product.basePrice * product.deal
+                                    )}{" "}
+                                    VNĐ{" "}
+                                    {product.deal === 0 || (
+                                        <span className="text-gray-400/60 text-base font-thin line-through ml-4">
+                                            {convertPriceToString(
+                                                product.basePrice
+                                            )}{" "}
+                                            VNĐ
+                                        </span>
+                                    )}
                                 </p>
                                 <div className="flex mt-3">
                                     <p className="w-11/12 text-gray-500">

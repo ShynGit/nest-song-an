@@ -17,6 +17,7 @@ export const cartSlice = createSlice({
         },
         CART_LOADING_FAIL: (state, action) => {
             state.cartErrorMessage = action.payload;
+            state.products = [];
             state.loading = false;
         },
     },
