@@ -18,11 +18,11 @@ import {
 export const ProductDetail = () => {
     const dispatch = useDispatch();
     const [productAmount, setProductAmount] = useState(1);
-    // const [productImage, setProductImage] = useState();
     const products = useSelector(selectProduct);
     const product = products.product;
     const productId = useParams();
     const navigate = useNavigate();
+    const [productImage, setProductImage] = useState("");
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -30,6 +30,7 @@ export const ProductDetail = () => {
                 dispatch(PRODUCT_LOADING_REQUEST());
                 const response = await productApi.getProductById(productId.id);
                 dispatch(PRODUCT_LOADING_ONE(response));
+                setProductImage(response.listImages[0].imgPath);
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
                 dispatch(PRODUCT_LOADING_FAIL(errorMessage));
@@ -37,7 +38,6 @@ export const ProductDetail = () => {
         };
         fetchProduct();
     }, [productId.id]);
-
     return (
         <>
             {products.loading ? (
@@ -45,26 +45,27 @@ export const ProductDetail = () => {
             ) : products.productErrorMessage === 404 ? (
                 navigate("*")
             ) : (
-                <div className="bg-gray-100 absolute h-screen">
+                <div className="bg-gray-100 absolute h-auto">
                     <div className="flex bg-white p-10 m-20">
                         <div className="w-[60%] px-14">
-                            {/* <img
-                            src={}
-                            alt={}
-                            className="w-full shadow-lg shadow-gray-400"
-                        /> */}
+                            <img
+                                src={productImage}
+                                alt={product.name}
+                                className="w-full h-[28rem] shadow-lg shadow-gray-400"
+                            />
                             <div className="flex justify-center gap-2 mt-4">
-                                {/* {product.image.map((item) => {
-                                return (
-                                    <img
-                                        src={item}
-                                        className="w-28 cursor-pointer"
-                                        onMouseOver={() =>
-                                            setProductImage(item)
-                                        }
-                                    />
-                                );
-                            })} */}
+                                {Object.keys(product).length === 0
+                                    ? ""
+                                    : product.listImages.map((item, index) => (
+                                          <img
+                                              src={item.imgPath}
+                                              className="w-24 cursor-pointer"
+                                              onMouseOver={() =>
+                                                  setProductImage(item.imgPath)
+                                              }
+                                              key={index}
+                                          />
+                                      ))}
                             </div>
                         </div>
 
@@ -91,13 +92,7 @@ export const ProductDetail = () => {
                                 </p>
                                 <div className="flex mt-3">
                                     <p className="w-11/12 text-gray-500">
-                                        {product.description} Lorem ipsum dolor
-                                        sit amet consectetur adipisicing elit.
-                                        Ipsam numquam fuga maxime magnam nulla.
-                                        Perspiciatis nesciunt asperiores tenetur
-                                        maxime blanditiis recusandae eveniet
-                                        impedit harum repellendus repellat, cum
-                                        ullam totam possimus!
+                                        {product.description}
                                     </p>
                                 </div>
                             </div>
