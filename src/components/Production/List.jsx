@@ -27,7 +27,7 @@ export const List = ({ inProductPage, category }) => {
             try {
                 dispatch(PRODUCT_LOADING_REQUEST());
                 const response = await productApi.getAllProduct();
-                //localStorage.setItem("products", response);
+                localStorage.setItem("products", response);
                 dispatch(PRODUCT_LOADING_BY_PAGE_SUCCESS(response));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
@@ -35,7 +35,7 @@ export const List = ({ inProductPage, category }) => {
             }
         };
         fetchProduct();
-    }, []);
+    }, [localStorage.getItem("products")]);
 
     useEffect(() => {
         setPage(1);

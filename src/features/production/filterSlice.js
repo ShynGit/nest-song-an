@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    filter: [],
+    filterWeight: [],
+    highPrice: 50000000,
+    lowPrice: 0,
 };
 
 export const filterSlice = createSlice({
