@@ -5,11 +5,15 @@ import {
     CART_LOADING_FAIL,
     CART_LOADING_REQUEST,
     CART_LOADING_SUCCESS,
+    CART_TOTAL_UPDATE,
     selectCart,
 } from "../../features/cart/cartSlice";
 import { selectUser } from "../../features/user/userSlice";
 import { billApi } from "../../api/billApi";
-import { getErrorMessageFromServer } from "../../utils/serverUtils";
+import {
+    convertPriceToString,
+    getErrorMessageFromServer,
+} from "../../utils/serverUtils";
 import image from "../../assets/images/banner-1.jpg";
 
 export const Cart = ({ setStep }) => {
@@ -23,11 +27,9 @@ export const Cart = ({ setStep }) => {
         const fetchCart = async () => {
             try {
                 dispatch(CART_LOADING_REQUEST());
-                console.log(user);
                 const response = await billApi.getCart(user.userInfor.id);
-                console.log(response);
-                localStorage.setItem("cart", response);
-                dispatch(CART_LOADING_SUCCESS(response));
+                localStorage.setItem("cart", response[0]);
+                dispatch(CART_LOADING_SUCCESS(response[0]));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
                 dispatch(CART_LOADING_FAIL(errorMessage));
@@ -35,6 +37,8 @@ export const Cart = ({ setStep }) => {
         };
         fetchCart();
     }, [token]);
+
+    console.log(cart);
 
     return (
         <div className="mt-10">
@@ -46,27 +50,20 @@ export const Cart = ({ setStep }) => {
                     <li className="col-span-2">giá</li>
                     <li className="invisible col-span-1">delete</li>
                 </ul>
-                {cart.products.length == 0 ? (
+                {cart.cart == null ? (
                     <div className="font-medium text-zinc-500 text-xl mt-10 text-center w-full">
                         Giỏ hàng trống
                     </div>
                 ) : (
-                    cart.products.map((card, index) => {
-                        console.log(card);
-                        totalPrice +=
-                            card.basePrice - card.basePrice * card.deal;
+                    cart.cart.listBillDetails.map((item, index) => {
+                        totalPrice += item.price;
+                        // item.basePrice - item.basePrice * item.deal;
 
                         return (
-                            <div className="">
-                                <div
-                                    key={index}
-                                    className="flex bg-white relative items-center my-7"
-                                    // style={{
-                                    //     boxShadow: "rgba(0, 0, 0, 0.20) 0px 5px 15px",
-                                    // }}
-                                >
+                            <div className="" key={index}>
+                                <div className="flex bg-white relative items-center my-7">
                                     <Link
-                                        to={`/production/${card.id}`}
+                                        to={`/production/${item.id}`}
                                         onClick={() => window.scrollTo(0, 0)}
                                     >
                                         <div className="w-[30%]">
@@ -77,9 +74,9 @@ export const Cart = ({ setStep }) => {
                                         </div>
                                         <div className="w-8/12 ml-6 text-xs">
                                             <div className="text-xl">
-                                                {card.name}
+                                                {item.name}
                                             </div>
-                                            <div>{card.description}</div>
+                                            <div>{item.description}</div>
                                             <div></div>
                                         </div>
                                     </Link>
@@ -99,13 +96,16 @@ export const Cart = ({ setStep }) => {
                     <div className="font-verda text-[0.93rem] font-semibold mr-10 text-zinc-500">
                         Tổng:{" "}
                         <span className="font-semibold text-red-500">
-                            {totalPrice}{" "}
+                            {convertPriceToString(totalPrice)}{" "}
                             <span className="text-xs">&#8363;</span>
                         </span>
                     </div>
                     <div
                         className="my-10 px-10 py-2.5 text-center bg-[#00ADB5] text-white shadow-md cursor-pointer rounded-full"
-                        onClick={() => setStep("delivery")}
+                        onClick={() => {
+                            dispatch(CART_TOTAL_UPDATE(totalPrice));
+                            setStep("delivery");
+                        }}
                     >
                         Mua hàng
                     </div>
