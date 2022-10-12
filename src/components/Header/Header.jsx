@@ -6,10 +6,10 @@ import { HeaderBottom } from "./HeaderBottom";
 const Header = () => {
     return (
         <div className="fixed w-full z-10">
-            <div className="flex justify-between bg-[#000000CC]/75 p-1 text-white my-0">
+            <div className="flex justify-between bg-[#000000CC]/75 text-white my-0">
                 <Link
                     to="/"
-                    className="md:ml-[12%] flex items-center text-lg"
+                    className="md:ml-[12%] flex items-center text-lg my-2"
                     onClick={() => window.scrollTo(0, 0)}
                 >
                     <img
@@ -20,7 +20,7 @@ const Header = () => {
                     Song Ân
                 </Link>
                 <HeaderBottom />
-                <div className="flex">
+                <div className="flex my-2">
                     <form className="md:w-96 w-36 my-auto mx-3">
                         <div className="relative">
                             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

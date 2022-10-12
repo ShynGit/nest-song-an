@@ -1,38 +1,53 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 export const HeaderBottom = () => {
+    const active = useLocation().pathname.slice(1, 100);
     return (
-        <nav className="flex md:justify-center md:gap-8 items-center justify-around text-sm text-white py-4">
+        <nav className="flex md:justify-center items-center justify-around text-sm text-white">
             <Link
                 to="/"
-                className="transition-colors duration-300 hover:text-sky-300"
+                className={`transition-colors flex items-center duration-300 h-full px-3 ${
+                    active === "" ? "bg-regal-blue/60" : ""
+                }`}
                 onClick={() => window.scrollTo(0, 0)}
             >
                 Trang chủ
             </Link>
             <Link
                 to="/introduction"
-                className="hover:text-sky-300"
+                className={`transition-colors flex items-center duration-300 h-full px-3 ${
+                    active === "introduction" ? "bg-regal-blue/60" : ""
+                }`}
                 onClick={() => window.scrollTo(0, 0)}
             >
                 Giới thiệu
             </Link>
             <Link
                 to="/production"
-                className="hover:text-sky-300"
+                className={`transition-colors flex items-center duration-300 h-full px-3 ${
+                    active === "production" ? "bg-regal-blue/60" : ""
+                }`}
                 onClick={() => window.scrollTo(0, 0)}
             >
                 Sản phẩm
             </Link>
             <Link
                 to="/new"
-                className="hover:text-sky-300"
+                className={`transition-colors flex items-center duration-300 h-full px-3 ${
+                    active === "new" ? "bg-regal-blue/60" : ""
+                }`}
                 onClick={() => window.scrollTo(0, 0)}
             >
                 Tin tức
             </Link>
-            <a href="" className="hover:text-sky-300">
+            <Link
+                to="/ddd"
+                className={`transition-colors flex items-center duration-300 h-full px-3 ${
+                    active === "ddd" ? "bg-regal-blue/60" : ""
+                }`}
+                onClick={() => window.scrollTo(0, 0)}
+            >
                 Liên hệ
-            </a>
+            </Link>
         </nav>
     );
 };
