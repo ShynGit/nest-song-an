@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import {
     CART_LOADING_FAIL,
     CART_LOADING_REQUEST,
@@ -14,7 +13,6 @@ import {
     convertPriceToString,
     getErrorMessageFromServer,
 } from "../../utils/serverUtils";
-import image from "../../assets/images/banner-1.jpg";
 
 export const Cart = ({ setStep }) => {
     const cart = useSelector(selectCart);

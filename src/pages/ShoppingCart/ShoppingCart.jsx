@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Cart } from "./Cart";
+import { Delivery } from "./Delivery";
 
 export const ShoppingCart = () => {
     const [step, setStep] = useState("cart");
@@ -50,6 +51,9 @@ export const ShoppingCart = () => {
                     </div>
                     {step === "cart" && (
                         <Cart setStep={(step) => setStep(step)} />
+                    )}
+                    {step === "delivery" && (
+                        <Delivery setStep={(step) => setStep(step)} />
                     )}
                 </div>
             </div>
