@@ -56,33 +56,74 @@ export const Cart = ({ setStep }) => {
                     </div>
                 ) : (
                     cart.cart.listBillDetails.map((item, index) => {
-                        totalPrice += item.price;
+                        totalPrice += item.price * item.quantity;
                         // item.basePrice - item.basePrice * item.deal;
 
                         return (
                             <div className="" key={index}>
-                                <div className="flex bg-white relative items-center my-7">
-                                    <Link
-                                        to={`/production/${item.id}`}
-                                        onClick={() => window.scrollTo(0, 0)}
-                                    >
-                                        <div className="w-[30%]">
-                                            <img
-                                                src={image}
-                                                className="w-full rounded-xs"
-                                            />
-                                        </div>
-                                        <div className="w-8/12 ml-6 text-xs">
-                                            <div className="text-xl">
-                                                {item.name}
+                                <div className=" bg-white relative items-center my-6">
+                                    <ul className="grid grid-cols-12 grid-flow-row-dense text-center text-base font-normal text-zinc-500 items-center">
+                                        <li className="col-span-5 grid grid-cols-12 justify-self-start items-center">
+                                            <div className="col-span-3">
+                                                <img
+                                                    src={
+                                                        item.product
+                                                            .listImages[0]
+                                                            .imgPath
+                                                    }
+                                                    className="aspect-square rounded-xs"
+                                                />
                                             </div>
-                                            <div>{item.description}</div>
+                                            <div className="col-span-9 ml-6">
+                                                <div className="text-base uppercase font-bold text-left">
+                                                    {item.product.name}
+                                                </div>
+                                                <div className="truncate text-xs">
+                                                    {item.product.description}
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li className="col-span-2">Loại</li>
+                                        <li className="col-span-2 font-trebu">
+                                            {item.quantity}
+                                        </li>
+                                        <li className="col-span-2 font-trebu">
+                                            {convertPriceToString(
+                                                item.price * item.quantity
+                                            )}
+                                        </li>
+                                        <li className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 right-0 cursor-pointer hover:text-zinc-300">
+                                            &#10006;
+                                        </li>
+                                    </ul>
+                                    {/* <div className="flex">
+                                        <Link
+                                            to={`/production/${item.id}`}
+                                            onClick={() =>
+                                                window.scrollTo(0, 0)
+                                            }
+                                        >
+                                            <div className="w-[30%]">
+                                                <img
+                                                    src={
+                                                        item.product
+                                                            .listImages[0]
+                                                            .imgPath
+                                                    }
+                                                    className="w-[35rem] aspect-square rounded-xs"
+                                                />
+                                            </div>
+                                        </Link>
+                                        <div className="w-8/12 ml-6 text-xs">
+                                            <div className="text-lg">
+                                                {item.product.name}
+                                            </div>
+                                            <div className="truncate">
+                                                {item.product.description}
+                                            </div>
                                             <div></div>
                                         </div>
-                                    </Link>
-                                    <div className="text-zinc-500 h-fit px-3 py-1.5 absolute right-0 cursor-pointer">
-                                        &#10006;
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="border-t-2 w-full border-gray-200" />
                             </div>
