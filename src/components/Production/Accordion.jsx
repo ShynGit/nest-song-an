@@ -80,6 +80,7 @@ export const Accordion = ({ handleCheck, handleRange }) => {
                                 </div>
                             )}
                             pearling
+                            onChange={(value) => handleRange(value)}
                             minDistance={10}
                             max={50000}
                         />

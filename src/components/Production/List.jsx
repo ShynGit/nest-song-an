@@ -4,6 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { productApi } from "../../api/productApi";
+import { selectFilter } from "../../features/production/filterSlice";
 import {
     PRODUCT_LOADING_FAIL,
     PRODUCT_LOADING_BY_PAGE_SUCCESS,
@@ -19,6 +20,7 @@ import { Pagination } from "./Pagination";
 
 export const List = ({ inProductPage, category }) => {
     const [page, setPage] = useState(1);
+    const filter = useSelector(selectFilter);
     const products = useSelector(selectProduct);
     const dispatch = useDispatch();
 
@@ -26,21 +28,22 @@ export const List = ({ inProductPage, category }) => {
         const fetchProduct = async () => {
             try {
                 dispatch(PRODUCT_LOADING_REQUEST());
-                const response = await productApi.getAllProduct();
-                localStorage.setItem("products", response);
+                const response = await productApi.getProductByFilter(filter);
                 dispatch(PRODUCT_LOADING_BY_PAGE_SUCCESS(response));
+                setPage(1);
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
                 dispatch(PRODUCT_LOADING_FAIL(errorMessage));
             }
         };
         fetchProduct();
-    }, [localStorage.getItem("products")]);
+    }, [filter]);
 
     useEffect(() => {
         setPage(1);
     }, [category]);
 
+    // console.log(filter);
     let productList = [...products.products];
     if (products.products.length !== 0 && category !== undefined)
         if (category.id !== 0)

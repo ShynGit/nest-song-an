@@ -19,6 +19,7 @@ const UserDropDown = () => {
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         dispatch(USER_LOGOUT_REQUEST());
         localStorage.removeItem("token");
+        localStorage.removeItem("cart");
         await delay(500);
         dispatch(USER_LOGOUT_SUCCESS());
     };
