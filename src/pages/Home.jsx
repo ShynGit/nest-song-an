@@ -10,17 +10,17 @@ export const Home = () => {
             <div>
                 <div className="pb-10">
                     <div
-                        className="pt-56 bg-fixed relative bg-cover h-[32rem] bg-no-repeat bg-center text-center text-white"
+                        className="pt-44 bg-fixed relative bg-cover h-[32rem] bg-no-repeat bg-center text-right text-white"
                         style={{
                             backgroundImage: `url(${background})`,
                         }}
                     >
-                        <h1 className="font-cur text-6xl text-cyan-400">
+                        <h1 className="mr-56 font-cur text-7xl text-[#295F2D]">
                             Yến sào Song Ân
                         </h1>
-                        <p className="font-sans">
+                        <p className="mr-56 font-sans pl-[49rem] text-white/80">
                             Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến Sào
-                            chất lượng nhất cho người Việt
+                            chất lượng nhất cho người Việt #282934
                         </p>
                     </div>
                 </div>

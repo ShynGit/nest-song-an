@@ -1,15 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectUser } from "../../features/user/userSlice";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { HeaderBottom } from "./HeaderBottom";
 
 const Header = () => {
+    const user = useSelector(selectUser);
     return (
         <div className="fixed w-full z-10">
             <div className="flex justify-between bg-[#000000CC]/75 text-white my-0">
                 <Link
                     to="/"
-                    className="md:ml-[12%] flex items-center text-lg my-2"
+                    className="md:ml-[10%] flex items-center text-lg my-2"
                     onClick={() => window.scrollTo(0, 0)}
                 >
                     <img
@@ -50,7 +53,7 @@ const Header = () => {
                         </div>
                     </form>
                 </div>
-                <div className="md:mr-[12%] flex items-center">
+                <div className="md:mr-[7%] flex items-center">
                     <UserDropDown />
                     <Link to="/shopping-cart">
                         <img
@@ -60,6 +63,18 @@ const Header = () => {
                             onClick={() => window.scrollTo(0, 0)}
                         />
                     </Link>
+                    {user.token && (
+                        <div className="text-xs ml-3">
+                            <div>Xin chào,</div>
+                            <Link
+                                className="hover:underline"
+                                to="/user"
+                                onClick={() => window.scrollTo(0, 0)}
+                            >
+                                {user.userInfor.fullname}
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
