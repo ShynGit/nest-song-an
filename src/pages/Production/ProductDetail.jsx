@@ -38,6 +38,7 @@ export const ProductDetail = () => {
         };
         fetchProduct();
     }, [productId.id]);
+    console.log(productAmount);
     return (
         <>
             {products.loading ? (
@@ -105,6 +106,8 @@ export const ProductDetail = () => {
                                         <button
                                             className="px-4 border text-lg flex items-center rounded-tl-3xl rounded-bl-3xl"
                                             onClick={() => {
+                                                if (!productAmount)
+                                                    return setProductAmount(1);
                                                 if (productAmount > 1)
                                                     return setProductAmount(
                                                         (pre) => pre - 1
@@ -133,6 +136,8 @@ export const ProductDetail = () => {
                                         <button
                                             className="px-4 border text-lg flex items-center rounded-tr-3xl rounded-br-3xl"
                                             onClick={() => {
+                                                if (!productAmount)
+                                                    return setProductAmount(1);
                                                 if (
                                                     productAmount <
                                                     product.quantity

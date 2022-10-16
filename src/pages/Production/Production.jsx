@@ -21,19 +21,6 @@ export const Production = () => {
         };
         fetchCategory();
     }, []);
-    // console.log(filter);
-
-    // useEffect(() => {
-    //     // const fetchAccount = async () => {
-    //     //     try {
-    //     //         const response = await accountApi.getAllAccount();
-    //     //         setUser(response);
-    //     //     } catch (error) {
-    //     //         if (error.response) console.log(error.response.data);
-    //     //     }
-    //     // };
-    //     // fetchAccount();
-    // }, [filter]);
 
     return (
         <div>
