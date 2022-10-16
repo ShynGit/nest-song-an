@@ -13,6 +13,9 @@ import {
     convertPriceToString,
     getErrorMessageFromServer,
 } from "../../utils/serverUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export const Cart = ({ setStep }) => {
     const cart = useSelector(selectCart);
@@ -63,19 +66,35 @@ export const Cart = ({ setStep }) => {
                                     <ul className="grid grid-cols-12 grid-flow-row-dense text-center text-base font-normal text-zinc-500 items-center">
                                         <li className="col-span-5 grid grid-cols-12 justify-self-start items-center">
                                             <div className="col-span-3">
-                                                <img
-                                                    src={
-                                                        item.product
-                                                            .listImages[0]
-                                                            .imgPath
-                                                    }
-                                                    className="aspect-square rounded-xs"
-                                                />
+                                                <Link
+                                                    to={`/production/${item.product.id}`}
+                                                    onClick={window.scrollTo(
+                                                        0,
+                                                        0
+                                                    )}
+                                                >
+                                                    <img
+                                                        src={
+                                                            item.product
+                                                                .listImages[0]
+                                                                .imgPath
+                                                        }
+                                                        className="aspect-square rounded-xs"
+                                                    />
+                                                </Link>
                                             </div>
                                             <div className="col-span-9 ml-6">
-                                                <div className="text-base uppercase font-bold text-left">
-                                                    {item.product.name}
-                                                </div>
+                                                <Link
+                                                    to={`/production/${item.product.id}`}
+                                                    onClick={window.scrollTo(
+                                                        0,
+                                                        0
+                                                    )}
+                                                >
+                                                    <div className="text-base uppercase font-bold text-left">
+                                                        {item.product.name}
+                                                    </div>
+                                                </Link>
                                                 <div className="truncate text-xs">
                                                     {item.product.description}
                                                 </div>
@@ -83,9 +102,22 @@ export const Cart = ({ setStep }) => {
                                         </li>
                                         <li className="col-span-2">Loại</li>
                                         <li className="col-span-2 font-trebu">
-                                            {item.quantity}
+                                            <button className="hover:text-zinc-300">
+                                                <FontAwesomeIcon
+                                                    icon={faMinus}
+                                                />
+                                            </button>
+                                            <input
+                                                value={item.quantity}
+                                                className="w-8 text-center mx-2"
+                                            />
+                                            <button className="hover:text-zinc-300">
+                                                <FontAwesomeIcon
+                                                    icon={faPlus}
+                                                />
+                                            </button>
                                         </li>
-                                        <li className="col-span-2 font-trebu">
+                                        <li className="col-span-2 font-trebu text-orange-500">
                                             {convertPriceToString(
                                                 item.price * item.quantity
                                             )}
@@ -94,34 +126,6 @@ export const Cart = ({ setStep }) => {
                                             &#10006;
                                         </li>
                                     </ul>
-                                    {/* <div className="flex">
-                                        <Link
-                                            to={`/production/${item.id}`}
-                                            onClick={() =>
-                                                window.scrollTo(0, 0)
-                                            }
-                                        >
-                                            <div className="w-[30%]">
-                                                <img
-                                                    src={
-                                                        item.product
-                                                            .listImages[0]
-                                                            .imgPath
-                                                    }
-                                                    className="w-[35rem] aspect-square rounded-xs"
-                                                />
-                                            </div>
-                                        </Link>
-                                        <div className="w-8/12 ml-6 text-xs">
-                                            <div className="text-lg">
-                                                {item.product.name}
-                                            </div>
-                                            <div className="truncate">
-                                                {item.product.description}
-                                            </div>
-                                            <div></div>
-                                        </div>
-                                    </div> */}
                                 </div>
                                 <div className="border-t-2 w-full border-gray-200" />
                             </div>

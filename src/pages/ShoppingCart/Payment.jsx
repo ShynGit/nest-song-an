@@ -3,7 +3,12 @@ import { selectCart } from "../../features/cart/cartSlice";
 
 export const Payment = ({ setStep }) => {
     const cart = useSelector(selectCart);
-    const handlePay = () => {};
+    console.log(cart);
+    const handlePay = () => {
+        // const fetchCart = async () => {
+        //     const response =
+        // }
+    };
 
     return (
         <div>

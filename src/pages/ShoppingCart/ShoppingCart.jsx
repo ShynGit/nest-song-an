@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Cart } from "./Cart";
 import { Delivery } from "./Delivery";
+import { Payment } from "./Payment";
 
 export const ShoppingCart = () => {
     const [step, setStep] = useState("cart");
@@ -14,7 +15,7 @@ export const ShoppingCart = () => {
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "cart"
-                                        ? "bg-zinc-600 text-white"
+                                        ? "bg-regal-blue text-white"
                                         : ""
                                 }`}
                             >
@@ -23,7 +24,7 @@ export const ShoppingCart = () => {
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "delivery"
-                                        ? "bg-zinc-600 text-white"
+                                        ? "bg-regal-blue text-white"
                                         : ""
                                 }`}
                             >
@@ -32,7 +33,7 @@ export const ShoppingCart = () => {
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "payment"
-                                        ? "bg-zinc-600 text-white"
+                                        ? "bg-regal-blue text-white"
                                         : ""
                                 }`}
                             >
@@ -41,7 +42,7 @@ export const ShoppingCart = () => {
                             <div
                                 className={`rounded-full w-full p-2 pt-2.5 ${
                                     step === "receipt"
-                                        ? "bg-zinc-600 text-white"
+                                        ? "bg-regal-blue text-white"
                                         : ""
                                 }`}
                             >
@@ -54,6 +55,9 @@ export const ShoppingCart = () => {
                     )}
                     {step === "delivery" && (
                         <Delivery setStep={(step) => setStep(step)} />
+                    )}
+                    {step === "payment" && (
+                        <Payment setStep={(step) => setStep(step)} />
                     )}
                 </div>
             </div>
