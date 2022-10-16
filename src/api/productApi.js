@@ -16,9 +16,8 @@ export const productApi = {
         return adminAxios.get("/category");
     },
     getProductByFilter: (filter, cateId) => {
-        return adminAxios.post("/product/filter", {
-            ...filter,
-            cateId: 0,
-        });
+        const data = { ...filter, cateId: 0 };
+        console.log(data);
+        return adminAxios.post("/product/filter", data);
     },
 };

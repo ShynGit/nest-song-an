@@ -18,6 +18,7 @@ export const productSlice = createSlice({
         },
         PRODUCT_LOADING_FAIL: (state, action) => {
             state.productErrorMessage = action.payload;
+            state.products = [];
             state.loading = false;
         },
         PRODUCT_LOADING_ONE: (state, action) => {

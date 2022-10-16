@@ -38,7 +38,7 @@ export const ProductDetail = () => {
         };
         fetchProduct();
     }, [productId.id]);
-    console.log(productAmount);
+
     return (
         <>
             {products.loading ? (
