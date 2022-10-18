@@ -73,7 +73,7 @@ export const Home = () => {
             <div>
                 <div className="pb-10">
                     <div
-                        className="pt-44 bg-fixed relative bg-cover h-[32rem] bg-no-repeat bg-center text-right text-white"
+                        className="pt-40 bg-fixed relative bg-cover h-[32rem] bg-no-repeat bg-center text-right text-white"
                         style={{
                             backgroundImage: `url(${background})`,
                         }}
@@ -81,9 +81,9 @@ export const Home = () => {
                         <h1 className="mr-56 font-cur text-7xl text-[#295F2D]">
                             Yến sào Song Ân
                         </h1>
-                        <p className="mr-56 font-sans pl-[49rem] text-[#295F2D]/50">
+                        <p className="mr-56 font-sans pl-[49rem] text-black font-[600] text-[18px]">
                             Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến Sào
-                            chất lượng nhất cho người Việt #282934
+                            chất lượng nhất cho người Việt
                         </p>
                     </div>
                 </div>

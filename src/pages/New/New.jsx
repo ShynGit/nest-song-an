@@ -49,15 +49,19 @@ export const New = () => {
                                     onClick={() => window.scrollTo(0, 0)}
                                 >
                                     <div className="flex my-5 gap-4">
-                                        <div className="w-3/12 rounded-sm">
-                                            <img src={card.image} />
+                                        <div className="rounded-sm">
+                                            <img
+                                                src={card.listImages[0].imgPath}
+                                                alt={card.title}
+                                                className="aspect-square object-cover w-52 rounded"
+                                            />
                                         </div>
-                                        <div className="p-6 px-10 w-8/12">
-                                            <h1 className="text-2xl font-bold leading-6 mb-5 uppercase">
+                                        <div className="p-6 pt-0 px-10 w-8/12">
+                                            <h1 className="text-3xl font-bold mb-5 uppercase">
                                                 {card.title}
                                             </h1>
                                             <p className="text-gray-500/80">
-                                                {card.shortDescription}
+                                                {card.shortDescription}...
                                             </p>
                                         </div>
                                     </div>

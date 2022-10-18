@@ -78,7 +78,14 @@ export const NewDetail = () => {
                                                     window.scrollTo(0, 0)
                                                 }
                                             >
-                                                <img src={card.image} />
+                                                <img
+                                                    src={
+                                                        card.listImages[0]
+                                                            .imgPath
+                                                    }
+                                                    alt={card.title}
+                                                    className="aspect-square object-cover"
+                                                />
                                             </Link>
                                             <div className="text-xs w-7/12">
                                                 <Link

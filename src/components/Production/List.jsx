@@ -93,22 +93,28 @@ export const List = ({ inProductPage, category }) => {
                                                         {card.description}
                                                     </div>
                                                     <div className="text-orange-500 font-trebu">
-                                                        <div className="font-semibold">
-                                                            {convertPriceToString(
-                                                                card.basePrice -
-                                                                    card.basePrice *
-                                                                        card.deal
-                                                            )}{" "}
-                                                            VNĐ
-                                                        </div>
-                                                        {card.deal === 0 || (
-                                                            <div className="text-gray-400/60 text-sm font-thin line-through">
+                                                        <div>
+                                                            <div className="font-semibold">
                                                                 {convertPriceToString(
-                                                                    card.basePrice
+                                                                    card.basePrice -
+                                                                        card.basePrice *
+                                                                            card.deal
                                                                 )}{" "}
                                                                 VNĐ
                                                             </div>
-                                                        )}
+                                                            {card.deal ===
+                                                                0 || (
+                                                                <div className="text-gray-400/60 text-sm font-thin line-through">
+                                                                    {convertPriceToString(
+                                                                        card.basePrice
+                                                                    )}{" "}
+                                                                    VNĐ
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                        {/* <button className="p-4 rounded-full bg-regal-blue text-white ml-8 text-xs uppercase font-medium">
+                                        Thêm vào giỏ hàng
+                                    </button> */}
                                                     </div>
                                                 </div>
                                             </Link>
