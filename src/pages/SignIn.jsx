@@ -69,7 +69,7 @@ export const SignIn = () => {
                                     <div>
                                         {user.isloggedInSuccess === false && (
                                             <div
-                                                className="bg-red-100 rounded-lg py-3 px-6 mt-3 text-sm text-red-700 inline-flex items-center w-full"
+                                                className="bg-red-100 rounded-lg mb-3 py-3 px-6 text-sm text-red-700 inline-flex items-center w-full"
                                                 role="alert"
                                             >
                                                 <svg

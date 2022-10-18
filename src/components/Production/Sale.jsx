@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { productApi } from "../../api/productApi";
 import {
     PRODUCT_LOADING_BY_PAGE_SUCCESS,
@@ -9,10 +7,7 @@ import {
     PRODUCT_LOADING_REQUEST,
     selectProduct,
 } from "../../features/production/productSlice";
-import {
-    convertPriceToString,
-    getErrorMessageFromServer,
-} from "../../utils/serverUtils";
+import { getErrorMessageFromServer } from "../../utils/serverUtils";
 import { Carousel } from "../Carousel/Carousel";
 import { Loading } from "../Loading/Loading";
 
