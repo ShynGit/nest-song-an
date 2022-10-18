@@ -37,6 +37,12 @@ export const userSlice = createSlice({
             state.token = null;
             state.userInfor = null;
             state.loading = false;
+
+            state.isloggedOutSuccess = true;
+        },
+        USER_CLEAR: (state) => {
+            state.isloggedInSuccess = null;
+            state.isloggedOutSuccess = null;
         },
     },
 });
@@ -47,6 +53,7 @@ export const {
     USER_LOGIN_REQUEST,
     USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
+    USER_CLEAR,
 } = userSlice.actions;
 
 export const selectUser = (state) => state.user;

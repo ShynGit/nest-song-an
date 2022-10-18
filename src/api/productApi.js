@@ -13,6 +13,7 @@ export const productApi = {
         catch(err){
             throw err
         }
+
     },
 
     getProductById: (id) => {
@@ -22,11 +23,7 @@ export const productApi = {
         return adminAxios.get("/category");
     },
     getProductByFilter: (filter, cateId) => {
-        return adminAxios.post("/product/filter", {
-            ...filter,
-            cateId: 0,
-        });
+        const data = { ...filter, cateId: 0 };
+        return adminAxios.post("/product/filter", data);
     },
 };
-
-
