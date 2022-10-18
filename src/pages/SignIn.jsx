@@ -13,6 +13,7 @@ import {
 import { getErrorMessageFromServer } from "../utils/serverUtils";
 import { useEffect } from "react";
 import { Loading } from "../components/Loading/Loading";
+import "../components/Input/style.css";
 
 export const SignIn = () => {
     const user = useSelector(selectUser);
@@ -62,7 +63,7 @@ export const SignIn = () => {
                             </div>
                             <div className="lg:w-72 w-full px-4 md:px-0">
                                 <form onSubmit={handleSubmit(onSubmit)}>
-                                    <div className="text-center font-bold text-xl my-3 ">
+                                    <div className="text-center font-bold text-xl my-3 mb-5">
                                         ĐĂNG NHẬP
                                     </div>
                                     <div>
@@ -90,25 +91,33 @@ export const SignIn = () => {
                                                 thử lại!
                                             </div>
                                         )}
-                                        <input
-                                            {...register("username")}
-                                            className="p-1.5 pl-3 focus:ring-1 focus:ring-blue-500 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-sm ring-1 ring-gray-300 mt-3"
-                                            type="text"
-                                            aria-label="Filter projects"
-                                            placeholder="Tên đăng nhập..."
-                                            maxLength={70}
-                                            minLength={3}
-                                            required
-                                        />
-                                        <input
-                                            {...register("password")}
-                                            className="p-1.5 pl-3 focus:ring-1 focus:ring-blue-500 focus:outline-none appearance-none w-full text-sm leading-6 text-slate-900 placeholder-slate-400 rounded-sm ring-1 ring-gray-300 mt-3"
-                                            type="password"
-                                            aria-label="Filter projects"
-                                            placeholder="Mật khẩu..."
-                                            minLength={8}
-                                            required
-                                        />
+                                        <div className="relative inputBox">
+                                            <input
+                                                {...register("username")}
+                                                className="px-3 py-3 border focus:border-regal-blue focus:outline-none w-full text-slate-900 rounded-md"
+                                                type="text"
+                                                maxLength={70}
+                                                required
+                                            />
+                                            <span
+                                                className={`absolute left-0 mx-2 px-1 my-3 w-fit pointer-events-none transition-all duration-500 rounded-md text-gray-400`}
+                                            >
+                                                Tên đăng nhập
+                                            </span>
+                                        </div>
+                                        <div className="relative inputBox mt-3">
+                                            <input
+                                                {...register("password")}
+                                                className="px-3 py-3 border focus:border-regal-blue focus:outline-none w-full text-slate-900 rounded-md"
+                                                type="password"
+                                                required
+                                            />
+                                            <span
+                                                className={`absolute left-0 mx-2 px-1 my-3 w-fit pointer-events-none transition-all duration-500 rounded-md text-gray-400`}
+                                            >
+                                                Mật khẩu
+                                            </span>
+                                        </div>
                                     </div>
                                     <button className="w-full mt-5 inline-block p-2.5 hover:bg-gray-700 text-white font-medium text-xs leading-snug uppercase rounded shadow-gray-400 bg-gray-500 transition duration-100 ease-in-out">
                                         Đăng nhập

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
 import { userApi } from "../../api/userApi";
 import { useState } from "react";
+import { Input } from "../../components/Input/Input";
 export const Delivery = ({ setStep }) => {
     const user = useSelector(selectUser);
     const [userInfo, setUserInfo] = useState({});
@@ -26,26 +27,18 @@ export const Delivery = ({ setStep }) => {
                 Thông tin vận chuyển
             </div>
             <div className="mt-10 grid-rows-4 gap-5 grid mb-16">
-                <input
-                    className="px-3 py-2 bg-slate-200 rounded h-16"
-                    placeholder={"Họ và tên"}
-                    value={user.userInfor.fullname}
-                />
-                <input
-                    className="px-3 py-2 bg-slate-200 rounded"
-                    placeholder={"Số điện thoại"}
+                <Input label="Họ và tên" value={user.userInfor.fullname} />
+                <Input
+                    type="number"
+                    label="Số điện thoại"
                     value={userInfo.phoneNumber}
+                    pattern="[0-9]{10}"
                 />
-                <input
-                    className="px-3 py-2 bg-slate-200 rounded"
-                    placeholder={"Ngày sinh"}
+                <Input
+                    type="date"
                     value={dateOfBirth.toLocaleDateString("sv")}
                 />
-                <input
-                    className="px-3 py-2 bg-slate-200 rounded"
-                    placeholder={"Địa chỉ"}
-                    value={userInfo.address}
-                />
+                <Input type="text" label="Địa chỉ" value={userInfo.address} />
             </div>
             <div className="flex justify-between pb-16">
                 <button
