@@ -17,7 +17,6 @@ export const productApi = {
     },
     getProductByFilter: (filter, cateId) => {
         const data = { ...filter, cateId: 0 };
-        console.log(data);
         return adminAxios.post("/product/filter", data);
     },
 };

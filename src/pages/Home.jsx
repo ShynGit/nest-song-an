@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { List } from "../components/Production/List";
 import background from "../assets/images/background-image.jpg";
 import { Sale } from "../components/Production/Sale";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBagShopping, faFire } from "@fortawesome/free-solid-svg-icons";
 
 export const Home = () => {
     return (
@@ -18,7 +20,7 @@ export const Home = () => {
                         <h1 className="mr-56 font-cur text-7xl text-[#295F2D]">
                             Yến sào Song Ân
                         </h1>
-                        <p className="mr-56 font-sans pl-[49rem] text-white/80">
+                        <p className="mr-56 font-sans pl-[49rem] text-[#295F2D]/50">
                             Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến Sào
                             chất lượng nhất cho người Việt #282934
                         </p>
@@ -27,16 +29,18 @@ export const Home = () => {
                 <div>
                     <div className="md:mx-48 md:my-10 mx-4 my-4">
                         <div className="font-medium md:text-3xl text-md md:mb-8 mb-5">
-                            Sản phẩm bán chạy
+                            <FontAwesomeIcon icon={faFire} />
+                            <span className="ml-4">Sản phẩm bán chạy</span>
                         </div>
                     </div>
-                    <div className="px-28">
+                    <div className="px-48">
                         <Sale />
                     </div>
                 </div>
-                <div className="md:mx-48 md:my-10 md:mb-4 mx-4 my-4">
+                <div className="md:mx-48 md:my-20 md:mt-28 md:mb-4 mx-4 my-4">
                     <div className="font-medium md:text-3xl text-md md:mb-8 mb-5">
-                        Yến sào
+                        <FontAwesomeIcon icon={faBagShopping} />
+                        <span className="ml-4">Yến sào</span>
                     </div>
                     <List inProductPage={false} />
                 </div>
