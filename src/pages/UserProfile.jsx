@@ -115,7 +115,6 @@ export const UserProfile = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div className="w-8/12 grid grid-rows-5">
                     <div className="border-b-2 border-gray-200 px-20 pt-12 row-span-3">

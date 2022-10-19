@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { selectUser } from "../../features/user/userSlice";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { HeaderBottom } from "./HeaderBottom";
-import logo from './../../assets/icons/SongAnLogo.png'
+import logo from "./../../assets/icons/SongAnLogo.png";
 
 const Header = () => {
     const user = useSelector(selectUser);

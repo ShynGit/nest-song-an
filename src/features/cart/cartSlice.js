@@ -23,6 +23,10 @@ export const cartSlice = createSlice({
         CART_TOTAL_UPDATE: (state, action) => {
             state.totalPrice = action.payload;
         },
+        CART_ADDING_SUCCESS: (state, action) => {
+            state.cart.listBillDetails = action.payload;
+            state.loading = false;
+        },
     },
 });
 
@@ -31,6 +35,7 @@ export const {
     CART_LOADING_SUCCESS,
     CART_LOADING_FAIL,
     CART_TOTAL_UPDATE,
+    CART_ADDING_SUCCESS,
 } = cartSlice.actions;
 
 export const selectCart = (state) => state.cart;
