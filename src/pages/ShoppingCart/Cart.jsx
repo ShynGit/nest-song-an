@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     CART_LOADING_FAIL,
     CART_LOADING_REQUEST,
     CART_LOADING_SUCCESS,
     CART_TOTAL_UPDATE,
+    CART_UPDATING_SUCCESS,
     selectCart,
 } from "../../features/cart/cartSlice";
 import { selectUser } from "../../features/user/userSlice";
@@ -13,9 +14,8 @@ import {
     convertPriceToString,
     getErrorMessageFromServer,
 } from "../../utils/serverUtils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { CartItem } from "../../components/Cart/CartItem";
+import { Skeleton } from "@mui/material";
 
 export const Cart = ({ setStep }) => {
     const cart = useSelector(selectCart);
@@ -39,6 +39,22 @@ export const Cart = ({ setStep }) => {
         fetchCart();
     }, [token]);
 
+    const handleChangeAmount = async (id, productAmount, billId) => {
+        try {
+            dispatch(CART_LOADING_REQUEST());
+            const response = await billApi.updateQuantity(
+                user.userInfor.id,
+                id,
+                productAmount,
+                billId
+            );
+            dispatch(CART_UPDATING_SUCCESS());
+        } catch (error) {
+            const errorMessage = getErrorMessageFromServer(error);
+            dispatch(CART_LOADING_FAIL(errorMessage));
+        }
+    };
+
     console.log(cart);
 
     return (
@@ -51,7 +67,7 @@ export const Cart = ({ setStep }) => {
                     <li className="col-span-2">giá</li>
                     <li className="invisible col-span-1">delete</li>
                 </ul>
-                {cart.cart == null ? (
+                {Object.keys(cart.cart).length === 0 ? (
                     <div className="font-medium text-zinc-500 text-xl mt-10 text-center w-full">
                         Giỏ hàng trống
                     </div>
@@ -59,74 +75,16 @@ export const Cart = ({ setStep }) => {
                     cart.cart.listBillDetails.map((item, index) => {
                         totalPrice += item.price * item.quantity;
                         // item.basePrice - item.basePrice * item.deal;
-
                         return (
                             <div className="" key={index}>
-                                <div className=" bg-white relative items-center my-6">
-                                    <ul className="grid grid-cols-12 grid-flow-row-dense text-center text-base font-normal text-zinc-500 items-center">
-                                        <li className="col-span-5 grid grid-cols-12 justify-self-start items-center">
-                                            <div className="col-span-3">
-                                                <Link
-                                                    to={`/production/${item.product.id}`}
-                                                    onClick={window.scrollTo(
-                                                        0,
-                                                        0
-                                                    )}
-                                                >
-                                                    <img
-                                                        src={
-                                                            item.product
-                                                                .listImages[0]
-                                                                .imgPath
-                                                        }
-                                                        className="aspect-square rounded-xs"
-                                                    />
-                                                </Link>
-                                            </div>
-                                            <div className="col-span-9 ml-6">
-                                                <Link
-                                                    to={`/production/${item.product.id}`}
-                                                    onClick={window.scrollTo(
-                                                        0,
-                                                        0
-                                                    )}
-                                                >
-                                                    <div className="text-base uppercase font-bold text-left">
-                                                        {item.product.name}
-                                                    </div>
-                                                </Link>
-                                                <div className="truncate text-xs">
-                                                    {item.product.description}
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li className="col-span-2">Loại</li>
-                                        <li className="col-span-2 font-trebu">
-                                            <button className="hover:text-zinc-300">
-                                                <FontAwesomeIcon
-                                                    icon={faMinus}
-                                                />
-                                            </button>
-                                            <input
-                                                value={item.quantity}
-                                                className="w-8 text-center mx-2"
-                                            />
-                                            <button className="hover:text-zinc-300">
-                                                <FontAwesomeIcon
-                                                    icon={faPlus}
-                                                />
-                                            </button>
-                                        </li>
-                                        <li className="col-span-2 font-trebu text-orange-500">
-                                            {convertPriceToString(
-                                                item.price * item.quantity
-                                            )}
-                                        </li>
-                                        <li className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 right-0 cursor-pointer hover:text-zinc-300">
-                                            &#10006;
-                                        </li>
-                                    </ul>
-                                </div>
+                                {item.id === cart.laoadingId && cart.loading ? (
+                                    <Skeleton />
+                                ) : (
+                                    <CartItem
+                                        item={item}
+                                        handleChangeAmount={handleChangeAmount}
+                                    />
+                                )}
                                 <div className="border-t-2 w-full border-gray-200" />
                             </div>
                         );
