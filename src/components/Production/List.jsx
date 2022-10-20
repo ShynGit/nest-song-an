@@ -1,12 +1,21 @@
-
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+    faCartPlus,
+    faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Alert, Slide } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { billApi } from "../../api/billApi";
 import { productApi } from "../../api/productApi";
+import {
+    CART_ADDING_SUCCESS,
+    CART_LOADING_FAIL,
+    CART_LOADING_REQUEST,
+} from "../../features/cart/cartSlice";
 import { selectFilter } from "../../features/production/filterSlice";
 import {
     PRODUCT_LOADING_FAIL,
@@ -14,6 +23,7 @@ import {
     PRODUCT_LOADING_REQUEST,
     selectProduct,
 } from "../../features/production/productSlice";
+import { selectUser } from "../../features/user/userSlice";
 import {
     convertPriceToString,
     getErrorMessageFromServer,
@@ -25,7 +35,9 @@ export const List = ({ inProductPage, category }) => {
     const [page, setPage] = useState(1);
     const filter = useSelector(selectFilter);
     const products = useSelector(selectProduct);
+    const user = useSelector(selectUser);
     const dispatch = useDispatch();
+    const [alert, setAlert] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -53,13 +65,45 @@ export const List = ({ inProductPage, category }) => {
                 (product) => product.cateId === category.id
             );
 
+    const handleAddToCart = async (product) => {
+        try {
+            dispatch(CART_LOADING_REQUEST());
+            const response = await billApi.addToCart(
+                user.userInfor.id,
+                product,
+                1
+            );
+            localStorage.setItem("cart", response);
+            dispatch(CART_ADDING_SUCCESS(response));
+            setAlert(true);
+            setTimeout(() => {
+                setAlert(false);
+            }, 2000);
+        } catch (error) {
+            const errorMessage = getErrorMessageFromServer(error);
+            dispatch(CART_LOADING_FAIL(errorMessage));
+        }
+    };
+
     return (
         <>
             {products.loading ? (
                 inProductPage && <Loading />
             ) : (
                 <div className="flex flex-col justify-around">
-                    {/* sản phẩm */}
+                    <Slide direction="up" in={alert}>
+                        <Alert
+                            severity="success"
+                            color="success"
+                            sx={{
+                                position: "fixed",
+                                bottom: 50,
+                                right: 50,
+                            }}
+                        >
+                            Thêm vào giỏ hàng thành công
+                        </Alert>
+                    </Slide>
                     <div className="grid-cols-3 grid gap-7">
                         {productList.length === 0 ? (
                             <div className="text-center font-semibold text-gray-600 col-span-3 p-10 text-2xl h-screen">
@@ -86,15 +130,25 @@ export const List = ({ inProductPage, category }) => {
                                                     }
                                                     className="object-cover aspect-square rounded-md"
                                                 />
+                                            </Link>
 
-                                                <div className="pt-4 pr-20 flex flex-col gap-1.5 text-sm m-4 mt-0">
-                                                    <h1 className="uppercase font-bold font-verda">
+                                            <div className="pt-4 p-1 flex flex-col gap-1.5 text-sm m-4 mt-0">
+                                                <Link
+                                                    to={`/production/${card.id}`}
+                                                    onClick={window.scrollTo(
+                                                        0,
+                                                        0
+                                                    )}
+                                                >
+                                                    <h1 className="uppercase font-bold font-verda h-10">
                                                         {card.name}
                                                     </h1>
-                                                    <div className="truncate text-xs text-gray-400/80">
-                                                        {card.description}
-                                                    </div>
-                                                    <div className="text-orange-500 font-trebu">
+                                                </Link>
+                                                <div className="truncate text-xs text-gray-400/80">
+                                                    {card.description}
+                                                </div>
+                                                <div className="text-orange-500 font-trebu relative">
+                                                    <div className="flex justify-between p-2 pl-0">
                                                         <div>
                                                             <div className="font-semibold">
                                                                 {convertPriceToString(
@@ -114,12 +168,18 @@ export const List = ({ inProductPage, category }) => {
                                                                 </div>
                                                             )}
                                                         </div>
-                                                        {/* <button className="p-4 rounded-full bg-regal-blue text-white ml-8 text-xs uppercase font-medium">
-                                        Thêm vào giỏ hàng
-                                    </button> */}
+                                                        <FontAwesomeIcon
+                                                            icon={faCartPlus}
+                                                            className="w-8 h-8 mt-0.5 hover:cursor-pointer hover:text-regal-blue"
+                                                            onClick={() =>
+                                                                handleAddToCart(
+                                                                    card
+                                                                )
+                                                            }
+                                                        />
                                                     </div>
                                                 </div>
-                                            </Link>
+                                            </div>
                                         </div>
                                     )
                             )

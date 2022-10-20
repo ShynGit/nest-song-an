@@ -23,8 +23,10 @@ import {
 } from "../../utils/serverUtils";
 import { billApi } from "../../api/billApi";
 import { selectUser } from "../../features/user/userSlice";
-import { Alert } from "@mui/material";
+import { Alert, Slide } from "@mui/material";
 import { theme } from "../../assets/theme";
+import { faCartPlus, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -62,7 +64,9 @@ export const ProductDetail = () => {
                 productAmount
             );
             localStorage.setItem("cart", response);
+
             dispatch(CART_ADDING_SUCCESS(response));
+            console.log("loading");
             setAlert(true);
             setTimeout(() => {
                 setAlert(false);
@@ -82,7 +86,7 @@ export const ProductDetail = () => {
             ) : (
                 <div className="bg-gray-100 absolute h-auto">
                     <div className="flex bg-white p-10 m-20 mb-6 relative">
-                        {alert && (
+                        <Slide direction="up" in={alert}>
                             <Alert
                                 severity="success"
                                 color="success"
@@ -94,20 +98,20 @@ export const ProductDetail = () => {
                             >
                                 Thêm vào giỏ hàng thành công
                             </Alert>
-                        )}
+                        </Slide>
                         <div className="w-[60%] px-14">
                             <img
                                 src={productImage}
                                 alt={product.name}
                                 className="w-full h-[28rem] shadow-lg shadow-gray-400"
                             />
-                            <div className="flex justify-center gap-2 mt-4">
+                            <div className="flex justify-center gap-4 mt-4">
                                 {Object.keys(product).length === 0
                                     ? ""
                                     : product.listImages.map((item, index) => (
                                           <img
                                               src={item.imgPath}
-                                              className="w-24 cursor-pointer"
+                                              className="w-24 cursor-pointer border-2 rounded-md"
                                               onMouseOver={() =>
                                                   setProductImage(item.imgPath)
                                               }
@@ -151,7 +155,7 @@ export const ProductDetail = () => {
                                 <div className="mt-2 mb-1 flex">
                                     <div className="flex">
                                         <button
-                                            className="px-4 border text-lg flex items-center rounded-tl-3xl rounded-bl-3xl"
+                                            className="px-4 border text-sm flex items-center rounded-tl-3xl rounded-bl-3xl hover:bg-gray-100"
                                             onClick={() => {
                                                 if (!productAmount)
                                                     return setProductAmount(1);
@@ -161,12 +165,12 @@ export const ProductDetail = () => {
                                                     );
                                             }}
                                         >
-                                            -
+                                            <FontAwesomeIcon icon={faMinus} />
                                         </button>
                                         <input
                                             value={productAmount}
                                             type="number"
-                                            className="w-12 text-center border"
+                                            className="w-12 text-center border font-medium"
                                             onChange={(e) => {
                                                 const number = Number.parseInt(
                                                     e.target.value
@@ -181,7 +185,7 @@ export const ProductDetail = () => {
                                             required
                                         />
                                         <button
-                                            className="px-4 border text-lg flex items-center rounded-tr-3xl rounded-br-3xl"
+                                            className="px-4 border text-sm flex items-center rounded-tr-3xl rounded-br-3xl hover:bg-gray-100"
                                             onClick={() => {
                                                 if (!productAmount)
                                                     return setProductAmount(1);
@@ -194,13 +198,17 @@ export const ProductDetail = () => {
                                                     );
                                             }}
                                         >
-                                            +
+                                            <FontAwesomeIcon icon={faPlus} />
                                         </button>
                                     </div>
                                     <button
-                                        className="p-4 rounded-full bg-regal-blue text-white ml-8 text-xs uppercase font-medium"
-                                        onClick={() => handleAddToCart()}
+                                        className="p-4 px-5 rounded-full bg-regal-blue text-white ml-14 text-xs uppercase font-medium hover:bg-regal-blue/80 flex items-center gap-2"
+                                        onClick={handleAddToCart}
                                     >
+                                        <FontAwesomeIcon
+                                            icon={faCartPlus}
+                                            className="w-5 h-5"
+                                        />{" "}
                                         Thêm vào giỏ hàng
                                     </button>
                                 </div>

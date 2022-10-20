@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBagShopping, faFire } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, USER_CLEAR } from "../features/user/userSlice";
+import { Slide } from "@mui/material";
 
 export const Home = () => {
     const user = useSelector(selectUser);
@@ -24,7 +25,12 @@ export const Home = () => {
 
     return (
         <>
-            {loginSuccess === true && (
+            <Slide
+                direction="down"
+                in={loginSuccess}
+                mountOnEnter
+                unmountOnExit
+            >
                 <div
                     className="z-10 fixed w-fit top-20 right-14 transition-all duration-200 bg-green-100 rounded-lg py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center"
                     role="alert"
@@ -46,8 +52,14 @@ export const Home = () => {
                     </svg>
                     Đăng nhập thành công
                 </div>
-            )}
-            {logoutSuccess === true && (
+            </Slide>
+
+            <Slide
+                direction="down"
+                in={logoutSuccess}
+                mountOnEnter
+                unmountOnExit
+            >
                 <div
                     className="z-10 fixed w-fit top-20 right-14 transition-all duration-200 bg-cyan-100 rounded-lg py-5 px-6 mb-3 text-base text-cyan-700 inline-flex items-center"
                     role="alert"
@@ -69,7 +81,7 @@ export const Home = () => {
                     </svg>
                     Đăng xuất thành công
                 </div>
-            )}
+            </Slide>
             <div>
                 <div className="pb-10">
                     <div

@@ -15,6 +15,8 @@ export const userSlice = createSlice({
         USER_LOGIN_REQUEST: (state) => {
             state.token = getTokenDataFromLocalStorage();
             state.loading = true;
+            state.isloggedInSuccess = null;
+            state.isloggedOutSuccess = null;
         },
 
         USER_LOGIN_SUCCESS: (state, action) => {
@@ -37,7 +39,6 @@ export const userSlice = createSlice({
             state.token = null;
             state.userInfor = null;
             state.loading = false;
-
             state.isloggedOutSuccess = true;
         },
         USER_CLEAR: (state) => {
