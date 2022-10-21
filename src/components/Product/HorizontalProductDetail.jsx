@@ -1,12 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { Button, Grid, TextField } from "@mui/material";
+import { productApi } from "../../api/productApi";
 
 export const HorizontalProductDetail = ({
   id,
@@ -15,6 +14,7 @@ export const HorizontalProductDetail = ({
   price,
   deal,
   desc,
+  status,
 }) => {
   const theme = useTheme();
 
@@ -34,8 +34,22 @@ export const HorizontalProductDetail = ({
     setProDesc(e.target.value);
   };
 
+  const handleUpdate = () => {
+    productApi
+      .updateProductById(id, proName, proDesc, proPrice)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+  const handleDelete = () => {
+    productApi
+      .deleteProductById(id)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} sx={{ opacity: status == 1 ? "1" : "0.7" }}>
       <Card sx={{ display: "flex", paddingRight: "20px" }}>
         <Grid item xs={1.5}>
           <CardMedia
@@ -75,7 +89,7 @@ export const HorizontalProductDetail = ({
               fullWidth
               maxRows={4}
               value={proDesc}
-              onChange={setProDesc}
+              onChange={handleDescChange}
             ></TextField>
           </CardContent>
         </Grid>
@@ -97,8 +111,13 @@ export const HorizontalProductDetail = ({
           justifyContent="space-around"
           alignItems="center"
         >
-          <Button variant="contained">Xóa SPham</Button>
-          <Button variant="contained">Xóa SPham</Button>
+          <Button variant="contained" color="success" onClick={handleUpdate}>
+            Cập nhật
+          </Button>
+          <Button variant="contained" color="error" onClick={handleDelete}>
+            Xóa
+          </Button>
+          <Button variant="contained">Thêm</Button>
         </Grid>
       </Card>
     </Grid>

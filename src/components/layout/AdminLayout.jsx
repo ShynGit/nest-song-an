@@ -18,10 +18,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { Avatar, Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -103,6 +108,20 @@ export default function AdminLayout({ children }) {
     setOpen(false);
   };
 
+  // Handle open form dialog
+
+  const [formOpen, setFormOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setFormOpen(true);
+  };
+
+  const handleClose = () => {
+    setFormOpen(false);
+  };
+
+  //------------------------
+
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
@@ -134,7 +153,7 @@ export default function AdminLayout({ children }) {
               {title}
             </Typography>
             <Box sx={{ display: "flex" }}>
-              <Button variant="contained">
+              <Button variant="contained" onClick={handleClickOpen}>
                 <AddIcon />
                 Thêm sản phẩm
               </Button>
@@ -202,6 +221,94 @@ export default function AdminLayout({ children }) {
         <DrawerHeader />
         {children}
       </Box>
+
+      <Dialog open={formOpen} onClose={handleClose}>
+        <DialogTitle
+          color={"#538ffd"}
+          marginTop={"20px"}
+          sx={{ paddingX: "44px" }}
+        >
+          Thêm Mới Sản Phẩm
+        </DialogTitle>
+        <DialogContent sx={{ paddingX: "44px" }}>
+          <form action="">
+            <TextField
+              autoFocus
+              margin="dense"
+              id="image"
+              label="Hình ảnh"
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              margin="dense"
+              id="name"
+              label="Tên"
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+
+            <TextField
+              margin="dense"
+              id="desc"
+              label="Mô tả "
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+
+            <TextField
+              margin="dense"
+              id="price"
+              label="Giá "
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+
+            <TextField
+              margin="dense"
+              id="quantity"
+              label="Số lượng"
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+
+            <TextField
+              margin="dense"
+              id="category"
+              label="Loại"
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+
+            <TextField
+              margin="dense"
+              id="deal"
+              label="Khuyến mãi"
+              type="string"
+              fullWidth
+              variant="standard"
+            />
+          </form>
+        </DialogContent>
+        <DialogActions sx={{ paddingTop: "20px", paddingBottom: "32px" }}>
+          <Button onClick={handleClose} sx={{ width: "100px" }}>
+            Cancel
+          </Button>
+          <Button
+            onClick={handleClose}
+            sx={{ width: "140px", height: "40px", borderRadius: "500px" }}
+            variant={"contained"}
+          >
+            Thêm Mới
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

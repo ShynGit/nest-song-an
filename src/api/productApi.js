@@ -26,4 +26,30 @@ export const productApi = {
         const data = { ...filter, cateId: 0 };
         return adminAxios.post("/product/filter", data);
     },
+
+    // Update product 
+    updateProductById: async(proiId, proName, proDesc, proPrice ) => {
+     
+        try{
+            const data = { name:proName, description:proDesc, basePrice:proPrice}
+            console.log(data);
+            const res = await adminAxios.put(`/product/${proiId}`, data)
+            return res
+        }catch(err){
+            throw err
+        }
+    },
+    //-------------------------
+    // Update delete product
+
+    deleteProductById: async(proiId) => {
+        try{                  
+            const res = await adminAxios.delete(`/product/${proiId}`)
+            return res
+        }catch(err){
+            throw err
+        }
+    }
+
+    //-------------------------
 };

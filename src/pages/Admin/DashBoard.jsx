@@ -22,7 +22,7 @@ export const DashBoard = () => {
   return (
     <AdminLayout>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Grid container>
             <Grid item xs={2}>
               Hình ảnh
@@ -53,7 +53,7 @@ export const DashBoard = () => {
               Hành động
             </Grid>
           </Grid>
-        </Grid>
+        </Grid> */}
         {product.map((item, index) => (
           <HorizontalProductDetail
             key={item.id}
@@ -63,6 +63,7 @@ export const DashBoard = () => {
             price={item.basePrice}
             deal={item.deal}
             desc={item.description}
+            status={item.status}
           />
         ))}
       </Grid>
