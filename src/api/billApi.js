@@ -9,11 +9,18 @@ export const billApi = {
     payment: (cartId, data) => {
         return adminAxios.post("");
     },
-    addToCart: (userId, productId, quantity) => {
-        return adminAxios.post("/cart/add", {
-            userId: userId,
-            productId: productId,
+    addToCart: (userId, product, quantity) => {
+        const data = {
             quantity: quantity,
-        });
+            product: product,
+        };
+        return adminAxios.post(`/cart/add/customer/${userId}`, data);
+    },
+    updateQuantity: (userId, id, quantity, billId) => {
+        const data = { id: id, quantity: quantity, billId: billId };
+        return adminAxios.put(
+            `/cart/update/cart-line-items/user/${userId}`,
+            data
+        );
     },
 };

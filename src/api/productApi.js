@@ -6,14 +6,14 @@ export const productApi = {
     },
 
     getProductByPage: async (offset, limit) => {
-        try{
-            const res = await adminAxios.get(`/product/page?page=${offset}&limit=${limit}`);
-            return res
+        try {
+            const res = await adminAxios.get(
+                `/product/page?page=${offset}&limit=${limit}`
+            );
+            return res;
+        } catch (err) {
+            throw err;
         }
-        catch(err){
-            throw err
-        }
-
     },
 
     getProductById: (id) => {

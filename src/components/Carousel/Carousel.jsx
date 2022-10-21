@@ -40,7 +40,6 @@ export const Carousel = ({ data }) => {
                         <img
                             src={item.listImages[0].imgPath}
                             alt={item.name}
-
                             className="aspect-square object-cover relative rounded-md"
                             onMouseOver={(e) =>
                                 handleHover(e.target.parentNode.parentNode)
@@ -51,9 +50,7 @@ export const Carousel = ({ data }) => {
                         />
                     </Link>
                     <div
-
                         className={`uppercase font-bold font-verda absolute bottom-0 p-5 bg-gray-900/40 w-full opacity-0 transition-all duration-200 ease-linear`}
-
                         onMouseOver={(e) => (e.currentTarget.style.opacity = 1)}
                         onMouseOut={(e) => (e.currentTarget.style.opacity = 0)}
                     >
@@ -71,7 +68,6 @@ export const Carousel = ({ data }) => {
                     <div className="absolute top-3 -right-0 bg-red-600 p-2 text-white font-semibold ">
                         SALE {item.deal * 100}%
                     </div>
-
                 </SwiperSlide>
             ))}
         </Swiper>

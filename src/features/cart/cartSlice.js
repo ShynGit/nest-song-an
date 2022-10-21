@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    cart: null,
+    cart: {},
 };
 
 export const cartSlice = createSlice({
@@ -10,6 +10,7 @@ export const cartSlice = createSlice({
     reducers: {
         CART_LOADING_REQUEST: (state) => {
             state.loading = true;
+            // state.loadingId = action.payload;
         },
         CART_LOADING_SUCCESS: (state, action) => {
             state.cart = action.payload;
@@ -17,11 +18,19 @@ export const cartSlice = createSlice({
         },
         CART_LOADING_FAIL: (state, action) => {
             state.cartErrorMessage = action.payload;
-            state.cart = null;
+            state.cart = {};
             state.loading = false;
         },
         CART_TOTAL_UPDATE: (state, action) => {
             state.totalPrice = action.payload;
+        },
+        CART_ADDING_SUCCESS: (state, action) => {
+            state.cart.listBillDetails = action.payload;
+            state.loading = false;
+        },
+        CART_UPDATING_SUCCESS: (state) => {
+            state.loading = false;
+            state.loadingId = null;
         },
     },
 });
@@ -31,6 +40,8 @@ export const {
     CART_LOADING_SUCCESS,
     CART_LOADING_FAIL,
     CART_TOTAL_UPDATE,
+    CART_ADDING_SUCCESS,
+    CART_UPDATING_SUCCESS,
 } = cartSlice.actions;
 
 export const selectCart = (state) => state.cart;
