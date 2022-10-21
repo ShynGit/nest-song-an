@@ -6,18 +6,30 @@ import { Grid, Pagination } from "@mui/material";
 
 export const DashBoard = () => {
   const [product, setProduct] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     productApi
-      .getProductByPage(1, 8)
+      .getAllProductByPage(currentPage, 8)
       .then((res) => setProduct(res))
+      .catch((err) => {
+        console.log(err);
+      });
+    productApi
+      .getCountAllProduct()
+      .then((res) => setPageCount(res))
       .catch((err) => {
         console.log(err);
       });
 
     return () => {};
-  }, []);
+  }, [currentPage]);
+
+  const handleChangePage = (e) => {
+    setCurrentPage(e.target.textContent);
+  };
+
   return (
     <AdminLayout>
       <Grid container spacing={3}>
@@ -74,8 +86,9 @@ export const DashBoard = () => {
           paddingTop: "40px",
           backgroundColor: "#d9eeef",
         }}
-        count={10}
+        count={Math.round(pageCount / 8)}
         color="primary"
+        onChange={handleChangePage}
       />
     </AdminLayout>
   );

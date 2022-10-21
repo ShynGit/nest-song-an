@@ -16,6 +16,26 @@ export const productApi = {
         }
     },
 
+    getAllProductByPage: async(offset, limit) => {
+        try {
+            const res = await adminAxios.get(
+                `/product/page/all?page=${offset}&limit=${limit}`
+            );
+            return res;
+        } catch (err) {
+            throw err;
+        }
+    },
+
+    getCountAllProduct: async() => {
+        try{
+            const res = await adminAxios.get(`/product/count/all`);
+            return res
+        }catch(err){
+            throw err
+        }
+    },
+
     getProductById: (id) => {
         return adminAxios.get(`/product/${id}`);
     },
@@ -32,7 +52,6 @@ export const productApi = {
      
         try{
             const data = { name:proName, description:proDesc, basePrice:proPrice}
-            console.log(data);
             const res = await adminAxios.put(`/product/${proiId}`, data)
             return res
         }catch(err){
@@ -40,7 +59,21 @@ export const productApi = {
         }
     },
     //-------------------------
-    // Update delete product
+
+    //update product status
+
+    updateProductStatus: async(proiId, status ) => {
+        try{
+            const data = { status:status}
+            const res = await adminAxios.put(`/product/reactive/${proiId}`, data)
+            return res
+        }catch(err){
+            throw err
+        }
+    },
+
+    //-------------------------
+    //  delete product
 
     deleteProductById: async(proiId) => {
         try{                  

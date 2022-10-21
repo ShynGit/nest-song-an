@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Button, Grid, TextField } from "@mui/material";
 import { productApi } from "../../api/productApi";
+import { useNavigate } from "react-router-dom";
 
 export const HorizontalProductDetail = ({
   id,
@@ -17,7 +18,6 @@ export const HorizontalProductDetail = ({
   status,
 }) => {
   const theme = useTheme();
-
   const [proPrice, setProPrice] = useState(price);
   const [proName, setProName] = useState(name);
   const [proDesc, setProDesc] = useState(desc);
@@ -48,9 +48,25 @@ export const HorizontalProductDetail = ({
       .catch((err) => console.log(err));
   };
 
+  const handleReActive = () => {
+    productApi
+      .updateProductStatus(id, 1)
+      .then()
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <Grid item xs={12} sx={{ opacity: status == 1 ? "1" : "0.7" }}>
-      <Card sx={{ display: "flex", paddingRight: "20px" }}>
+    <Grid item xs={12}>
+      <Card
+        sx={{
+          display: "flex",
+          paddingRight: "20px",
+          boxShadow: 3,
+          // paddingY: "20px",
+        }}
+      >
         <Grid item xs={1.5}>
           <CardMedia
             component="img"
@@ -110,14 +126,29 @@ export const HorizontalProductDetail = ({
           display="flex"
           justifyContent="space-around"
           alignItems="center"
+          paddingX={"16px"}
         >
           <Button variant="contained" color="success" onClick={handleUpdate}>
             Cập nhật
           </Button>
-          <Button variant="contained" color="error" onClick={handleDelete}>
-            Xóa
-          </Button>
-          <Button variant="contained">Thêm</Button>
+          {status == 1 ? (
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ width: "100px" }}
+              onClick={handleDelete}
+            >
+              Xóa
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              sx={{ width: "100px" }}
+              onClick={handleReActive}
+            >
+              Thêm
+            </Button>
+          )}
         </Grid>
       </Card>
     </Grid>
