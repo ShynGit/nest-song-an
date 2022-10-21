@@ -76,9 +76,6 @@ export const Cart = ({ setStep }) => {
             dispatch(CART_LOADING_FAIL(errorMessage));
         }
     };
-
-    console.log(cart);
-
     return (
         <>
             {cart.loading ? (
