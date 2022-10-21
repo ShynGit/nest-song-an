@@ -23,4 +23,9 @@ export const billApi = {
             data
         );
     },
+    removeFromCart: (userId, billId) => {
+        return adminAxios.delete(
+            `/cart/cart-line-items/user?userId=${userId}&id=${billId}`
+        );
+    },
 };

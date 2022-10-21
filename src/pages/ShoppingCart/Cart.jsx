@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Loading } from "../../components/Loading/Loading";
 import {
     CART_LOADING_FAIL,
     CART_LOADING_REQUEST,
@@ -39,16 +40,37 @@ export const Cart = ({ setStep }) => {
         fetchCart();
     }, [token]);
 
-    const handleChangeAmount = async (id, productAmount, billId) => {
+    const handleChangeAmount = async (
+        id,
+        productAmount,
+        billId,
+        setLoading
+    ) => {
         try {
-            dispatch(CART_LOADING_REQUEST());
             const response = await billApi.updateQuantity(
                 user.userInfor.id,
                 id,
                 productAmount,
                 billId
             );
-            dispatch(CART_UPDATING_SUCCESS());
+            console.log(response);
+            dispatch(CART_UPDATING_SUCCESS(response));
+            setLoading(false);
+        } catch (error) {
+            const errorMessage = getErrorMessageFromServer(error);
+            dispatch(CART_LOADING_FAIL(errorMessage));
+        }
+    };
+
+    const handleDelete = async (item, setLoading) => {
+        try {
+            const response = await billApi.removeFromCart(
+                user.userInfor.id,
+                item.id
+            );
+            console.log(response);
+            dispatch(CART_UPDATING_SUCCESS(response));
+            setLoading(false);
         } catch (error) {
             const errorMessage = getErrorMessageFromServer(error);
             dispatch(CART_LOADING_FAIL(errorMessage));
@@ -58,60 +80,71 @@ export const Cart = ({ setStep }) => {
     console.log(cart);
 
     return (
-        <div className="mt-10">
-            <div className="w-9/12 m-auto">
-                <ul className="grid grid-cols-12 grid-flow-row-dense text-center uppercase font-bold text-xs text-zinc-500 border-b-2 pb-1">
-                    <li className="col-span-5 justify-self-start">Sản phẩm</li>
-                    <li className="col-span-2">Loại</li>
-                    <li className="col-span-2">Số lượng</li>
-                    <li className="col-span-2">giá</li>
-                    <li className="invisible col-span-1">delete</li>
-                </ul>
-                {Object.keys(cart.cart).length === 0 ? (
-                    <div className="font-medium text-zinc-500 text-xl mt-10 text-center w-full">
-                        Giỏ hàng trống
-                    </div>
-                ) : (
-                    cart.cart.listBillDetails.map((item, index) => {
-                        totalPrice += item.price * item.quantity;
-                        // item.basePrice - item.basePrice * item.deal;
-                        return (
-                            <div className="" key={index}>
-                                {item.id === cart.laoadingId && cart.loading ? (
-                                    <Skeleton />
-                                ) : (
-                                    <CartItem
-                                        item={item}
-                                        handleChangeAmount={handleChangeAmount}
-                                    />
-                                )}
-                                <div className="border-t-2 w-full border-gray-200" />
+        <>
+            {cart.loading ? (
+                <Loading />
+            ) : (
+                <div className="mt-10">
+                    <div className="w-9/12 m-auto">
+                        <ul className="grid grid-cols-12 grid-flow-row-dense text-center uppercase font-bold text-xs text-zinc-500 border-b-2 pb-1">
+                            <li className="col-span-5 justify-self-start">
+                                Sản phẩm
+                            </li>
+                            <li className="col-span-2">Loại</li>
+                            <li className="col-span-2">Số lượng</li>
+                            <li className="col-span-2">giá</li>
+                            <li className="invisible col-span-1">delete</li>
+                        </ul>
+                        {Object.keys(cart.cart).length === 0 ? (
+                            <div className="font-medium text-zinc-500 text-xl mt-10 text-center w-full">
+                                Giỏ hàng trống
                             </div>
-                        );
-                    })
-                )}
-            </div>
-
-            <div className="w-9/12 m-auto">
-                <div className="flex items-center justify-end">
-                    <div className="font-verda text-[0.93rem] font-semibold mr-10 text-zinc-500">
-                        Tổng:{" "}
-                        <span className="font-semibold text-red-500">
-                            {convertPriceToString(totalPrice)}{" "}
-                            <span className="text-xs">&#8363;</span>
-                        </span>
+                        ) : (
+                            cart.cart.listBillDetails.map((item, index) => {
+                                totalPrice += item.price;
+                                return (
+                                    <div className="" key={index}>
+                                        {item.id === cart.laoadingId &&
+                                        cart.loading ? (
+                                            <Skeleton />
+                                        ) : (
+                                            <CartItem
+                                                item={item}
+                                                handleChangeAmount={
+                                                    handleChangeAmount
+                                                }
+                                                handleDelete={handleDelete}
+                                            />
+                                        )}
+                                        <div className="border-t-2 w-full border-gray-200" />
+                                    </div>
+                                );
+                            })
+                        )}
                     </div>
-                    <div
-                        className="my-10 px-10 py-2.5 text-center bg-[#00ADB5] text-white shadow-md cursor-pointer rounded-full"
-                        onClick={() => {
-                            dispatch(CART_TOTAL_UPDATE(totalPrice));
-                            setStep("delivery");
-                        }}
-                    >
-                        Mua hàng
+
+                    <div className="w-9/12 m-auto">
+                        <div className="flex items-center justify-end">
+                            <div className="font-verda text-[0.93rem] font-semibold mr-10 text-zinc-500">
+                                Tổng:{" "}
+                                <span className="font-semibold text-red-500">
+                                    {convertPriceToString(totalPrice)}{" "}
+                                    <span className="text-xs">&#8363;</span>
+                                </span>
+                            </div>
+                            <div
+                                className="my-10 px-10 py-2.5 text-center bg-[#00ADB5] text-white shadow-md cursor-pointer rounded-full"
+                                onClick={() => {
+                                    dispatch(CART_TOTAL_UPDATE(totalPrice));
+                                    setStep("delivery");
+                                }}
+                            >
+                                Mua hàng
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            )}
+        </>
     );
 };

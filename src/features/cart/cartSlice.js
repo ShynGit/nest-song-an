@@ -10,7 +10,6 @@ export const cartSlice = createSlice({
     reducers: {
         CART_LOADING_REQUEST: (state) => {
             state.loading = true;
-            // state.loadingId = action.payload;
         },
         CART_LOADING_SUCCESS: (state, action) => {
             state.cart = action.payload;
@@ -24,13 +23,12 @@ export const cartSlice = createSlice({
         CART_TOTAL_UPDATE: (state, action) => {
             state.totalPrice = action.payload;
         },
-        CART_ADDING_SUCCESS: (state, action) => {
-            state.cart.listBillDetails = action.payload;
+        CART_ADDING_SUCCESS: (state) => {
             state.loading = false;
         },
-        CART_UPDATING_SUCCESS: (state) => {
+        CART_UPDATING_SUCCESS: (state, action) => {
+            state.cart.listBillDetails = action.payload;
             state.loading = false;
-            state.loadingId = null;
         },
     },
 });

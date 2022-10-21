@@ -99,6 +99,7 @@ export const List = ({ inProductPage, category }) => {
                                 position: "fixed",
                                 bottom: 50,
                                 right: 50,
+                                zIndex: 1000,
                             }}
                         >
                             Thêm vào giỏ hàng thành công

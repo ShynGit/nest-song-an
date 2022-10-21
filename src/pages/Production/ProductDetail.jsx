@@ -66,7 +66,6 @@ export const ProductDetail = () => {
             localStorage.setItem("cart", response);
 
             dispatch(CART_ADDING_SUCCESS(response));
-            console.log("loading");
             setAlert(true);
             setTimeout(() => {
                 setAlert(false);
