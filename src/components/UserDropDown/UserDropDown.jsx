@@ -1,6 +1,5 @@
 import { Slide } from "@mui/material";
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,13 +7,14 @@ import { Link } from "react-router-dom";
 import UserIcon from "../../assets/icons/user.png";
 import {
     selectUser,
-    USER_CLEAR,
     USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
 } from "../../features/user/userSlice";
+import { selectCart } from "../../features/cart/cartSlice";
 
 const UserDropDown = () => {
     const user = useSelector(selectUser);
+    const cart = useSelector(selectCart);
     const dispatch = useDispatch();
     const [userDropDown, setUserDropDown] = useState("hidden");
     const [logoutSuccess, setLogoutSuccess] = useState(user.isloggedOutSuccess);

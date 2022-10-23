@@ -5,8 +5,11 @@ import { selectUser } from "../../features/user/userSlice";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { HeaderBottom } from "./HeaderBottom";
 import logo from "./../../assets/icons/SongAnLogo.png";
+import { selectCart } from "../../features/cart/cartSlice";
+import { Badge } from "@mui/material";
 
 const Header = () => {
+    const cart = useSelector(selectCart);
     const user = useSelector(selectUser);
     return (
         <div className="fixed w-full z-10">
@@ -54,18 +57,23 @@ const Header = () => {
                         </div>
                     </form>
                 </div>
-                <div className="md:mr-[7%] flex items-center">
+                <div className="md:mr-[7%] flex items-center relative">
                     <UserDropDown />
                     <Link to="/shopping-cart">
-                        <img
-                            src="https://yensaokhanhhoa.vn/wp-content/themes/lifenestvietnam/images/icons/shopping-cart.svg"
-                            className="w-[2.1rem] px-1 ml-1 hover:cursor-pointer"
-                            style={{ filter: "brightness(0) invert(1)" }}
-                            onClick={() => window.scrollTo(0, 0)}
-                        />
+                        <Badge
+                            badgeContent={cart.cart.listBillDetails?.length}
+                            color="secondary"
+                        >
+                            <img
+                                src="https://yensaokhanhhoa.vn/wp-content/themes/lifenestvietnam/images/icons/shopping-cart.svg"
+                                className="w-[2.1rem] px-1 ml-1 hover:cursor-pointer"
+                                style={{ filter: "brightness(0) invert(1)" }}
+                                onClick={() => window.scrollTo(0, 0)}
+                            />
+                        </Badge>
                     </Link>
                     {user.token && (
-                        <div className="text-xs ml-3">
+                        <div className="text-xs ml-5">
                             <div>Xin chào,</div>
                             <Link
                                 className="hover:underline"
