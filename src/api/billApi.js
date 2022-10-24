@@ -6,8 +6,8 @@ export const billApi = {
             `/bill/customer-id-status?customerId=${customerId}&Status=1`
         );
     },
-    payment: (cartId, data) => {
-        return adminAxios.post("");
+    payment: (data) => {
+        return adminAxios.post("/cart/buy/customer", data);
     },
     addToCart: (userId, product, quantity) => {
         const data = {

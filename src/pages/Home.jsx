@@ -8,6 +8,13 @@ import { faBagShopping, faFire } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, USER_CLEAR } from "../features/user/userSlice";
 import { Slide } from "@mui/material";
+import {
+    CART_LOADING_FAIL,
+    CART_LOADING_REQUEST,
+    CART_LOADING_SUCCESS,
+} from "../features/cart/cartSlice";
+import { billApi } from "../api/billApi";
+import { getErrorMessageFromServer } from "../utils/serverUtils";
 
 export const Home = () => {
     const user = useSelector(selectUser);
@@ -19,6 +26,21 @@ export const Home = () => {
             setTimeout(() => setLoginSuccess(false), 2000);
         dispatch(USER_CLEAR());
     }, []);
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                dispatch(CART_LOADING_REQUEST());
+                const response = await billApi.getCart(user.userInfor.id);
+                localStorage.setItem("cart", response[0]);
+                dispatch(CART_LOADING_SUCCESS(response[0]));
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+                dispatch(CART_LOADING_FAIL(errorMessage));
+            }
+        };
+        fetchCart();
+    }, [user.token]);
 
     return (
         <>
