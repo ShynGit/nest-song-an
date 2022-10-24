@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Slide } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
-import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { billApi } from "../../api/billApi";

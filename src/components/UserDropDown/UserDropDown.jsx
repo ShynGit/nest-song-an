@@ -10,11 +10,9 @@ import {
     USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
 } from "../../features/user/userSlice";
-import { selectCart } from "../../features/cart/cartSlice";
 
 const UserDropDown = () => {
     const user = useSelector(selectUser);
-    const cart = useSelector(selectCart);
     const dispatch = useDispatch();
     const [userDropDown, setUserDropDown] = useState("hidden");
     const [logoutSuccess, setLogoutSuccess] = useState(user.isloggedOutSuccess);
