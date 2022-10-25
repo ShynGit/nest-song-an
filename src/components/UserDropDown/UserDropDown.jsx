@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import UserIcon from "../../assets/icons/user.png";
 import {
     selectUser,
-    USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
+    USER_REQUEST,
 } from "../../features/user/userSlice";
 
 const UserDropDown = () => {
@@ -19,7 +19,7 @@ const UserDropDown = () => {
 
     const handleLogout = async () => {
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-        dispatch(USER_LOGOUT_REQUEST());
+        dispatch(USER_REQUEST());
         localStorage.removeItem("token");
         localStorage.removeItem("cart");
         await delay(500);
@@ -88,15 +88,16 @@ const UserDropDown = () => {
                             >
                                 Tài khoản
                             </Link>
-                            <a
-                                href="#"
+                            <Link
+                                to="/order"
                                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
                                 role="menuitem"
                                 tabIndex={-1}
                                 id="menu-item-1"
+                                onClick={() => window.scrollTo(0, 0)}
                             >
                                 Đơn mua
-                            </a>
+                            </Link>
                             {user.token ? (
                                 <div
                                     className="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-200"
