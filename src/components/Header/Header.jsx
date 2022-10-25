@@ -104,7 +104,7 @@ const Header = () => {
                                 to="/user"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                {user.userInfor.fullname}
+                                {user.userInfor?.fullname}
                             </Link>
                         </div>
                     )}

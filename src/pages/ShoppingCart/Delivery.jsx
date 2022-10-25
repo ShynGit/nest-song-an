@@ -44,7 +44,7 @@ export const Delivery = ({ setStep, firstRender }) => {
             <div className="text-center text-4xl font-semibold">
                 Thông tin vận chuyển
             </div>
-            <div className="mt-10 grid-rows-4 gap-5 grid mb-16">
+            <div className="mt-10 grid-rows-2 gap-5 grid mb-20">
                 <Input
                     type="number"
                     label="Số điện thoại"

@@ -5,6 +5,7 @@ import { selectUser } from "../../features/user/userSlice";
 import { Cart } from "./Cart";
 import { Delivery } from "./Delivery";
 import { Payment } from "./Payment";
+import { Receipt } from "./Receipt";
 
 export const ShoppingCart = () => {
     const [step, setStep] = useState("cart");
@@ -71,6 +72,7 @@ export const ShoppingCart = () => {
                     {step === "payment" && (
                         <Payment setStep={(step) => setStep(step)} />
                     )}
+                    {step === "receipt" && <Receipt />}
                 </div>
             </div>
         </>
