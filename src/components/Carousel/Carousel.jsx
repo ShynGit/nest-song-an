@@ -35,7 +35,7 @@ export const Carousel = ({ data }) => {
                 <SwiperSlide key={index}>
                     <Link
                         to={`/production/${item.id}`}
-                        onClick={window.scrollTo(0, 0)}
+                        onClick={() => window.scrollTo(0, 0)}
                     >
                         <img
                             src={item.listImages[0].imgPath}
@@ -56,7 +56,7 @@ export const Carousel = ({ data }) => {
                     >
                         <Link
                             to={`/production/${item.id}`}
-                            onClick={window.scrollTo(0, 0)}
+                            onClick={() => window.scrollTo(0, 0)}
                         >
                             <p className="text-white/90 h-12">{item.name}</p>
                         </Link>

@@ -59,7 +59,7 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
                             <div className="col-span-3">
                                 <Link
                                     to={`/production/${item.product.id}`}
-                                    onClick={window.scrollTo(0, 0)}
+                                    onClick={() => window.scrollTo(0, 0)}
                                 >
                                     <img
                                         src={item.product.listImages[0].imgPath}
@@ -70,7 +70,7 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
                             <div className="col-span-9 ml-6">
                                 <Link
                                     to={`/production/${item.product.id}`}
-                                    onClick={window.scrollTo(0, 0)}
+                                    onClick={() => window.scrollTo(0, 0)}
                                 >
                                     <div className="text-base uppercase font-bold text-left">
                                         {item.product.name}
