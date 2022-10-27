@@ -16,11 +16,20 @@ export const HorizontalProductDetail = ({
   deal,
   desc,
   status,
+  rerender,
+  setRerender,
+  successToastStatus,
+  setSuccessToastStatus,
 }) => {
   const theme = useTheme();
   const [proPrice, setProPrice] = useState(price);
   const [proName, setProName] = useState(name);
   const [proDesc, setProDesc] = useState(desc);
+
+  const handleRerender = () => {
+    setSuccessToastStatus(true);
+    setRerender(true);
+  };
 
   const handleNameChange = (e) => {
     setProName(e.target.value);
@@ -37,21 +46,27 @@ export const HorizontalProductDetail = ({
   const handleUpdate = () => {
     productApi
       .updateProductById(id, proName, proDesc, proPrice)
-      .then((res) => console.log(res))
+      .then((res) => {
+        handleRerender();
+      })
       .catch((err) => console.log(err));
   };
 
   const handleDelete = () => {
     productApi
       .deleteProductById(id)
-      .then((res) => console.log(res))
+      .then((res) => {
+        handleRerender();
+      })
       .catch((err) => console.log(err));
   };
 
   const handleReActive = () => {
     productApi
       .updateProductStatus(id, 1)
-      .then()
+      .then(() => {
+        handleRerender();
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -103,6 +118,7 @@ export const HorizontalProductDetail = ({
               variant="outlined"
               multiline
               fullWidth
+              sx={{ minHeight: "126px" }}
               maxRows={4}
               value={proDesc}
               onChange={handleDescChange}
