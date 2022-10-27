@@ -19,11 +19,18 @@ export const orderSlice = createSlice({
             state.loading = false;
             state.errorMessage = action.payload;
         },
+        ORDER_CLEAR: (state) => {
+            state.data = null;
+        },
     },
 });
 
-export const { ORDER_LOADING, ORDER_LOADING_SUCCESS, ORDER_LOADING_FAIL } =
-    orderSlice.actions;
+export const {
+    ORDER_LOADING,
+    ORDER_LOADING_SUCCESS,
+    ORDER_LOADING_FAIL,
+    ORDER_CLEAR,
+} = orderSlice.actions;
 
 export const selectOrder = (state) => state.order;
 

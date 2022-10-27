@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import UserIcon from "../../assets/icons/user.png";
+import { ORDER_CLEAR } from "../../features/order/orderSlice";
 import {
     selectUser,
     USER_LOGOUT_SUCCESS,
@@ -23,6 +24,7 @@ const UserDropDown = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("cart");
         await delay(500);
+        dispatch(ORDER_CLEAR());
         dispatch(USER_LOGOUT_SUCCESS());
         setLogoutSuccess(true);
         setTimeout(() => setLogoutSuccess(false), 2000);
@@ -86,7 +88,7 @@ const UserDropDown = () => {
                                 id="menu-item-0"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                Tài khoản
+                                Tài Khoản
                             </Link>
                             <Link
                                 to="/order"
@@ -96,7 +98,7 @@ const UserDropDown = () => {
                                 id="menu-item-1"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                Đơn mua
+                                Đơn Mua
                             </Link>
                             {user.token ? (
                                 <div
@@ -106,7 +108,7 @@ const UserDropDown = () => {
                                     id="menu-item-3"
                                     onClick={() => handleLogout()}
                                 >
-                                    Đăng xuất
+                                    Đăng Xuất
                                 </div>
                             ) : (
                                 <Link
@@ -116,7 +118,7 @@ const UserDropDown = () => {
                                     tabIndex={-1}
                                     id="menu-item-3"
                                 >
-                                    Đăng nhập
+                                    Đăng Nhập
                                 </Link>
                             )}
                         </div>
