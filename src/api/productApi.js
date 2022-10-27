@@ -47,6 +47,17 @@ export const productApi = {
         return adminAxios.post("/product/filter", data);
     },
 
+    // Add new product
+
+    addProductAPI: async(data) => {
+        try {
+            const res = await adminAxios.put("/product/add",data)
+            return res
+        } catch (error) {
+            throw error
+        }
+    },
+
     // Update product 
     updateProductById: async(proiId, proName, proDesc, proPrice ) => {
      

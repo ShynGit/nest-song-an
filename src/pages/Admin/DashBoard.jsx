@@ -3,19 +3,15 @@ import AdminLayout from "../../components/layout/AdminLayout";
 import { HorizontalProductDetail } from "../../components/Product/HorizontalProductDetail";
 import { productApi } from "../../api/productApi";
 import { Grid, Pagination } from "@mui/material";
+import { ToastSuccess } from "../../components/Toast";
 
 export const DashBoard = () => {
+  const [isRerender, setIsRerender] = useState(false);
   const [product, setProduct] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageCount, setPageCount] = useState(0);
-
+  const [pageCount, setPageCount] = useState(1);
+  const [successToastStatus, setSuccessToastStatus] = useState(false);
   useEffect(() => {
-    productApi
-      .getAllProductByPage(currentPage, 8)
-      .then((res) => setProduct(res))
-      .catch((err) => {
-        console.log(err);
-      });
     productApi
       .getCountAllProduct()
       .then((res) => setPageCount(res))
@@ -24,57 +20,41 @@ export const DashBoard = () => {
       });
 
     return () => {};
-  }, [currentPage]);
+  }, []);
+
+  useEffect(() => {
+    productApi
+      .getAllProductByPage(currentPage, 8)
+      .then((res) => setProduct(res))
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsRerender(false);
+      });
+  }, [currentPage, isRerender]);
 
   const handleChangePage = (e) => {
     setCurrentPage(e.target.textContent);
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout setRerender={setIsRerender}>
       <Grid container spacing={3}>
-        {/* <Grid item xs={12}>
-          <Grid container>
-            <Grid item xs={2}>
-              Hình ảnh
-            </Grid>
-            <Grid item xs={7}>
-              Tên và mô tả
-            </Grid>
-            <Grid
-              item
-              xs={1}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Giá Tiền
-            </Grid>
-            <Grid
-              item
-              xs={2}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Hành động
-            </Grid>
-          </Grid>
-        </Grid> */}
-        {product.map((item, index) => (
+        {product.map((item) => (
           <HorizontalProductDetail
             key={item.id}
             id={item.id}
             name={item.name}
-            image={item.listImages[0].imgPath}
+            image={item.listImages[0]?.imgPath}
             price={item.basePrice}
             deal={item.deal}
             desc={item.description}
             status={item.status}
+            rerender={isRerender}
+            setRerender={setIsRerender}
+            successToastStatus={successToastStatus}
+            setSuccessToastStatus={setSuccessToastStatus}
           />
         ))}
       </Grid>
@@ -86,10 +66,15 @@ export const DashBoard = () => {
           paddingTop: "40px",
           backgroundColor: "#d9eeef",
         }}
-        count={Math.round(pageCount / 8)}
+        count={Math.ceil(pageCount / 8)}
         color="primary"
         onChange={handleChangePage}
       />
+
+      <ToastSuccess
+        successToastStatus={successToastStatus}
+        setSuccessToastStatus={setSuccessToastStatus}
+      ></ToastSuccess>
     </AdminLayout>
   );
 };

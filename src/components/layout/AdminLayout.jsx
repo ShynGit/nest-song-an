@@ -18,14 +18,24 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useForm, Controller } from "react-hook-form";
+import { productApi } from "../../api/productApi";
+import { ToastPageChange } from "../Toast";
 
 const drawerWidth = 240;
 
@@ -95,10 +105,111 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ children, setRerender }) {
   const theme = useTheme();
+  const [cateList, setCateList] = useState([]);
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("User");
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await productApi.getCategory();
+        setCateList(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  const inputArray = useMemo(() => {
+    return [
+      {
+        name: "image",
+        label: "Hình ảnh",
+        type: "text",
+        values: "",
+        rules: { required: "Truong nay la bat buoc" },
+      },
+      {
+        name: "name",
+        label: "Tên",
+        values: "",
+        type: "text",
+        rules: { required: "Truong nay la bat buoc" },
+      },
+      {
+        name: "description",
+        label: "Mô tả",
+        values: "",
+        type: "text",
+        rules: { required: "Truong nay la bat buoc" },
+      },
+      {
+        name: "basePrice",
+        label: "Giá",
+        values: "",
+        type: "number",
+        rules: { required: "Truong nay la bat buoc" },
+      },
+      {
+        name: "quantity",
+        label: "Số lượng",
+        type: "number",
+        values: "",
+        rules: { required: "Truong nay la bat buoc" },
+      },
+      {
+        name: "cateId",
+        label: "Loại",
+        type: "select",
+        values: cateList,
+        rules: { required: "Truong nay la bat buoc" },
+      },
+      {
+        name: "deal",
+        label: "Khuyến mãi",
+        type: "number",
+        values: "",
+        rules: {
+          required: "Truong nay la bat buoc",
+          validate: (value) => {
+            const dealRule = +value >= 1 || +value < 0;
+            if (dealRule) {
+              return "Khuyến mãi phải < 1 và >= 0!";
+            }
+          },
+        },
+      },
+    ];
+  }, [cateList]);
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    const formData = {
+      ...data,
+      quantity: +data.quantity,
+      cateId: +data.cateId,
+      basePrice: +data.basePrice,
+      deal: +data.deal,
+    };
+    productApi
+      .addProductAPI(formData)
+      .then((res) => {
+        setRerender(true);
+      })
+      .then(() => {
+        handleClose();
+      })
+      .catch((err) => console.log(err));
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -110,13 +221,14 @@ export default function AdminLayout({ children }) {
 
   // Handle open form dialog
 
-  const [formOpen, setFormOpen] = React.useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
   const handleClickOpen = () => {
     setFormOpen(true);
   };
 
   const handleClose = () => {
+    reset();
     setFormOpen(false);
   };
 
@@ -226,85 +338,66 @@ export default function AdminLayout({ children }) {
         >
           Thêm Mới Sản Phẩm
         </DialogTitle>
-        <DialogContent sx={{ paddingX: "44px" }}>
-          <form action="">
-            <TextField
-              autoFocus
-              margin="dense"
-              id="image"
-              label="Hình ảnh"
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-            <TextField
-              margin="dense"
-              id="name"
-              label="Tên"
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-
-            <TextField
-              margin="dense"
-              id="desc"
-              label="Mô tả "
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-
-            <TextField
-              margin="dense"
-              id="price"
-              label="Giá "
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-
-            <TextField
-              margin="dense"
-              id="quantity"
-              label="Số lượng"
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-
-            <TextField
-              margin="dense"
-              id="category"
-              label="Loại"
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-
-            <TextField
-              margin="dense"
-              id="deal"
-              label="Khuyến mãi"
-              type="string"
-              fullWidth
-              variant="standard"
-            />
-          </form>
-        </DialogContent>
-        <DialogActions sx={{ paddingTop: "20px", paddingBottom: "32px" }}>
-          <Button onClick={handleClose} sx={{ width: "100px" }}>
-            Cancel
-          </Button>
-          <Button
-            onClick={handleClose}
-            sx={{ width: "140px", height: "40px", borderRadius: "500px" }}
-            variant={"contained"}
-          >
-            Thêm Mới
-          </Button>
-        </DialogActions>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <DialogContent sx={{ paddingX: "44px" }}>
+            {inputArray.map(({ label, name, rules, type, values }, index) => (
+              <Controller
+                key={index}
+                name={name}
+                control={control}
+                rules={rules}
+                render={({ field }) => {
+                  return type != "select" ? (
+                    <TextField
+                      {...field}
+                      margin="dense"
+                      label={label}
+                      fullWidth
+                      variant="standard"
+                      type={type}
+                      error={Boolean(errors[name])}
+                      helperText={errors[name]?.message}
+                    />
+                  ) : (
+                    <FormControl fullWidth variant="standard">
+                      <InputLabel id="demo-simple-select-label">
+                        {label}
+                      </InputLabel>
+                      <Select
+                        {...field}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label={label}
+                        error={Boolean(errors[name])}
+                        helperText={errors[name]?.message}
+                      >
+                        {values.map((category) => (
+                          <MenuItem value={category.id}>
+                            {category.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  );
+                }}
+              />
+            ))}
+          </DialogContent>
+          <DialogActions sx={{ paddingTop: "20px", paddingBottom: "32px" }}>
+            <Button onClick={handleClose} sx={{ width: "100px" }}>
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              sx={{ width: "140px", height: "40px", borderRadius: "500px" }}
+              variant={"contained"}
+            >
+              Thêm Mới
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
+      <ToastPageChange />
     </Box>
   );
 }
