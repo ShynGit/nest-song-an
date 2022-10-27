@@ -1,6 +1,16 @@
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from "@mui/material";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { billApi } from "../../api/billApi";
 import { Loading } from "../../components/Loading/Loading";
 import {
@@ -11,6 +21,8 @@ import {
 import { convertPriceToString } from "../../utils/serverUtils";
 
 export const Payment = ({ setStep }) => {
+    const [alert, setAlert] = useState(false);
+    const navigate = useNavigate();
     const cart = useSelector(selectCart);
     const dispatch = useDispatch();
     const handlePay = () => {
@@ -21,11 +33,36 @@ export const Payment = ({ setStep }) => {
             setStep("receipt");
             console.log(response);
         };
-        pay();
+        if (cart.cart.listBillDetails.length !== 0) pay();
+        else setAlert(true);
     };
 
     return (
         <>
+            {alert && (
+                <Dialog open={alert} onClose={() => setAlert(false)}>
+                    <DialogTitle id="alert-dialog-title">
+                        {"GIỎ HÀNG TRỐNG"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Không thể thanh toán khi giỏ hàng trống. Xin thử
+                            lại!
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={() =>
+                                setAlert(false, navigate("/production"))
+                            }
+                            autoFocus
+                        >
+                            Sản phẩm
+                        </Button>
+                        <Button onClick={() => setAlert(false)}>Đóng</Button>
+                    </DialogActions>
+                </Dialog>
+            )}
             {cart.loading ? (
                 <Loading />
             ) : (
