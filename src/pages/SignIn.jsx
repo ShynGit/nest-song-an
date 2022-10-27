@@ -40,7 +40,9 @@ export const SignIn = () => {
 
     // Navigate to home page and prevent going to login page after login
     useEffect(() => {
-        if (user.token) navigate("/");
+        if (user.token && user.userInfor.role === "CUSTOMER") navigate("/");
+        if (user.token && user.userInfor.role === "ADMIN")
+            navigate("/dashboard");
     }, [user.token]);
 
     return (

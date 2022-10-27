@@ -18,9 +18,20 @@ import { DashBoard } from "./pages/Admin/DashBoard";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./assets/theme";
 import { Order } from "./pages/Order/Order";
+import { ToastPageChange } from "./components/Toast";
+import { useState } from "react";
 
 export const App = () => {
+    const [name, setName] = useState("Bán hàng");
+    const [url, setUrl] = useState("/");
     const user = useSelector(selectUser);
+    const handleSwitch = () => {
+        if (url === "/") {
+            setName("Quản trị", setUrl("/dashboard"));
+        } else {
+            setName("Bán hàng", setUrl("/"));
+        }
+    };
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
@@ -52,6 +63,13 @@ export const App = () => {
                         <Route path="/order" element={<Order />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
+                )}
+                {user.userInfor?.role === "ADMIN" && (
+                    <ToastPageChange
+                        url={url}
+                        name={name}
+                        onClick={() => handleSwitch()}
+                    />
                 )}
             </BrowserRouter>
         </ThemeProvider>

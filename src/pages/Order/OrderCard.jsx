@@ -52,6 +52,11 @@ export const OrderCard = ({ card }) => {
         { color: "text-red-600", title: "Đã hủy" },
     ];
 
+    const paymentStatus = {
+        "Chưa Thanh Toán": "text-red-600",
+        "Đã Thanh Toán": "text-sky-600",
+    };
+
     return (
         <div className="my-9 border p-3 rounded-md shadow-lg bg-white">
             <div className="flex justify-between p-5 px-2 text-xl">
@@ -154,10 +159,10 @@ export const OrderCard = ({ card }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="text-right px-6 py-4 text-lg font-medium">
-                Tổng:{" "}
+            <div className="text-right px-6 py-4 pb-2 text-lg font-medium">
+                Tổng:
                 <span
-                    className="text-green-600 font-semibold"
+                    className="text-green-600 font-semibold ml-4"
                     style={{
                         textShadow:
                             "0px 1px 2px rgb(198, 245, 218, 0.8), 1px 2px 4px rgb(198, 245, 218, 0.8)",
@@ -165,6 +170,13 @@ export const OrderCard = ({ card }) => {
                 >
                     {convertPriceToString(card.totalPrice)} VNĐ
                 </span>
+            </div>
+            <div
+                className={`${
+                    paymentStatus[card.paymentStatusCode]
+                } text-right px-6 pb-4 text-xl font-semibold`}
+            >
+                {card.paymentStatusCode}
             </div>
         </div>
     );
