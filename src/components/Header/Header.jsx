@@ -1,13 +1,40 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUser } from "../../features/user/userSlice";
 import UserDropDown from "../UserDropDown/UserDropDown";
 import { HeaderBottom } from "./HeaderBottom";
 import logo from "./../../assets/icons/SongAnLogo.png";
+import {
+    CART_LOADING_FAIL,
+    CART_LOADING_REQUEST,
+    CART_LOADING_SUCCESS,
+    selectCart,
+} from "../../features/cart/cartSlice";
+import { Badge } from "@mui/material";
+import { billApi } from "../../api/billApi";
+import { getErrorMessageFromServer } from "../../utils/serverUtils";
 
 const Header = () => {
+    const cart = useSelector(selectCart);
+    const dispatch = useDispatch();
     const user = useSelector(selectUser);
+
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                dispatch(CART_LOADING_REQUEST());
+                const response = await billApi.getCart(user.userInfor.id);
+                localStorage.setItem("cart", response[0]);
+                dispatch(CART_LOADING_SUCCESS(response[0]));
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+                dispatch(CART_LOADING_FAIL(errorMessage));
+            }
+        };
+        fetchCart();
+    }, [user.token]);
+
     return (
         <div className="fixed w-full z-10">
             <div className="flex justify-between bg-[#000000CC]/75 text-white my-0">
@@ -54,25 +81,30 @@ const Header = () => {
                         </div>
                     </form>
                 </div>
-                <div className="md:mr-[7%] flex items-center">
+                <div className="md:mr-[7%] flex items-center relative">
                     <UserDropDown />
                     <Link to="/shopping-cart">
-                        <img
-                            src="https://yensaokhanhhoa.vn/wp-content/themes/lifenestvietnam/images/icons/shopping-cart.svg"
-                            className="w-[2.1rem] px-1 ml-1 hover:cursor-pointer"
-                            style={{ filter: "brightness(0) invert(1)" }}
-                            onClick={() => window.scrollTo(0, 0)}
-                        />
+                        <Badge
+                            badgeContent={cart.cart.listBillDetails?.length}
+                            color="secondary"
+                        >
+                            <img
+                                src="https://yensaokhanhhoa.vn/wp-content/themes/lifenestvietnam/images/icons/shopping-cart.svg"
+                                className="w-[2.1rem] px-1 ml-1 hover:cursor-pointer"
+                                style={{ filter: "brightness(0) invert(1)" }}
+                                onClick={() => window.scrollTo(0, 0)}
+                            />
+                        </Badge>
                     </Link>
                     {user.token && (
-                        <div className="text-xs ml-3">
+                        <div className="text-xs ml-5">
                             <div>Xin chào,</div>
                             <Link
                                 className="hover:underline"
                                 to="/user"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                {user.userInfor.fullname}
+                                {user.userInfor?.fullname}
                             </Link>
                         </div>
                     )}

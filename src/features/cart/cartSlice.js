@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    cart: {},
+    cart: { listBillDetails: [] },
+    shipInfor: {},
 };
 
 export const cartSlice = createSlice({
@@ -17,17 +18,25 @@ export const cartSlice = createSlice({
         },
         CART_LOADING_FAIL: (state, action) => {
             state.cartErrorMessage = action.payload;
-            state.cart = {};
+            state.cart = { listBillDetails: [] };
             state.loading = false;
         },
         CART_TOTAL_UPDATE: (state, action) => {
             state.totalPrice = action.payload;
         },
-        CART_ADDING_SUCCESS: (state) => {
+        CART_ADDING_SUCCESS: (state, action) => {
             state.loading = false;
+            state.cart.listBillDetails = action.payload;
         },
         CART_UPDATING_SUCCESS: (state, action) => {
             state.cart.listBillDetails = action.payload;
+            state.loading = false;
+        },
+        CART_ADDING_INFORMATION: (state, action) => {
+            state.shipInfor = action.payload;
+        },
+        CART_PAYING_SUCCESS: (state) => {
+            state.cart = { listBillDetails: [] };
             state.loading = false;
         },
     },
@@ -41,6 +50,8 @@ export const {
     CART_TOTAL_UPDATE,
     CART_ADDING_SUCCESS,
     CART_UPDATING_SUCCESS,
+    CART_ADDING_INFORMATION,
+    CART_PAYING_SUCCESS,
 } = cartSlice.actions;
 
 export const selectCart = (state) => state.cart;

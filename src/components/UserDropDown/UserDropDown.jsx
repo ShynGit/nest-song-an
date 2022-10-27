@@ -1,16 +1,15 @@
 import { Slide } from "@mui/material";
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import UserIcon from "../../assets/icons/user.png";
+import { ORDER_CLEAR } from "../../features/order/orderSlice";
 import {
     selectUser,
-    USER_CLEAR,
-    USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
+    USER_REQUEST,
 } from "../../features/user/userSlice";
 
 const UserDropDown = () => {
@@ -21,10 +20,11 @@ const UserDropDown = () => {
 
     const handleLogout = async () => {
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-        dispatch(USER_LOGOUT_REQUEST());
+        dispatch(USER_REQUEST());
         localStorage.removeItem("token");
         localStorage.removeItem("cart");
         await delay(500);
+        dispatch(ORDER_CLEAR());
         dispatch(USER_LOGOUT_SUCCESS());
         setLogoutSuccess(true);
         setTimeout(() => setLogoutSuccess(false), 2000);
@@ -88,17 +88,18 @@ const UserDropDown = () => {
                                 id="menu-item-0"
                                 onClick={() => window.scrollTo(0, 0)}
                             >
-                                Tài khoản
+                                Tài Khoản
                             </Link>
-                            <a
-                                href="#"
+                            <Link
+                                to="/order"
                                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-200"
                                 role="menuitem"
                                 tabIndex={-1}
                                 id="menu-item-1"
+                                onClick={() => window.scrollTo(0, 0)}
                             >
-                                Đơn mua
-                            </a>
+                                Đơn Mua
+                            </Link>
                             {user.token ? (
                                 <div
                                     className="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-200"
@@ -107,7 +108,7 @@ const UserDropDown = () => {
                                     id="menu-item-3"
                                     onClick={() => handleLogout()}
                                 >
-                                    Đăng xuất
+                                    Đăng Xuất
                                 </div>
                             ) : (
                                 <Link
@@ -117,7 +118,7 @@ const UserDropDown = () => {
                                     tabIndex={-1}
                                     id="menu-item-3"
                                 >
-                                    Đăng nhập
+                                    Đăng Nhập
                                 </Link>
                             )}
                         </div>

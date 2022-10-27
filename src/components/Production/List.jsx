@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Alert, Slide } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
-import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { billApi } from "../../api/billApi";
@@ -115,7 +114,7 @@ export const List = ({ inProductPage, category }) => {
                     <div className="mb-6 shadow-md" key={index}>
                       <Link
                         to={`/production/${card.id}`}
-                        onClick={window.scrollTo(0, 0)}
+                        onClick={() => window.scrollTo(0, 0)}
                       >
                         <img
                           src={card.listImages[0].imgPath}
@@ -126,7 +125,7 @@ export const List = ({ inProductPage, category }) => {
                       <div className="pt-4 p-1 flex flex-col gap-1.5 text-sm m-4 mt-0">
                         <Link
                           to={`/production/${card.id}`}
-                          onClick={window.scrollTo(0, 0)}
+                          onClick={() => window.scrollTo(0, 0)}
                         >
                           <h1 className="uppercase font-bold font-verda h-10">
                             {card.name}

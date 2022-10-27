@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { green, purple } from "@mui/material/colors";
 
 export const theme = createTheme({
     palette: {
@@ -23,6 +22,9 @@ export const theme = createTheme({
         },
         alert: {
             main: "#9cfffd",
+        },
+        regal: {
+            main: "#00ADB5",
         },
     },
 });

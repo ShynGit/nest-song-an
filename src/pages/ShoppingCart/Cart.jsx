@@ -25,6 +25,8 @@ export const Cart = ({ setStep }) => {
     const token = localStorage.getItem("token");
     let totalPrice = 0;
 
+    console.log(cart.cart);
+
     useEffect(() => {
         const fetchCart = async () => {
             try {
@@ -92,17 +94,16 @@ export const Cart = ({ setStep }) => {
                             <li className="col-span-2">giá</li>
                             <li className="invisible col-span-1">delete</li>
                         </ul>
-                        {Object.keys(cart.cart).length === 0 ? (
+                        {cart.cart.listBillDetails?.length === 0 ? (
                             <div className="font-medium text-zinc-500 text-xl mt-10 text-center w-full">
                                 Giỏ hàng trống
                             </div>
                         ) : (
-                            cart.cart.listBillDetails.map((item, index) => {
+                            cart.cart.listBillDetails?.map((item, index) => {
                                 totalPrice += item.price;
                                 return (
                                     <div className="" key={index}>
-                                        {item.id === cart.laoadingId &&
-                                        cart.loading ? (
+                                        {cart.loading ? (
                                             <Skeleton />
                                         ) : (
                                             <CartItem

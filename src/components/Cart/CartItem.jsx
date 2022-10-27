@@ -57,7 +57,10 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
           <ul className="grid grid-cols-12 grid-flow-row-dense text-center text-base font-normal text-zinc-500 items-center">
             <li className="col-span-5 grid grid-cols-12 justify-self-start items-center">
               <div className="col-span-3">
-                <Link to={`/production/${item.product.id}`}>
+                <Link
+                  to={`/production/${item.product.id}`}
+                  onClick={() => window.scrollTo(0, 0)}
+                >
                   <img
                     src={item.product.listImages[0].imgPath}
                     className="aspect-square rounded-xs"
@@ -65,7 +68,10 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
                 </Link>
               </div>
               <div className="col-span-9 ml-6">
-                <Link to={`/production/${item.product.id}`}>
+                <Link
+                  to={`/production/${item.product.id}`}
+                  onClick={() => window.scrollTo(0, 0)}
+                >
                   <div className="text-base uppercase font-bold text-left">
                     {item.product.name}
                   </div>

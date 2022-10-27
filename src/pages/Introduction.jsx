@@ -8,11 +8,11 @@ export const Introduction = () => {
                     backgroundImage: `url(${background})`,
                 }}
             >
-                <h1 className="mr-56 font-cur text-7xl text-[#295F2D]">
+                <h1 className="mr-44 font-cur text-7xl text-[#295F2D]">
                     Yến sào Song Ân
                 </h1>
 
-                <p className="mr-56 font-sans pl-[49rem] text-black font-[600] text-[18px]">
+                <p className="mr-44 font-sans pl-[49rem] text-black font-[600] text-[17px]">
                     Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến Sào chất
                     lượng nhất cho người Việt
                 </p>

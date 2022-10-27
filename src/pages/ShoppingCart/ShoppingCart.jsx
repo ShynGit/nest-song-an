@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { selectUser } from "../../features/user/userSlice";
 import { Cart } from "./Cart";
 import { Delivery } from "./Delivery";
 import { Payment } from "./Payment";
+import { Receipt } from "./Receipt";
 
 export const ShoppingCart = () => {
     const [step, setStep] = useState("cart");
+    const user = useSelector(selectUser);
+    const navigate = useNavigate();
+    const firstRender = useRef(true);
+    useEffect(() => {
+        if (!user.token) navigate("/sign-in");
+    }, []);
     // console.log(step);
     return (
         <>
@@ -54,11 +64,15 @@ export const ShoppingCart = () => {
                         <Cart setStep={(step) => setStep(step)} />
                     )}
                     {step === "delivery" && (
-                        <Delivery setStep={(step) => setStep(step)} />
+                        <Delivery
+                            setStep={(step) => setStep(step)}
+                            firstRender={firstRender}
+                        />
                     )}
                     {step === "payment" && (
                         <Payment setStep={(step) => setStep(step)} />
                     )}
+                    {step === "receipt" && <Receipt />}
                 </div>
             </div>
         </>

@@ -12,6 +12,9 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
+        USER_REQUEST: (state) => {
+            state.loading = true;
+        },
         USER_LOGIN_REQUEST: (state) => {
             state.token = getTokenDataFromLocalStorage();
             state.loading = true;
@@ -32,9 +35,6 @@ export const userSlice = createSlice({
             state.loginErrorMessage = action.payload;
             state.loading = false;
         },
-        USER_LOGOUT_REQUEST: (state) => {
-            state.loading = true;
-        },
         USER_LOGOUT_SUCCESS: (state) => {
             state.token = null;
             state.userInfor = null;
@@ -49,10 +49,10 @@ export const userSlice = createSlice({
 });
 
 export const {
+    USER_REQUEST,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAIL,
     USER_LOGIN_REQUEST,
-    USER_LOGOUT_REQUEST,
     USER_LOGOUT_SUCCESS,
     USER_CLEAR,
 } = userSlice.actions;
