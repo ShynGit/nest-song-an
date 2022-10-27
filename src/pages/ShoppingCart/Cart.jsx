@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../../components/Loading/Loading";
 import {
@@ -17,8 +17,19 @@ import {
 } from "../../utils/serverUtils";
 import { CartItem } from "../../components/Cart/CartItem";
 import { Skeleton } from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export const Cart = ({ setStep }) => {
+    const [alert, setAlert] = useState(false);
+    const navigate = useNavigate();
     const cart = useSelector(selectCart);
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
@@ -80,6 +91,30 @@ export const Cart = ({ setStep }) => {
     };
     return (
         <>
+            {alert && (
+                <Dialog open={alert} onClose={() => setAlert(false)}>
+                    <DialogTitle id="alert-dialog-title">
+                        {"GIỎ HÀNG TRỐNG"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Không thể thanh toán khi giỏ hàng trống. Xin thử
+                            lại!
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={() =>
+                                setAlert(false, navigate("/production"))
+                            }
+                            autoFocus
+                        >
+                            Sản phẩm
+                        </Button>
+                        <Button onClick={() => setAlert(false)}>Đóng</Button>
+                    </DialogActions>
+                </Dialog>
+            )}
             {cart.loading ? (
                 <Loading />
             ) : (
@@ -133,8 +168,12 @@ export const Cart = ({ setStep }) => {
                             <div
                                 className="my-10 px-10 py-2.5 text-center bg-[#00ADB5] text-white shadow-md cursor-pointer rounded-full"
                                 onClick={() => {
-                                    dispatch(CART_TOTAL_UPDATE(totalPrice));
-                                    setStep("delivery");
+                                    if (cart.cart.listBillDetails.length === 0)
+                                        setAlert(true);
+                                    else {
+                                        dispatch(CART_TOTAL_UPDATE(totalPrice));
+                                        setStep("delivery");
+                                    }
                                 }}
                             >
                                 Mua hàng

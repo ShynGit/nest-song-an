@@ -10,6 +10,7 @@ export const billApi = {
         return adminAxios.get(`bill/customer-id/${userId}`);
     },
     payment: (data) => {
+        console.log(data);
         return adminAxios.post("/cart/buy/customer", data);
     },
     addToCart: (userId, product, quantity) => {

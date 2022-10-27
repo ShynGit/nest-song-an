@@ -1,68 +1,58 @@
 import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-} from "@mui/material";
-import { useState } from "react";
+import { InputLabel, MenuItem, Select } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { billApi } from "../../api/billApi";
+import { paymentApi } from "../../api/paymentApi";
 import { Loading } from "../../components/Loading/Loading";
 import {
     CART_LOADING_REQUEST,
     CART_PAYING_SUCCESS,
     selectCart,
 } from "../../features/cart/cartSlice";
-import { convertPriceToString } from "../../utils/serverUtils";
+import {
+    convertPriceToString,
+    getErrorMessageFromServer,
+} from "../../utils/serverUtils";
 
 export const Payment = ({ setStep }) => {
-    const [alert, setAlert] = useState(false);
-    const navigate = useNavigate();
+    const [paymentList, setPaymentList] = useState([]);
+    const [method, setMethod] = useState(1);
     const cart = useSelector(selectCart);
     const dispatch = useDispatch();
     const handlePay = () => {
         const pay = async () => {
             dispatch(CART_LOADING_REQUEST());
-            const response = await billApi.payment(cart.shipInfor);
+            const response = await billApi.payment({
+                ...cart.shipInfor,
+                paymentStatusCodeId: method,
+            });
             dispatch(CART_PAYING_SUCCESS());
             setStep("receipt");
             console.log(response);
         };
-        if (cart.cart.listBillDetails.length !== 0) pay();
-        else setAlert(true);
+        pay();
+    };
+    useEffect(() => {
+        const FetchPaymentList = async () => {
+            try {
+                const response = await paymentApi.getStatus();
+                setPaymentList(response);
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+                // dispatch(ORDER_LOADING_FAIL(errorMessage));
+            }
+        };
+        FetchPaymentList();
+    }, []);
+
+    const handleChange = (event) => {
+        setMethod(event.target.value);
     };
 
     return (
         <>
-            {alert && (
-                <Dialog open={alert} onClose={() => setAlert(false)}>
-                    <DialogTitle id="alert-dialog-title">
-                        {"GIỎ HÀNG TRỐNG"}
-                    </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Không thể thanh toán khi giỏ hàng trống. Xin thử
-                            lại!
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            onClick={() =>
-                                setAlert(false, navigate("/production"))
-                            }
-                            autoFocus
-                        >
-                            Sản phẩm
-                        </Button>
-                        <Button onClick={() => setAlert(false)}>Đóng</Button>
-                    </DialogActions>
-                </Dialog>
-            )}
             {cart.loading ? (
                 <Loading />
             ) : (
@@ -86,13 +76,17 @@ export const Payment = ({ setStep }) => {
                             {convertPriceToString(cart.totalPrice)} &#8363;
                         </span>
                     </div>
-                    <div className="border-2 flex gap-2 mt-2 mb-4 p-2 w-fit mr-0 ml-auto">
+                    <div className="border-2 flex gap-2 mt-2 mb-4 p-2 w-fit mr-0 ml-auto items-center">
                         <p className="px-5 font-semibold">
                             Phương thức thanh toán
                         </p>
-                        <button className="px-5 border-l-2 text-emerald-500">
-                            Tiền mặt
-                        </button>
+                        <Select
+                            className="h-10 px-2 border-l-2 text-emerald-500"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={1}>Tiền mặt</MenuItem>
+                            <MenuItem value={2}>Paypal</MenuItem>
+                        </Select>
                     </div>
                     <div className="flex justify-between pb-16">
                         <div
