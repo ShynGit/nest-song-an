@@ -37,7 +37,7 @@ export const New = () => {
                 <Loading />
             ) : (
                 <div className="pt-16">
-                    <div className="p-16 px-32">
+                    <div className="p-20 px-32 min-h-[85vh]">
                         <h1 className="font-semibold md:text-3xl text-md md:mb-16 mb-5">
                             Tin tức
                         </h1>

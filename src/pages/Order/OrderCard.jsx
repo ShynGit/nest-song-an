@@ -57,11 +57,16 @@ export const OrderCard = ({ card }) => {
         "Đã Thanh Toán": "text-sky-600",
     };
 
+    var d = new Date(card.date);
+
     return (
         <div className="my-9 border p-3 rounded-md shadow-lg bg-white">
             <div className="flex justify-between p-5 px-2 text-xl">
                 <div className="font-medium text-gray-500">
                     Giao hàng tới {card.address}, SĐT: {card.phoneNumber}
+                </div>
+                <div className="font-medium text-gray-500">
+                    Ngày đặt hàng: {d.toLocaleString()}
                 </div>
                 <div className={`${status[card.status].color} font-semibold`}>
                     {status[card.status].title}

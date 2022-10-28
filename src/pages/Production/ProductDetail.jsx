@@ -83,8 +83,8 @@ export const ProductDetail = () => {
             ) : products.productErrorMessage === 404 ? (
                 navigate("*")
             ) : (
-                <div className="bg-gray-100 absolute h-auto">
-                    <div className="flex bg-white p-10 m-20 mb-6 relative">
+                <div className="bg-gray-100 p-24 h-auto">
+                    <div className="flex bg-white p-20 relative">
                         <Slide direction="up" in={alert}>
                             <Alert
                                 severity="success"
@@ -102,7 +102,7 @@ export const ProductDetail = () => {
                             <img
                                 src={productImage}
                                 alt={product.name}
-                                className="w-full h-[28rem] shadow-lg shadow-gray-400"
+                                className="w-full h-[32rem] shadow-lg shadow-gray-400"
                             />
                             <div className="flex justify-center gap-4 mt-4">
                                 {Object.keys(product).length === 0

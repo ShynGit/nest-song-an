@@ -24,7 +24,6 @@ export const Order = () => {
             try {
                 dispatch(ORDER_LOADING());
                 const response = await billApi.getOrder(user.userInfor.id);
-                console.log(response);
                 dispatch(ORDER_LOADING_SUCCESS(response));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
@@ -55,7 +54,7 @@ export const Order = () => {
                     <div className="mt-4">Bạn không có đơn hàng nào</div>
                 </div>
             ) : (
-                <div className="p-20 bg-gray-100">
+                <div className="p-20 bg-gray-100 min-h-[85vh]">
                     <div className="text-center text-4xl font-bold mt-10">
                         Đơn hàng đã mua
                     </div>

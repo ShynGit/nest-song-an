@@ -36,8 +36,6 @@ export const Cart = ({ setStep }) => {
     const token = localStorage.getItem("token");
     let totalPrice = 0;
 
-    console.log(cart.cart);
-
     useEffect(() => {
         const fetchCart = async () => {
             try {
@@ -51,7 +49,7 @@ export const Cart = ({ setStep }) => {
             }
         };
         fetchCart();
-    }, [token]);
+    }, []);
 
     const handleChangeAmount = async (
         id,

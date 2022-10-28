@@ -22,6 +22,7 @@ export const billApi = {
     },
     updateQuantity: (userId, id, quantity, billId) => {
         const data = { id: id, quantity: quantity, billId: billId };
+        console.log("render");
         return adminAxios.put(
             `/cart/update/cart-line-items/user/${userId}`,
             data

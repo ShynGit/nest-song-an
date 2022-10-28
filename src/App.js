@@ -20,6 +20,8 @@ import { theme } from "./assets/theme";
 import { Order } from "./pages/Order/Order";
 import { ToastPageChange } from "./components/Toast";
 import { useState } from "react";
+import { Footer } from "./components/Footer/Footer";
+import { ChatBox } from "./components/Messenger/ChatBox";
 
 export const App = () => {
     const [name, setName] = useState("Bán hàng");
@@ -42,8 +44,7 @@ export const App = () => {
                     <Routes>
                         <Route path="/dashboard" element={<DashBoard />} />
                         <Route path="/" element={<Home />} />
-                        <Route path="/sign-in" element={<SignIn />} />
-                        <Route path="/sign-up" element={<SignUp />} />
+
                         <Route
                             path="/introduction"
                             element={<Introduction />}
@@ -62,6 +63,9 @@ export const App = () => {
                         <Route path="/new/:id" element={<NewDetail />} />
                         <Route path="/order" element={<Order />} />
                         <Route path="*" element={<NotFound />} />
+
+                        <Route path="/sign-in" element={<SignIn />} />
+                        <Route path="/sign-up" element={<SignUp />} />
                     </Routes>
                 )}
                 {user.userInfor?.role === "ADMIN" && (
@@ -71,6 +75,8 @@ export const App = () => {
                         onClick={() => handleSwitch()}
                     />
                 )}
+                {user.userInfor?.role === "CUSTOMER" && <ChatBox />}
+                {/* <Footer /> */}
             </BrowserRouter>
         </ThemeProvider>
     );

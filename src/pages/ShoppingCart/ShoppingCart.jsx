@@ -18,8 +18,8 @@ export const ShoppingCart = () => {
     // console.log(step);
     return (
         <>
-            <div className="bg-gray-100 absolute w-full">
-                <div className="bg-white shadow-lg shadow-gray-200 m-24">
+            <div className="bg-gray-100 min-h-[85vh] w-full p-24">
+                <div className="bg-white shadow-lg shadow-gray-200 ">
                     <div className="py-10">
                         <div className="flex justify-between w-9/12 text-[10px] font-semibold font-verda uppercase border-2 rounded-full text-center text-black m-auto">
                             <div

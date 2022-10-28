@@ -30,7 +30,7 @@ export const UserProfile = () => {
     }, []);
 
     return (
-        <div className="bg-gray-100 w-full h-screen p-32 pb-20 flex justify-center">
+        <div className="bg-gray-100 w-full h-[85vh] p-32 px-44 pb-20 flex justify-center">
             <div className="shadow-lg w-9/12 h-full bg-white flex">
                 <div className="w-4/12 border-r-2 h-full border-gray-200">
                     <div className="p-16 pt-24 pb-3">
@@ -43,7 +43,7 @@ export const UserProfile = () => {
                         {userInfor.fullname}
                     </div>
 
-                    <div className="px-12 mt-8">
+                    <div className="px-20 mt-8">
                         <div className="py-2">
                             <div className="flex items-center gap-2">
                                 <svg
@@ -141,7 +141,7 @@ export const UserProfile = () => {
                             <div className="text-gray-600 mt-1">
                                 <Input type="text" label="Địa chỉ" />
                             </div>
-                            <button className="w-fit mt-1 bg-[#00ADB5] text-white py-2 px-8 rounded-full text-sm m-auto col-span-2">
+                            <button className="w-fit mt-3 bg-[#00ADB5] text-white py-2 px-8 rounded-full text-sm m-auto col-span-2">
                                 Lưu
                             </button>
                         </div>

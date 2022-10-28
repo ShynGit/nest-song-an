@@ -14,6 +14,7 @@ import { getErrorMessageFromServer } from "../utils/serverUtils";
 import { useEffect } from "react";
 import { Loading } from "../components/Loading/Loading";
 import "../components/Input/style.css";
+import jwt_decode from "jwt-decode";
 
 export const SignIn = () => {
     const user = useSelector(selectUser);
@@ -26,7 +27,6 @@ export const SignIn = () => {
         const fetchUser = async () => {
             try {
                 dispatch(USER_LOGIN_REQUEST());
-
                 const response = await userApi.login(input);
                 localStorage.setItem("token", JSON.stringify(response));
                 dispatch(USER_LOGIN_SUCCESS(response));
@@ -38,6 +38,10 @@ export const SignIn = () => {
         fetchUser();
     };
 
+    const loginViaGoogle = async (token) => {
+        console.log(jwt_decode(token));
+    };
+
     // Navigate to home page and prevent going to login page after login
     useEffect(() => {
         if (user.token && user.userInfor.role === "CUSTOMER") navigate("/");
@@ -45,8 +49,10 @@ export const SignIn = () => {
             navigate("/dashboard");
     }, [user.token]);
 
+    useEffect(() => window.scroll(0, 0), []);
+
     return (
-        <section className="h-screen">
+        <section className="h-[100vh]">
             <div
                 className="h-full w-full text-gray-800 bg-fixed bg-gray-100/40"
                 style={{
@@ -142,13 +148,15 @@ export const SignIn = () => {
                                             <GoogleLogin
                                                 onSuccess={(
                                                     credentialResponse
-                                                ) => {
-                                                    console.log(
-                                                        credentialResponse
-                                                    );
-                                                }}
+                                                ) =>
+                                                    loginViaGoogle(
+                                                        credentialResponse.credential
+                                                    )
+                                                }
                                                 onError={() => {
-                                                    console.log("Login Failed");
+                                                    dispatch(
+                                                        USER_LOGIN_FAIL("")
+                                                    );
                                                 }}
                                                 useOneTap
                                             />
