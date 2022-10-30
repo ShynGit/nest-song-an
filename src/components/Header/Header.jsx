@@ -15,7 +15,10 @@ import { Badge } from "@mui/material";
 import { billApi } from "../../api/billApi";
 import { getErrorMessageFromServer } from "../../utils/serverUtils";
 import { useForm } from "react-hook-form";
-import { FILTER_ADD_SEARCH } from "../../features/production/filterSlice";
+import {
+    FILTER_ADD_SEARCH,
+    FILTER_CLEAR_SEARCH,
+} from "../../features/production/filterSlice";
 
 const Header = () => {
     const cart = useSelector(selectCart);
@@ -52,6 +55,7 @@ const Header = () => {
 
     const onSubmit = () => {
         dispatch(FILTER_ADD_SEARCH(search));
+        setSearch("");
         navigate(`/production`);
     };
 

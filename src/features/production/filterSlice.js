@@ -23,7 +23,10 @@ export const filterSlice = createSlice({
             state.highPrice = action.payload[1] * 1000;
         },
         FILTER_ADD_SEARCH: (state, action) => {
-            state.search = action.payload;
+            state.search = action.payload.toLowerCase();
+        },
+        FILTER_CLEAR_SEARCH: (state) => {
+            state.search = "";
         },
     },
 });
@@ -33,6 +36,7 @@ export const {
     FILTER_REMOVE_NAME,
     FILTER_ADD_RANGE_PRICE,
     FILTER_ADD_SEARCH,
+    FILTER_CLEAR_SEARCH,
 } = filterSlice.actions;
 
 export const selectFilter = (state) => state.filter;

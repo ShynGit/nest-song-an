@@ -118,7 +118,7 @@ export const Cart = ({ setStep }) => {
             ) : (
                 <div className="mt-10">
                     <div className="w-9/12 m-auto">
-                        <ul className="grid grid-cols-12 grid-flow-row-dense text-center uppercase font-bold text-xs text-zinc-500 border-b-2 pb-1">
+                        <ul className="grid grid-cols-12 grid-flow-row-dense text-center uppercase font-bold text-base text-zinc-500 border-b-2 pb-1">
                             <li className="col-span-5 justify-self-start">
                                 Sản phẩm
                             </li>
@@ -128,7 +128,7 @@ export const Cart = ({ setStep }) => {
                             <li className="invisible col-span-1">delete</li>
                         </ul>
                         {cart.cart.listBillDetails?.length === 0 ? (
-                            <div className="font-medium text-zinc-500 text-xl mt-10 text-center w-full">
+                            <div className="font-medium text-zinc-500 text-2xl mt-10 text-center w-full">
                                 Giỏ hàng trống
                             </div>
                         ) : (
@@ -164,7 +164,7 @@ export const Cart = ({ setStep }) => {
                                 </span>
                             </div>
                             <div
-                                className="my-10 px-10 py-2.5 text-center bg-[#00ADB5] text-white shadow-md cursor-pointer rounded-full"
+                                className="my-10 px-10 py-2.5 text-center bg-[#00ADB5] text-white shadow-md cursor-pointer rounded-full text-lg"
                                 onClick={() => {
                                     if (cart.cart.listBillDetails.length === 0)
                                         setAlert(true);

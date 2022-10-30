@@ -31,7 +31,7 @@ export const Order = () => {
             }
         };
         if (user.token) FetchOrder();
-        else navigate("/sign-in");
+        else navigate("/sign-in", { state: { alertNotLogin: true } });
     }, [user]);
 
     return (

@@ -15,7 +15,10 @@ import {
     CART_LOADING_FAIL,
     CART_LOADING_REQUEST,
 } from "../../features/cart/cartSlice";
-import { selectFilter } from "../../features/production/filterSlice";
+import {
+    FILTER_CLEAR_SEARCH,
+    selectFilter,
+} from "../../features/production/filterSlice";
 import {
     PRODUCT_LOADING_FAIL,
     PRODUCT_LOADING_BY_PAGE_SUCCESS,
@@ -42,20 +45,28 @@ export const List = ({ inProductPage, category }) => {
     const [alertCart, setAlertCart] = useState(false);
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
+
     const filter = useSelector(selectFilter);
+    let { search, ...filterList } = filter;
+    filterList.name = [...filter.name, search];
+
     const products = useSelector(selectProduct);
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
     const [alert, setAlert] = useState(false);
 
-    // console.log(filter);
+    // console.log(filterList);
+    useEffect(() => {
+        window.scroll(0, 0);
+        dispatch(FILTER_CLEAR_SEARCH());
+    }, []);
+
+    console.log(filterList);
 
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 dispatch(PRODUCT_LOADING_REQUEST());
-                let { search, ...filterList } = filter;
-                filterList.name = [...filter.name, search];
                 const response = await productApi.getProductByFilter(
                     filterList
                 );
