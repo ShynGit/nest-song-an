@@ -19,7 +19,6 @@ export const Home = () => {
             setTimeout(() => setLoginSuccess(false), 2000);
         dispatch(USER_CLEAR());
     }, []);
-
     return (
         <>
             <Slide

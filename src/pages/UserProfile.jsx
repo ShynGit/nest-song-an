@@ -26,7 +26,8 @@ export const UserProfile = () => {
     }, [user]);
 
     useEffect(() => {
-        if (!user.token) navigate("/sign-in");
+        if (!user.token)
+            navigate("/sign-in", { state: { alertNotLogin: true } });
     }, []);
 
     return (
