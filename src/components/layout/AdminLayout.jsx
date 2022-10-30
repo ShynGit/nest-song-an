@@ -105,11 +105,15 @@ const Drawer = styled(MuiDrawer, {
     }),
 }));
 
-export default function AdminLayout({ children, setRerender }) {
+export default function AdminLayout({
+    children,
+    setRerender,
+    title,
+    setTitle,
+}) {
     const theme = useTheme();
     const [cateList, setCateList] = useState([]);
     const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState("User");
 
     useEffect(() => {
         const fetchCategory = async () => {
@@ -342,7 +346,12 @@ export default function AdminLayout({ children, setRerender }) {
             </Drawer>
             <Box
                 component="main"
-                sx={{ flexGrow: 1, p: 3, backgroundColor: "#d9eeef" }}
+                sx={{
+                    flexGrow: 1,
+                    p: 3,
+                    backgroundColor: "#d9eeef",
+                    minHeight: "100vh",
+                }}
             >
                 <DrawerHeader />
                 {children}

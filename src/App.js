@@ -75,7 +75,7 @@ export const App = () => {
                         onClick={() => handleSwitch()}
                     />
                 )}
-                {user.userInfor?.role === "CUSTOMER" && <ChatBox />}
+                {/* {user.userInfor?.role === "CUSTOMER" && <ChatBox />} */}
                 {/* <Footer /> */}
             </BrowserRouter>
         </ThemeProvider>
