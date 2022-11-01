@@ -4,14 +4,14 @@ import { useEffect } from "react";
 import { accountApi } from "../../api/accountApi";
 import { HorizontalUserDetail } from "../../components/User/HorizontalUserDetail";
 
-export const UserDashboard = ({
+export const OrderDashboard = ({
     isRerender,
     setIsRerender,
     successToastStatus,
     setSuccessToastStatus,
 }) => {
     const [pageCount, setPageCount] = useState(1);
-    const [users, setUsers] = useState([]);
+    const [orders, setOrders] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
@@ -45,9 +45,6 @@ export const UserDashboard = ({
     return (
         <div>
             {/* <Input variant="outlined" sx={{ backgroundColor: "white" }} /> */}
-            <h1 className="text-3xl pt-4 pb-6 font-semibold  ">
-                Quản lí tài khoản
-            </h1>
             <Grid container spacing={3}>
                 {users.map((user) => (
                     <HorizontalUserDetail

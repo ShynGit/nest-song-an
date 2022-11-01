@@ -16,8 +16,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import InventoryIcon from "@mui/icons-material/Inventory";
 import {
     Button,
     FormControl,
@@ -329,11 +330,9 @@ export default function AdminLayout({
                                         justifyContent: "center",
                                     }}
                                 >
-                                    {index % 2 === 0 ? (
-                                        <InboxIcon />
-                                    ) : (
-                                        <MailIcon />
-                                    )}
+                                    {index === 0 && <AccountBoxIcon />}
+                                    {index === 1 && <InventoryIcon />}
+                                    {index === 2 && <ReceiptIcon />}
                                 </ListItemIcon>
                                 <ListItemText
                                     primary={text}

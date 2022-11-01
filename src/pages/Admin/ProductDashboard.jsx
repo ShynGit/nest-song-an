@@ -1,22 +1,22 @@
-import { Grid, Input, Pagination } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
-import { accountApi } from "../../api/accountApi";
-import { HorizontalUserDetail } from "../../components/User/HorizontalUserDetail";
+import { productApi } from "../../api/productApi";
+import { HorizontalProductDetail } from "../../components/Product/HorizontalProductDetail";
 
-export const UserDashboard = ({
+export const ProductDashboard = ({
     isRerender,
     setIsRerender,
     successToastStatus,
     setSuccessToastStatus,
 }) => {
     const [pageCount, setPageCount] = useState(1);
-    const [users, setUsers] = useState([]);
+    const [product, setProduct] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        accountApi
-            .getCountAllAccount()
+        productApi
+            .getCountAllProduct()
             .then((res) => setPageCount(res))
             .catch((err) => {
                 console.log(err);
@@ -26,33 +26,38 @@ export const UserDashboard = ({
     }, []);
 
     useEffect(() => {
-        accountApi
-            .getAllAccountByPage(currentPage, 8)
-            .then((res) => setUsers(res))
+        productApi
+            .getAllProductByPage(currentPage, 8)
+            .then((res) => setProduct(res))
             .catch((err) => {
                 console.log(err);
             })
             .finally(() => {
                 setIsRerender(false);
             });
-    }, [isRerender]);
+    }, [currentPage, isRerender]);
 
-    console.log(users);
+    // console.log(product);
     const handleChangePage = (e, page) => {
         setCurrentPage(page);
     };
 
     return (
         <div>
-            {/* <Input variant="outlined" sx={{ backgroundColor: "white" }} /> */}
             <h1 className="text-3xl pt-4 pb-6 font-semibold  ">
-                Quản lí tài khoản
+                Quản lí sản phẩm
             </h1>
             <Grid container spacing={3}>
-                {users.map((user) => (
-                    <HorizontalUserDetail
-                        user={user}
-                        currentPage={currentPage}
+                {product.map((item) => (
+                    <HorizontalProductDetail
+                        key={item.id}
+                        id={item.id}
+                        name={item.name}
+                        image={item.listImages[0]?.imgPath}
+                        price={item.basePrice}
+                        deal={item.deal}
+                        desc={item.description}
+                        status={item.status}
                         rerender={isRerender}
                         setRerender={setIsRerender}
                         successToastStatus={successToastStatus}

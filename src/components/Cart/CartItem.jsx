@@ -33,20 +33,20 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
                 <div className="grid grid-cols-12 gap-6 items-center">
                     <div className="col-span-5 grid grid-cols-12">
                         <div className="col-span-3">
-                            <Skeleton height={151} />
+                            <Skeleton height={182} animation="wave" />
                         </div>
                         <div className="col-span-9 ml-8">
-                            <Skeleton height={151} />
+                            <Skeleton height={182} animation="wave" />
                         </div>
                     </div>
                     <div className="col-span-2">
-                        <Skeleton height={151} />
+                        <Skeleton height={182} animation="wave" />
                     </div>
                     <div className="col-span-2">
-                        <Skeleton height={151} />
+                        <Skeleton height={182} animation="wave" />
                     </div>
                     <div className="col-span-2">
-                        <Skeleton height={151} />
+                        <Skeleton height={182} animation="wave" />
                     </div>
                     <div className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 right-0 cursor-pointer hover:text-zinc-300">
                         &#10006;

@@ -164,24 +164,31 @@ export const OrderCard = ({ card }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="text-right px-6 py-4 pb-2 text-lg font-medium">
-                Tổng:
-                <span
-                    className="text-green-600 font-semibold ml-4"
-                    style={{
-                        textShadow:
-                            "0px 1px 2px rgb(198, 245, 218, 0.8), 1px 2px 4px rgb(198, 245, 218, 0.8)",
-                    }}
-                >
-                    {convertPriceToString(card.totalPrice)} VNĐ
-                </span>
-            </div>
-            <div
-                className={`${
-                    paymentStatus[card.paymentStatusCode]
-                } text-right px-6 pb-4 text-xl font-semibold`}
-            >
-                {card.paymentStatusCode}
+            <div className="flex justify-end">
+                <button className="px-4 mr-10 my-6 font-semibold text-xl bg-red-500 text-white rounded-md">
+                    Đã nhận hàng
+                </button>
+                <div>
+                    <div className="text-right px-6 py-4 pb-2 text-lg font-medium">
+                        Tổng:
+                        <span
+                            className="text-green-600 font-semibold ml-4"
+                            style={{
+                                textShadow:
+                                    "0px 1px 2px rgb(198, 245, 218, 0.8), 1px 2px 4px rgb(198, 245, 218, 0.8)",
+                            }}
+                        >
+                            {convertPriceToString(card.totalPrice)} VNĐ
+                        </span>
+                    </div>
+                    <div
+                        className={`${
+                            paymentStatus[card.paymentStatusCode]
+                        } text-right px-6 pb-4 text-xl font-semibold`}
+                    >
+                        {card.paymentStatusCode}
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { UserDashboard } from "./UserDashboard";
+import { ProductDashboard } from "./ProductDashboard";
 
 export const DashBoard = () => {
     const user = useSelector(selectUser);
@@ -28,6 +29,14 @@ export const DashBoard = () => {
         >
             {title === "User" && (
                 <UserDashboard
+                    isRerender={isRerender}
+                    setIsRerender={setIsRerender}
+                    successToastStatus={successToastStatus}
+                    setSuccessToastStatus={setSuccessToastStatus}
+                />
+            )}
+            {title === "Product" && (
+                <ProductDashboard
                     isRerender={isRerender}
                     setIsRerender={setIsRerender}
                     successToastStatus={successToastStatus}

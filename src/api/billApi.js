@@ -9,6 +9,9 @@ export const billApi = {
     getOrder: (userId) => {
         return adminAxios.get(`bill/customer-id/${userId}`);
     },
+    getOrderByPage: (offset, limit) => {
+        return adminAxios.get(`/bill/page?page=${offset}&limit=${limit}`);
+    },
     payment: (data) => {
         console.log(data);
         return adminAxios.post("/cart/buy/customer", data);

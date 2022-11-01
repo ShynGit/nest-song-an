@@ -64,7 +64,6 @@ export const Cart = ({ setStep }) => {
                 productAmount,
                 billId
             );
-            console.log(response);
             dispatch(CART_UPDATING_SUCCESS(response));
             setLoading(false);
         } catch (error) {
@@ -79,7 +78,6 @@ export const Cart = ({ setStep }) => {
                 user.userInfor.id,
                 item.id
             );
-            console.log(response);
             dispatch(CART_UPDATING_SUCCESS(response));
             setLoading(false);
         } catch (error) {
@@ -137,7 +135,7 @@ export const Cart = ({ setStep }) => {
                                 return (
                                     <div className="" key={index}>
                                         {cart.loading ? (
-                                            <Skeleton />
+                                            <Loading />
                                         ) : (
                                             <CartItem
                                                 item={item}

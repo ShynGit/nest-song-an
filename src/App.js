@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
@@ -20,8 +20,6 @@ import { theme } from "./assets/theme";
 import { Order } from "./pages/Order/Order";
 import { ToastPageChange } from "./components/Toast";
 import { useState } from "react";
-import { Footer } from "./components/Footer/Footer";
-import { ChatBox } from "./components/Messenger/ChatBox";
 
 export const App = () => {
     const [name, setName] = useState("Bán hàng");
