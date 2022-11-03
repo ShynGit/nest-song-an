@@ -15,7 +15,7 @@ module.exports = {
             cur: ['"Brush Script MT"', "cursive"],
             trebu: ['"Trebuchet MS"', "sans-serif"],
             verda: ["Verdana"],
-            ds: ['"Dancing Script"'],
+            ds: ['"SVN-Product Sans"'],
         },
     },
     plugins: [require("tw-elements/dist/plugin")],

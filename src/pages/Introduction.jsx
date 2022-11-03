@@ -92,13 +92,13 @@ export const Introduction = () => {
                         Giá trị cốt lõi
                     </div>
                     <div className="border p-[0.7px] mt-1.5 w-4/12 m-auto border-cyan-700" />
-                    <div className="p-10 px-36 flex gap-5 font-sans">
+                    <div className="p-10 px-48 flex gap-5 font-sans">
                         <img
-                            src="https://cdn.dribbble.com/users/249558/screenshots/15083466/media/14485069a18ab8f37aa0f9d024bab6ce.png?compress=1&resize=450x338&vertical=top&fbclid=IwAR3tIIPTPoOANjVw25G4YdlVOcyLXa9S4HrhW164KPHo6NURXRK6n1KhVOs"
+                            src="https://cdn.dribbble.com/users/1062479/screenshots/5689279/media/6b1f5e2d6eb6ee6ed21140b08fad3d4d.png?compress=1&resize=1000x750&vertical=top&fbclid=IwAR19M9t7zsaffIYto7puAGKMLo7bOoZJbUELX72afkqBjAuq1ddZCG9HORg"
                             alt="benefit of nest"
-                            className=" rounded-md shadow-lg shadow-gray-500"
+                            className="h-[36rem] rounded-md shadow-lg shadow-gray-500"
                         />
-                        <div>
+                        <div className="ml-16 text-left text-lg">
                             <p>
                                 Chất lượng: Tổ yến sào Song Ân có nguồn gốc từ
                                 yến nuôi và yến đảo Nha Trang 100% nguyên chất.

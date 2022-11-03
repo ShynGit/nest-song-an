@@ -7,6 +7,7 @@ export const productApi = {
 
     getProductByPage: async (offset, limit) => {
         try {
+           
             const res = await adminAxios.get(
                 `/product/page?page=${offset}&limit=${limit}`
             );
@@ -55,7 +56,7 @@ export const productApi = {
 
     addProductAPI: async (data) => {
         try {
-            const res = await adminAxios.put("/product/add", data);
+            const res = await adminAxios.post("/product/add", data);
             return res;
         } catch (error) {
             throw error;
@@ -63,14 +64,9 @@ export const productApi = {
     },
 
     // Update product
-    updateProductById: async (proiId, proName, proDesc, proPrice) => {
+    updateProductById: async (proId, proData) => {
         try {
-            const data = {
-                name: proName,
-                description: proDesc,
-                basePrice: proPrice,
-            };
-            const res = await adminAxios.put(`/product/${proiId}`, data);
+            const res = await adminAxios.put(`/product/${proId}`, proData);
             return res;
         } catch (err) {
             throw err;
@@ -84,7 +80,7 @@ export const productApi = {
         try {
             const data = { status: status };
             const res = await adminAxios.put(
-                `/product/reactive/${proiId}`,
+                `/product/status/${proiId}`,
                 data
             );
             return res;
