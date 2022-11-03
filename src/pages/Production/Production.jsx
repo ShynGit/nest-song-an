@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { productApi } from "../../api/productApi";
+import { Footer } from "../../components/Footer/Footer";
 import { Filter } from "../../components/Production/Filter";
 import { List } from "../../components/Production/List";
 import { getErrorMessageFromServer } from "../../utils/serverUtils";
@@ -96,6 +97,7 @@ export const Production = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

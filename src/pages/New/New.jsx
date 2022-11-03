@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { newApi } from "../../api/newApi";
+import { Footer } from "../../components/Footer/Footer";
 import { Loading } from "../../components/Loading/Loading";
 import {
     NEWS_LOADING_ALL_SUCCESS,
@@ -72,6 +73,7 @@ export const New = () => {
                     </div>
                 </div>
             )}
+            <Footer />
         </>
     );
 };

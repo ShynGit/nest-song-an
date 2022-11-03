@@ -49,7 +49,7 @@ const Header = () => {
         if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
 
         searchTimeoutRef.current = setTimeout(() => {
-            console.log(search);
+            // console.log(search);
         }, 600);
     }, [search]);
 

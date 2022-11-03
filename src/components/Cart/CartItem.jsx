@@ -48,7 +48,7 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
                     <div className="col-span-2">
                         <Skeleton height={182} animation="wave" />
                     </div>
-                    <div className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 right-0 cursor-pointer hover:text-zinc-300">
+                    <div className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 ml-[0.8rem] mb-0.5 cursor-pointer hover:text-zinc-300">
                         &#10006;
                     </div>
                 </div>
@@ -125,7 +125,7 @@ export const CartItem = ({ item, handleChangeAmount, handleDelete }) => {
                             {convertPriceToString(item.price)}
                         </li>
                         <li
-                            className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 right-0 cursor-pointer hover:text-zinc-300"
+                            className="text-zinc-500 h-fit px-3 py-1.5 col-span-1 cursor-pointer hover:text-zinc-300"
                             onClick={() =>
                                 setLoading(true, handleDelete(item, setLoading))
                             }

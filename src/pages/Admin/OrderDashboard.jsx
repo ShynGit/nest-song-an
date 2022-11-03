@@ -1,7 +1,7 @@
 import { Grid, Input, Pagination } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
-import { accountApi } from "../../api/accountApi";
+import { billApi } from "../../api/billApi";
 import { HorizontalUserDetail } from "../../components/User/HorizontalUserDetail";
 
 export const OrderDashboard = ({
@@ -15,7 +15,7 @@ export const OrderDashboard = ({
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        accountApi
+        billApi
             .getCountAllAccount()
             .then((res) => setPageCount(res))
             .catch((err) => {

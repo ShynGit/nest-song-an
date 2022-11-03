@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../components/Footer/Footer";
 import { selectUser } from "../../features/user/userSlice";
 import { Cart } from "./Cart";
 import { Delivery } from "./Delivery";
@@ -76,6 +77,7 @@ export const ShoppingCart = () => {
                     {step === "receipt" && <Receipt />}
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

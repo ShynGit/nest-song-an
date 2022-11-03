@@ -74,7 +74,6 @@ export const App = () => {
                     />
                 )}
                 {/* {user.userInfor?.role === "CUSTOMER" && <ChatBox />} */}
-                {/* <Footer /> */}
             </BrowserRouter>
         </ThemeProvider>
     );

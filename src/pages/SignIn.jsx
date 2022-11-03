@@ -28,7 +28,6 @@ export const SignIn = () => {
         location.state?.alertNotLogin
     );
     // Submit form function
-    console.log(alertNotLogin);
     const onSubmit = (input) => {
         const fetchUser = async () => {
             try {

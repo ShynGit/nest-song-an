@@ -3,7 +3,7 @@ import {
     faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Alert, Slide } from "@mui/material";
+import { Alert, CircularProgress, Slide } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,7 @@ import {
     CART_ADDING_SUCCESS,
     CART_LOADING_FAIL,
     CART_LOADING_REQUEST,
+    selectCart,
 } from "../../features/cart/cartSlice";
 import {
     FILTER_CLEAR_SEARCH,
@@ -52,6 +53,7 @@ export const List = ({ inProductPage, category }) => {
 
     const products = useSelector(selectProduct);
     const user = useSelector(selectUser);
+    const cart = useSelector(selectCart);
     const dispatch = useDispatch();
     const [alert, setAlert] = useState(false);
 
@@ -60,8 +62,6 @@ export const List = ({ inProductPage, category }) => {
         window.scroll(0, 0);
         dispatch(FILTER_CLEAR_SEARCH());
     }, []);
-
-    console.log(filterList);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -223,15 +223,44 @@ export const List = ({ inProductPage, category }) => {
                                                                 </div>
                                                             )}
                                                         </div>
-                                                        <FontAwesomeIcon
-                                                            icon={faCartPlus}
-                                                            className="w-8 h-8 mt-0.5 hover:cursor-pointer hover:text-regal-blue"
+                                                        <div
+                                                            className="relative"
                                                             onClick={() =>
                                                                 handleAddToCart(
                                                                     card
                                                                 )
                                                             }
-                                                        />
+                                                            disabled={
+                                                                cart.loading
+                                                            }
+                                                        >
+                                                            <FontAwesomeIcon
+                                                                icon={
+                                                                    faCartPlus
+                                                                }
+                                                                className={`w-8 h-8 mt-0.5 hover:cursor-pointer hover:text-regal-blue ${
+                                                                    cart.loading
+                                                                        ? "text-slate-300"
+                                                                        : ""
+                                                                }`}
+                                                            />
+                                                            {cart.loading && (
+                                                                <CircularProgress
+                                                                    size={28}
+                                                                    sx={{
+                                                                        color: "#00ADB5",
+                                                                        position:
+                                                                            "absolute",
+                                                                        top: "50%",
+                                                                        left: "50%",
+                                                                        marginTop:
+                                                                            "-12px",
+                                                                        marginLeft:
+                                                                            "-12px",
+                                                                    }}
+                                                                />
+                                                            )}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { convertPriceToString } from "../../utils/serverUtils";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -47,7 +48,7 @@ export const OrderCard = ({ card }) => {
     const status = [
         { color: "", title: "" },
         { color: "", title: "" },
-        { color: "text-amber-500", title: "Đang giao hàng" },
+        { color: "text-amber-500", title: "Đang giao" },
         { color: "text-green-400", title: "Đã hoàn thành" },
         { color: "text-red-600", title: "Đã hủy" },
     ];
@@ -61,11 +62,11 @@ export const OrderCard = ({ card }) => {
 
     return (
         <div className="my-9 border p-3 rounded-md shadow-lg bg-white">
-            <div className="flex justify-between p-5 px-2 text-xl">
-                <div className="font-medium text-gray-500">
+            <div className="flex justify-between p-5 px-2 text-[1.4rem]">
+                <div className="font-medium text-black">
                     Giao hàng tới {card.address}, SĐT: {card.phoneNumber}
                 </div>
-                <div className="font-medium text-gray-500">
+                <div className="font-medium text-black">
                     Ngày đặt hàng: {d.toLocaleString()}
                 </div>
                 <div className={`${status[card.status].color} font-semibold`}>
@@ -164,10 +165,14 @@ export const OrderCard = ({ card }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="flex justify-end">
-                <button className="px-4 mr-10 my-6 font-semibold text-xl bg-red-500 text-white rounded-md">
-                    Đã nhận hàng
-                </button>
+            <div className="flex justify-between items-center">
+                {card.status === 3 ? (
+                    <Button variant="contained" color="success">
+                        Đánh giá
+                    </Button>
+                ) : (
+                    <div></div>
+                )}
                 <div>
                     <div className="text-right px-6 py-4 pb-2 text-lg font-medium">
                         Tổng:

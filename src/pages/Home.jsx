@@ -8,6 +8,8 @@ import { faBagShopping, faFire } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, USER_CLEAR } from "../features/user/userSlice";
 import { Slide } from "@mui/material";
+import "@fontsource/dancing-script";
+import { Footer } from "../components/Footer/Footer";
 
 export const Home = () => {
     const user = useSelector(selectUser);
@@ -19,6 +21,7 @@ export const Home = () => {
             setTimeout(() => setLoginSuccess(false), 2000);
         dispatch(USER_CLEAR());
     }, []);
+
     return (
         <>
             <Slide
@@ -57,11 +60,11 @@ export const Home = () => {
                             backgroundImage: `url(${background})`,
                         }}
                     >
-                        <h1 className="mr-44 font-cur text-7xl text-[#295F2D]">
-                            Yến sào Song Ân
+                        <h1 className="mr-48 font-ds text-7xl text-[#295F2D] font-bold">
+                            Yến Sào Song Ân
                         </h1>
 
-                        <p className="mr-44 font-sans pl-[49rem] text-black font-[600] text-[17px]">
+                        <p className="mr-52 mt-1 pl-[62rem] text-black font-[600] text-[22px]">
                             Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến Sào
                             chất lượng nhất cho người Việt
                         </p>
@@ -86,12 +89,13 @@ export const Home = () => {
                     <List inProductPage={false} />
                 </div>
                 <Link to="/production" onClick={() => window.scrollTo(0, 0)}>
-                    <div className="flex justify-center mb-10">
-                        <button className="w-fit bg-[#00ADB5] text-white py-2 px-8 rounded-[3px] text-base">
+                    <div className="flex justify-center mb-16">
+                        <button className="w-fit bg-[#00ADB5] text-white py-3 px-9 rounded-[3px] text-xl">
                             Xem thêm
                         </button>
                     </div>
                 </Link>
+                <Footer />
             </div>
         </>
     );

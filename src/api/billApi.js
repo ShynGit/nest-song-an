@@ -13,7 +13,6 @@ export const billApi = {
         return adminAxios.get(`/bill/page?page=${offset}&limit=${limit}`);
     },
     payment: (data) => {
-        console.log(data);
         return adminAxios.post("/cart/buy/customer", data);
     },
     addToCart: (userId, product, quantity) => {
@@ -25,7 +24,6 @@ export const billApi = {
     },
     updateQuantity: (userId, id, quantity, billId) => {
         const data = { id: id, quantity: quantity, billId: billId };
-        console.log("render");
         return adminAxios.put(
             `/cart/update/cart-line-items/user/${userId}`,
             data
