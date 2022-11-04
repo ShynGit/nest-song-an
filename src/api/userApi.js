@@ -7,6 +7,12 @@ export const userApi = {
     signUp: (input) => {
         return adminAxios.post("user/insert", input);
     },
+    getAll: () => {
+        return adminAxios.get("user");
+    },
+    getRoles: () => {
+        return adminAxios.get("role");
+    },
     getUserByPage: async (offset, limit) => {
         try {
             const res = await adminAxios.get(

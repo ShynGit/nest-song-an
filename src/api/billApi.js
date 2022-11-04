@@ -12,6 +12,9 @@ export const billApi = {
     getOrderByPage: (offset, limit) => {
         return adminAxios.get(`/bill/page?page=${offset}&limit=${limit}`);
     },
+    getAllBill: () => {
+        return adminAxios.get(`/bill`);
+    },
     getBillByBillId: (bill_id) => {
         return adminAxios.get(`/bill/${bill_id}`);
     },

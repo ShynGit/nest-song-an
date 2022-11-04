@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import AppTable from "../../../components/Table";
@@ -59,18 +59,36 @@ export function Orders() {
       {
         field: "id",
         headerName: "Action",
-        width: 150,
-        renderCell: ({ value }) => {
+        width: 200,
+        renderCell: ({ value, row }) => {
           return (
-            <AppButton
-              onClick={(e) => {
-                navigate(`/dashboard/order/detail/${value}`);
-                e.stopPropagation();
-              }}
-              style={{ textTransform: "capitalize" }}
+            <Box
+              display={"flex"}
+              flexDirection={"rows"}
+              alignItems={"center"}
+              width={"100%"}
+              justifyContent={"space-between"}
             >
-              Chi tiết
-            </AppButton>
+              <AppButton
+                onClick={(e) => {
+                  navigate(`/dashboard/order/detail/${value}`);
+                  e.stopPropagation();
+                }}
+                style={{ textTransform: "capitalize" }}
+              >
+                Chi tiết
+              </AppButton>
+              <Button
+                onClick={(e) => {
+                  console.log("scc");
+                }}
+                sx={{ display: row.status === 2 ? "" : "none" }}
+                variant={"contained"}
+                style={{ textTransform: "capitalize" }}
+              >
+                Đã giao
+              </Button>
+            </Box>
           );
         },
       },
