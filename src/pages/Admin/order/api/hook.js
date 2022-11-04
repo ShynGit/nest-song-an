@@ -14,8 +14,13 @@ export const useGetOrderByStatusId = (status= 2, skipFetch = false ) => {
     const getOrdersByStatus = async (status) => {
         setLoading(true)
         try {
-
-            const response = await billApi.getBillByStatus(status)
+            var response;
+            if(status === 0 ) {
+                response = await billApi.getAllBill()
+            }
+            else{
+                response = await billApi.getBillByStatus(status)
+            }
             setOrders(response)
 
         } catch (error) {

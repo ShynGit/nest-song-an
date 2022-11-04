@@ -40,6 +40,10 @@ export const productApi = {
     getProductById: (id) => {
         return adminAxios.get(`/product/${id}`);
     },
+
+    getProductByCateId: (cateId) => {
+        return adminAxios.get(`/product/search-by-cateid/${cateId}`)
+    },
     getCategory: () => {
         return adminAxios.get("/category");
     },
@@ -51,6 +55,8 @@ export const productApi = {
     getProductByStatus: (data) => {
         return adminAxios.post("/product/status", data);
     },
+
+ 
 
     // Add new product
 

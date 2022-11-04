@@ -7,6 +7,8 @@ import { useGetUsersCount, useGetUsersPagination } from "./api/hooks";
 import { Loading } from "../../../components/Loading/Loading";
 import { AppButton } from "../../../components/Button";
 import { convertMsToDate } from "../../../utils/serverUtils";
+import { userApi } from "../../../api/userApi";
+import { accountApi } from "../../../api/accountApi";
 
 export function Users() {
   const [page, setPage] = useState(0);
@@ -15,12 +17,17 @@ export function Users() {
   const { data, error, loading } = useGetUsersPagination({
     offset: page + 1,
     limit: pageSize,
+    isRerender: isRerender,
   });
   const { data: count } = useGetUsersCount({});
   const navigate = useNavigate();
-  const handleStatusChange = (id) => {
-    setRerender(!isRerender);
-    console.log(1);
+  const handleStatusChange = (id, status) => {
+    accountApi
+      .changeStatus(id, status)
+      .then(() => {
+        setRerender((current) => !current);
+      })
+      .catch((err) => console.log(err));
   };
 
   const columns = useMemo(() => {
@@ -45,20 +52,37 @@ export function Users() {
         },
       },
       {
+        field: "role",
+        headerName: "Chức vụ",
+        width: 150,
+        renderCell: ({ value }) => {
+          return <span>{value.id === 2 ? "Khách hàng" : "Quản lí"} </span>;
+        },
+      },
+      {
         field: "id",
         headerName: "Action",
         width: 150,
-        renderCell: ({ value }) => {
+        renderCell: ({ value, row }) => {
+          const data = {
+            isCustomer: row.role.id === 2,
+            isActive: row.status === 1,
+          };
           return (
-            <AppButton
+            <Button
               onClick={(e) => {
-                handleStatusChange();
-                e.stopPropagation();
+                if (data.isActive) {
+                  handleStatusChange(value, 0);
+                } else {
+                  handleStatusChange(value, 1);
+                }
               }}
+              variant={"contained"}
               style={{ textTransform: "capitalize" }}
+              sx={{ display: data.isCustomer ? "" : "none" }}
             >
-              Chuyển trạng thái
-            </AppButton>
+              {data.isActive ? "Ẩn người dùng" : "Hiện người dùng"}
+            </Button>
           );
         },
       },

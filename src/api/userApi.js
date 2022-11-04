@@ -1,6 +1,12 @@
 import adminAxios from "./adminAxios";
 
 export const userApi = {
+    getAll: () => {
+        return adminAxios.get("user");
+    },
+    getRoles: () => {
+        return adminAxios.get("role");
+    },
     getUserByPage: async (offset, limit) => {
         try {
             const res = await adminAxios.get(

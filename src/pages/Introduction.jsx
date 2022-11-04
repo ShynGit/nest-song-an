@@ -1,5 +1,4 @@
 import background from "../assets/images/background-image.jpg";
-import "@fontsource/dancing-script";
 import { Footer } from "../components/Footer/Footer";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
@@ -107,14 +106,6 @@ export const Introduction = () => {
                                 className="h-[30rem] rounded-md shadow-lg shadow-gray-500"
                             />
                         </div>
-
-                        {/* <p className="p-10 px-36 font-sans">
-                        Với kinh nghiệm làm việc lâu năm trong ngành Yến Sào,
-                        chúng tôi tự hào tạo ra 100% Yến Sào tinh khiết, không
-                        dùng chất tẩy rửa, không trộn phụ gia, sử dụng công nghệ
-                        vô trùng bằng tia cực tím (UV) để khử khuẩn, giúp giữ
-                        trọn thành phần dinh dưỡng và màu sắc của tổ Yến.
-                    </p> */}
                     </div>
                 </div>
                 <div>

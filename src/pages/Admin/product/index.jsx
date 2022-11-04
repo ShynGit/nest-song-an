@@ -17,14 +17,15 @@ export function Products() {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [isRerender, setIsRerender] = useState(false);
-  const { data, error, loading } = useGetProductsPagination({
-    offset: page + 1,
-    limit: pageSize,
-    reRender: isRerender,
-  });
   const [status, setStatus] = useState({
     id: 0,
     name: "Tất cả",
+  });
+  const { data, error, loading } = useGetProductsPagination({
+    category: status.id,
+    offset: page + 1,
+    limit: pageSize,
+    reRender: isRerender,
   });
   const { data: categories } = useGetCategories([]);
   const { data: count } = useGetProductsCount({});
@@ -130,7 +131,7 @@ export function Products() {
     ];
   }, [categories]);
 
-  // if (loading) return <Loading />;
+  if (loading) return <Loading />;
 
   if (error) return <Navigate to="404" />;
 
