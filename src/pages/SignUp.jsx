@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userApi } from "../api/userApi";
 import {
     selectUser,
@@ -15,6 +15,7 @@ export const SignUp = () => {
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const onSubmit = (input) => {
         console.log(input);
@@ -27,7 +28,6 @@ export const SignUp = () => {
                 dispatch(USER_LOGIN_SUCCESS(JSON.stringify(response)));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
-                console.log(error);
                 // dispatch(USER_LOGIN_FAIL(errorMessage));
             }
         };
@@ -58,6 +58,30 @@ export const SignUp = () => {
                                     ĐĂNG KÝ
                                 </div>
                                 <div>
+                                    {user.loginViaGoogleFail && (
+                                        <div
+                                            className="bg-red-100 rounded-lg mb-3 py-3 px-6 text-sm text-red-700 inline-flex items-center w-full"
+                                            role="primary"
+                                        >
+                                            <svg
+                                                aria-hidden="true"
+                                                focusable="false"
+                                                data-prefix="fas"
+                                                data-icon="times-circle"
+                                                className="w-4 h-4 mr-2 fill-current"
+                                                role="img"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 512 512"
+                                            >
+                                                <path
+                                                    fill="currentColor"
+                                                    d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+                                                ></path>
+                                            </svg>
+                                            Bạn chưa từng đăng nhập. Hãy tạo tài
+                                            khoản!
+                                        </div>
+                                    )}
                                     <div className="relative inputBox mt-3">
                                         <input
                                             {...register("fullname")}
@@ -66,6 +90,10 @@ export const SignUp = () => {
                                             required
                                             maxLength={70}
                                             minLength={1}
+                                            defaultValue={
+                                                location.state?.jwtDecodeUser
+                                                    .name
+                                            }
                                         />
                                         <span
                                             className={`absolute left-0 mx-2 px-1 my-3 w-fit pointer-events-none transition-all duration-500 rounded-md text-gray-400`}
@@ -81,6 +109,10 @@ export const SignUp = () => {
                                             required
                                             maxLength={70}
                                             minLength={3}
+                                            defaultValue={
+                                                location.state?.jwtDecodeUser
+                                                    .email
+                                            }
                                         />
                                         <span
                                             className={`absolute left-0 mx-2 px-1 my-3 w-fit pointer-events-none transition-all duration-500 rounded-md text-gray-400`}

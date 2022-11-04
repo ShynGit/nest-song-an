@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, useLocation, Outlet } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    useLocation,
+    Outlet,
+} from "react-router-dom";
 import { Home } from "./pages/Home";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
@@ -50,27 +56,63 @@ export const App = () => {
                     <Loading />
                 ) : (
                     <Routes>
-                        <Route path="/dashboard" element={<AdminLayout />} >
-                            <Route path="" element={<DashBoard />} index={true} />
-                            <Route path="product" element={<Outlet />} >
-                                <Route path="" element={<Products />} index={true} />
-                                <Route path="create" element={<CreateProduct />} />
-                                <Route path="edit/:id" element={<EditProduct />} />
+                        {user.userInfor?.role === "ADMIN" && (
+                            <Route path="/dashboard" element={<AdminLayout />}>
+                                <Route
+                                    path=""
+                                    element={<DashBoard />}
+                                    index={true}
+                                />
+                                <Route path="product" element={<Outlet />}>
+                                    <Route
+                                        path=""
+                                        element={<Products />}
+                                        index={true}
+                                    />
+                                    <Route
+                                        path="create"
+                                        element={<CreateProduct />}
+                                    />
+                                    <Route
+                                        path="edit/:id"
+                                        element={<EditProduct />}
+                                    />
+                                </Route>
+                                <Route path="user" element={<Outlet />}>
+                                    <Route
+                                        path=""
+                                        element={<Users />}
+                                        index={true}
+                                    />
+                                </Route>
+                                <Route path="order" element={<Outlet />}>
+                                    <Route
+                                        path=""
+                                        element={<Orders />}
+                                        index={true}
+                                    />
+                                    <Route
+                                        path="detail/:id"
+                                        element={<Detail />}
+                                    />
+                                </Route>
+                                <Route path="news" element={<Outlet />}>
+                                    <Route
+                                        path=""
+                                        element={<News />}
+                                        index={true}
+                                    />
+                                    <Route
+                                        path="edit/:id"
+                                        element={<EditNews />}
+                                    />
+                                    <Route
+                                        path="create"
+                                        element={<CreateNews />}
+                                    />
+                                </Route>
                             </Route>
-                            <Route path="user" element={<Outlet />} >
-                                <Route path="" element={<Users />} index={true} />
-                            </Route>
-                            <Route path="order" element={<Outlet />} >
-                                <Route path="" element={<Orders />} index={true} />
-                                <Route path="detail/:id" element={<Detail />}  />
-                            </Route>
-                            <Route path="news" element={<Outlet />} >
-                                <Route path="" element={<News />} index={true} />
-                                <Route path="edit/:id" element={<EditNews />}  />
-                                <Route path="create" element={<CreateNews />}  />
-
-                            </Route>
-                        </Route>
+                        )}
                         <Route path="/" element={<Home />} />
 
                         <Route

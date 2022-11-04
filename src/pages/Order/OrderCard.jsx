@@ -165,31 +165,64 @@ export const OrderCard = ({ card }) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className="flex justify-between items-center">
-                {card.status === 3 ? (
-                    <Button variant="contained" color="success">
-                        Đánh giá
-                    </Button>
-                ) : (
-                    <div></div>
-                )}
-                <div>
-                    <div className="text-right px-6 py-4 pb-2 text-lg font-medium">
-                        Tổng:
-                        <span
-                            className="text-green-600 font-semibold ml-4"
-                            style={{
-                                textShadow:
-                                    "0px 1px 2px rgb(198, 245, 218, 0.8), 1px 2px 4px rgb(198, 245, 218, 0.8)",
+            <div>
+                <div className="text-right px-6 pt-4 text-lg font-medium w-full">
+                    Tổng:
+                    <span
+                        className="text-green-600 font-semibold ml-4"
+                        style={{
+                            textShadow:
+                                "0px 1px 2px rgb(198, 245, 218, 0.8), 1px 2px 4px rgb(198, 245, 218, 0.8)",
+                        }}
+                    >
+                        {convertPriceToString(card.totalPrice)} VNĐ
+                    </span>
+                </div>
+
+                <div className="relative mr-6 mb-4">
+                    {card.status === 3 ? (
+                        <Button
+                            variant="contained"
+                            color="success"
+                            sx={{
+                                marginLeft: "20px",
+                                fontWeight: "600",
+                                fontSize: "16px",
+                                borderRadius: "5px",
+                                width: "150px",
+                                height: "50px",
+                                position: "absolute",
+                                left: "-20px",
+                                bottom: "4px",
                             }}
                         >
-                            {convertPriceToString(card.totalPrice)} VNĐ
-                        </span>
-                    </div>
+                            Đánh giá
+                        </Button>
+                    ) : card.status === 2 ? (
+                        <Button
+                            variant="contained"
+                            color="error"
+                            sx={{
+                                marginLeft: "20px",
+                                fontWeight: "600",
+                                fontSize: "16px",
+                                borderRadius: "5px",
+                                width: "150px",
+                                height: "50px",
+                                position: "absolute",
+                                left: "-20px",
+                                bottom: "4px",
+                            }}
+                        >
+                            Hủy đơn
+                        </Button>
+                    ) : (
+                        <div></div>
+                    )}
                     <div
                         className={`${
                             paymentStatus[card.paymentStatusCode]
-                        } text-right px-6 pb-4 text-xl font-semibold`}
+                        } text-right text-xl font-semibold`}
                     >
                         {card.paymentStatusCode}
                     </div>

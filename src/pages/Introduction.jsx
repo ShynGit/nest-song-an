@@ -1,6 +1,11 @@
 import background from "../assets/images/background-image.jpg";
 import "@fontsource/dancing-script";
 import { Footer } from "../components/Footer/Footer";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import Looks3Icon from "@mui/icons-material/Looks3";
+import Looks4Icon from "@mui/icons-material/Looks4";
+import Looks5Icon from "@mui/icons-material/Looks5";
 export const Introduction = () => {
     return (
         <>
@@ -10,11 +15,11 @@ export const Introduction = () => {
                     backgroundImage: `url(${background})`,
                 }}
             >
-                <h1 className="mr-48 font-ds text-8xl text-[#295F2D]">
+                <h1 className="mr-48 font-ds text-6xl text-[#295F2D] font-bold">
                     Yến sào Song Ân
                 </h1>
 
-                <p className="mr-52 mt-1 font-ds pl-[60rem] text-gray-700 font-[600] text-[22px]">
+                <p className="mr-48 font-ds mt-1 pl-[62rem] text-black font-[600] text-[22px]">
                     Nỗ lực hết mình vì sứ mệnh đem đến sản phẩm Yến Sào chất
                     lượng nhất cho người Việt
                 </p>
@@ -62,22 +67,47 @@ export const Introduction = () => {
                         Quy trình sản xuất
                     </div>
                     <div className="border p-[0.7px] mt-1.5 w-4/12 m-auto border-cyan-700" />
-                    <div className="p-10 px-48 font-sans flex">
-                        <div className="text-left mr-16 text-lg">
-                            <p className="">
-                                Với kinh nghiệm làm việc lâu năm trong ngành Yến
-                                Sào, chúng tôi tự hào tạo ra 100% Yến Sào tinh
-                                khiết, không dùng chất tẩy rửa, không trộn phụ
-                                gia, sử dụng công nghệ vô trùng bằng tia cực tím
-                                (UV) để khử khuẩn, giúp giữ trọn thành phần dinh
-                                dưỡng và màu sắc của tổ Yến.
-                            </p>
+                    <div className="p-10 px-48 font-sans text-lg">
+                        <p className="mb-10">
+                            Với kinh nghiệm làm việc lâu năm trong ngành Yến
+                            Sào, chúng tôi tự hào tạo ra 100% Yến Sào tinh
+                            khiết, không dùng chất tẩy rửa, không trộn phụ gia,
+                            sử dụng công nghệ vô trùng bằng tia cực tím (UV) để
+                            khử khuẩn, giúp giữ trọn thành phần dinh dưỡng và
+                            màu sắc của tổ Yến.
+                        </p>
+                        <div className="text-left flex justify-center gap-20">
+                            <div>
+                                <p className="mb-3">
+                                    <LooksOneIcon />
+                                    Bước 1: Phân loại kiểm tra Yến sào thô
+                                </p>
+                                <p className="mb-3">
+                                    <LooksTwoIcon />
+                                    Bước 2: Làm sạch và chuẩn bị chế biến Yến
+                                    sào
+                                </p>
+                                <p className="mb-3">
+                                    <Looks3Icon />
+                                    Bước 3: Tiến hành sơ chế Yến sào thô
+                                </p>
+                                <p className="mb-3">
+                                    <Looks4Icon />
+                                    Bước 4: Loại bỏ các tạp chất và làm sạch Yến
+                                    sào
+                                </p>
+                                <p className="mb-3">
+                                    <Looks5Icon />
+                                    Bước 5: Ép khô, sấy khô và đóng hộp
+                                </p>
+                            </div>
+                            <img
+                                src="https://www.sieuthimiennam.vn/upload/files/yen-sao-tinh-che-la-gi.png?fbclid=IwAR3j093_tF0iWwIgXUMVc6KfHvkmgz0graICQR8mf-vBq4gATYn1TI_GDxE"
+                                alt="benefit of nest"
+                                className="h-[30rem] rounded-md shadow-lg shadow-gray-500"
+                            />
                         </div>
-                        <img
-                            src="https://www.sieuthimiennam.vn/upload/files/yen-sao-tinh-che-la-gi.png?fbclid=IwAR3j093_tF0iWwIgXUMVc6KfHvkmgz0graICQR8mf-vBq4gATYn1TI_GDxE"
-                            alt="benefit of nest"
-                            className="h-[30rem] rounded-md shadow-lg shadow-gray-500"
-                        />
+
                         {/* <p className="p-10 px-36 font-sans">
                         Với kinh nghiệm làm việc lâu năm trong ngành Yến Sào,
                         chúng tôi tự hào tạo ra 100% Yến Sào tinh khiết, không
@@ -96,37 +126,44 @@ export const Introduction = () => {
                         <img
                             src="https://cdn.dribbble.com/users/1062479/screenshots/5689279/media/6b1f5e2d6eb6ee6ed21140b08fad3d4d.png?compress=1&resize=1000x750&vertical=top&fbclid=IwAR19M9t7zsaffIYto7puAGKMLo7bOoZJbUELX72afkqBjAuq1ddZCG9HORg"
                             alt="benefit of nest"
-                            className="h-[36rem] rounded-md shadow-lg shadow-gray-500"
+                            className="h-[32rem] rounded-md shadow-lg shadow-gray-500"
                         />
-                        <div className="ml-16 text-left text-lg">
+                        <div className="ml-16 text-left text-lg flex flex-col gap-10">
                             <p>
-                                Chất lượng: Tổ yến sào Song Ân có nguồn gốc từ
-                                yến nuôi và yến đảo Nha Trang 100% nguyên chất.
-                                Chúng tôi cam kết các sản phẩm đều được làm sạch
-                                và chưng theo phương pháp thủ công, không chất
-                                tạo mùi, bảo quản.
+                                <span className="font-bold">Chất lượng:</span>{" "}
+                                Tổ yến sào Song Ân có nguồn gốc từ yến nuôi và
+                                yến đảo Nha Trang 100% nguyên chất. Chúng tôi
+                                cam kết các sản phẩm đều được làm sạch và chưng
+                                theo phương pháp thủ công, không chất tạo mùi,
+                                bảo quản.
                             </p>
                             <p>
-                                Tâm huyết: Song Ân đảm bảo thu hoạch yến nhân
-                                đạo, đảm bảo môi trường sống cho yến, phát triển
-                                mở rộng khu vực nuôi yến.
+                                <span className="font-bold">Tâm huyết:</span>{" "}
+                                Song Ân đảm bảo thu hoạch yến nhân đạo, đảm bảo
+                                môi trường sống cho yến, phát triển mở rộng khu
+                                vực nuôi yến.
                             </p>
                             <p>
-                                Khách hàng là số 1: Thân thiện và nồng ấm trong
-                                giao tiếp với khách hàng. Lắng nghe tâm tư,
-                                nguyện vọng của khách để thỏa mãn tối đa nhu cầu
-                                về yến
+                                <span className="font-bold">
+                                    Khách hàng là số 1:
+                                </span>{" "}
+                                Thân thiện và nồng ấm trong giao tiếp với khách
+                                hàng. Lắng nghe tâm tư, nguyện vọng của khách để
+                                thỏa mãn tối đa nhu cầu về yến
                             </p>
                             <p>
-                                Phát triển bền vững: Song Ân cam kết tạo ra giá
-                                trị bền vững, đặt trọng tâm và lợi ích lâu dài
-                                cho quý khách hàng và đối tác.
+                                <span className="font-bold">
+                                    Phát triển bền vững:
+                                </span>{" "}
+                                Song Ân cam kết tạo ra giá trị bền vững, đặt
+                                trọng tâm và lợi ích lâu dài cho quý khách hàng
+                                và đối tác.
                             </p>
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
+            <Footer />
         </>
     );
 };

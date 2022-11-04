@@ -1,23 +1,24 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userApi } from "../api/userApi";
 import Avatar from "../assets/images/avatar.jpg";
 import { Footer } from "../components/Footer/Footer";
 import { Input } from "../components/Input/Input";
-import { selectUser } from "../features/user/userSlice";
+import { selectUser, USER_REQUEST } from "../features/user/userSlice";
 
 export const UserProfile = () => {
     const [userInfor, setUserInfor] = useState({});
     const user = useSelector(selectUser);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
         const fetchInfor = async () => {
             try {
                 const response = await userApi.getUserInfor(user.userInfor.id);
-                console.log(response);
                 setUserInfor(response);
             } catch (error) {
                 if (error.response) console.log(error.response.data);
@@ -31,6 +32,14 @@ export const UserProfile = () => {
             navigate("/sign-in", { state: { alertNotLogin: true } });
     }, []);
 
+    const handleSubmit = async () => {
+        dispatch(USER_REQUEST());
+        const response = await userApi.updateProfile(
+            user.userInfor.id,
+            userInfo
+        );
+        console.log(response);
+    };
     return (
         <div>
             <div className="bg-gray-100 w-full h-[85vh] p-32 px-44 pb-20 flex justify-center">
@@ -128,25 +137,57 @@ export const UserProfile = () => {
                             </h1>
                             <div className="mt-6 grid grid-cols-2 gap-4">
                                 <div className="text-gray-600 mt-1">
-                                    <Input type="text" label="Họ và tên" />
+                                    <Input
+                                        type="text"
+                                        label="Họ và tên"
+                                        handleChange={(value) =>
+                                            setUserInfo((pre) => ({
+                                                ...pre,
+                                                fullname: value,
+                                            }))
+                                        }
+                                    />
                                 </div>
                                 <div className="text-gray-600 mt-1">
                                     <Input
                                         type="number"
                                         label="Số điện thoại"
                                         pattern="[0-9]{10}"
+                                        handleChange={(value) =>
+                                            setUserInfo((pre) => ({
+                                                ...pre,
+                                                phoneNumber: value,
+                                            }))
+                                        }
                                     />
                                 </div>
                                 <div className="text-gray-600 mt-1">
                                     <Input
                                         type="date"
-                                        //label="Ngày sinh"
+                                        handleChange={(value) =>
+                                            setUserInfo((pre) => ({
+                                                ...pre,
+                                                dateOfBirth: Date.parse(value),
+                                            }))
+                                        }
                                     />
                                 </div>
                                 <div className="text-gray-600 mt-1">
-                                    <Input type="text" label="Địa chỉ" />
+                                    <Input
+                                        type="text"
+                                        label="Địa chỉ"
+                                        handleChange={(value) =>
+                                            setUserInfo((pre) => ({
+                                                ...pre,
+                                                address: value,
+                                            }))
+                                        }
+                                    />
                                 </div>
-                                <button className="w-fit mt-3 bg-[#00ADB5] text-white py-2 px-8 rounded-full text-sm m-auto col-span-2">
+                                <button
+                                    className="w-fit mt-3 bg-[#00ADB5] text-white py-2 px-8 rounded-full text-sm m-auto col-span-2"
+                                    onClick={() => handleSubmit()}
+                                >
                                     Lưu
                                 </button>
                             </div>
@@ -226,8 +267,7 @@ export const UserProfile = () => {
                                         </svg>
                                     </div>
                                     <p className="text-xs font-medium opacity-60">
-                                        Tòa S302, Vinhome Grand Park, Thành phố
-                                        Thủ Đức
+                                        {userInfor.address}
                                     </p>
                                 </div>
                             </div>

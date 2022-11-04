@@ -9,6 +9,7 @@ import {
     USER_LOGIN_FAIL,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_REQUEST,
+    USER_LOGIN_VIA_GOOGLE_FAIL,
 } from "../features/user/userSlice";
 import { getErrorMessageFromServer } from "../utils/serverUtils";
 import { useEffect } from "react";
@@ -27,6 +28,9 @@ export const SignIn = () => {
     const [alertNotLogin, setAlertNotLogin] = useState(
         location.state?.alertNotLogin
     );
+    const [isLoginSuccess, setIsLoginSuccess] = useState(
+        user.isloggedInSuccess
+    );
     // Submit form function
     const onSubmit = (input) => {
         const fetchUser = async () => {
@@ -37,14 +41,36 @@ export const SignIn = () => {
                 dispatch(USER_LOGIN_SUCCESS(response));
             } catch (error) {
                 const errorMessage = getErrorMessageFromServer(error);
+                setIsLoginSuccess(false);
                 dispatch(USER_LOGIN_FAIL(errorMessage));
             }
         };
         fetchUser();
     };
 
+    // console.log(user.isloggedInSuccess);
     const loginViaGoogle = async (token) => {
-        console.log(jwt_decode(token));
+        const jwtDecodeUser = jwt_decode(token);
+        const fetchUser = async () => {
+            try {
+                dispatch(USER_LOGIN_REQUEST());
+                const response = await userApi.loginViaGoogle(
+                    jwtDecodeUser.email
+                );
+                localStorage.setItem("token", JSON.stringify(response));
+                dispatch(USER_LOGIN_SUCCESS(response));
+            } catch (error) {
+                const errorMessage = getErrorMessageFromServer(error);
+
+                if (errorMessage === 401) {
+                    dispatch(USER_LOGIN_VIA_GOOGLE_FAIL(errorMessage));
+                    navigate("/sign-up", {
+                        state: { jwtDecodeUser: jwtDecodeUser },
+                    });
+                }
+            }
+        };
+        fetchUser();
     };
 
     // Navigate to home page and prevent going to login page after login
@@ -110,8 +136,7 @@ export const SignIn = () => {
                                             ĐĂNG NHẬP
                                         </div>
                                         <div>
-                                            {user.isloggedInSuccess ===
-                                                false && (
+                                            {isLoginSuccess === false && (
                                                 <div
                                                     className="bg-red-100 rounded-lg mb-3 py-3 px-6 text-sm text-red-700 inline-flex items-center w-full"
                                                     role="alert"

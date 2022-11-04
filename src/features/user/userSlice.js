@@ -35,6 +35,13 @@ export const userSlice = createSlice({
             state.loginErrorMessage = action.payload;
             state.loading = false;
         },
+        USER_LOGIN_VIA_GOOGLE_FAIL: (state, action) => {
+            state.token = null;
+            // state.isloggedInSuccess = false;
+            state.loginViaGoogleFail = true;
+            state.loginErrorMessage = action.payload;
+            state.loading = false;
+        },
         USER_LOGOUT_SUCCESS: (state) => {
             state.token = null;
             state.userInfor = null;
@@ -55,6 +62,7 @@ export const {
     USER_LOGIN_REQUEST,
     USER_LOGOUT_SUCCESS,
     USER_CLEAR,
+    USER_LOGIN_VIA_GOOGLE_FAIL,
 } = userSlice.actions;
 
 export const selectUser = (state) => state.user;

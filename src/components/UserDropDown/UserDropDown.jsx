@@ -1,5 +1,6 @@
 import { Slide } from "@mui/material";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import { CART_CLEAR } from "../../features/cart/cartSlice";
 import { ORDER_CLEAR } from "../../features/order/orderSlice";
 import {
     selectUser,
+    USER_CLEAR,
     USER_LOGOUT_SUCCESS,
     USER_REQUEST,
 } from "../../features/user/userSlice";
@@ -18,6 +20,7 @@ const UserDropDown = () => {
     const dispatch = useDispatch();
     const [userDropDown, setUserDropDown] = useState("hidden");
     const [logoutSuccess, setLogoutSuccess] = useState(user.isloggedOutSuccess);
+    const [loginSuccess, setLoginSuccess] = useState(user.isloggedInSuccess);
 
     const handleLogout = async () => {
         const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -28,9 +31,19 @@ const UserDropDown = () => {
         dispatch(ORDER_CLEAR());
         dispatch(USER_LOGOUT_SUCCESS());
         dispatch(CART_CLEAR());
-        setLogoutSuccess(true);
-        setTimeout(() => setLogoutSuccess(false), 2000);
     };
+
+    useEffect(() => {
+        if (user.isloggedOutSuccess === true) {
+            setLogoutSuccess(true);
+            setTimeout(() => setLogoutSuccess(false), 2000);
+        }
+        if (user.isloggedInSuccess) {
+            setLoginSuccess(true);
+            setTimeout(() => setLoginSuccess(false), 2000);
+        }
+        dispatch(USER_CLEAR());
+    }, [user.isloggedOutSuccess, user.isloggedInSuccess]);
 
     return (
         <>
@@ -61,6 +74,34 @@ const UserDropDown = () => {
                             ></path>
                         </svg>
                         Đăng xuất thành công
+                    </div>
+                </Slide>
+                <Slide
+                    direction="down"
+                    in={loginSuccess}
+                    mountOnEnter
+                    unmountOnExit
+                >
+                    <div
+                        className="z-10 fixed w-fit top-20 right-14 transition-all duration-200 bg-green-100 rounded-lg py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center"
+                        role="alert"
+                    >
+                        <svg
+                            aria-hidden="true"
+                            focusable="false"
+                            data-prefix="fas"
+                            data-icon="check-circle"
+                            className="w-4 h-4 mr-2 fill-current"
+                            role="img"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                        >
+                            <path
+                                fill="currentColor"
+                                d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                            ></path>
+                        </svg>
+                        Đăng nhập thành công
                     </div>
                 </Slide>
                 <div

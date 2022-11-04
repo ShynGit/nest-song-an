@@ -39,15 +39,19 @@ export const HeaderBottom = () => {
             >
                 Tin tức
             </Link>
-            <Link
-                to="/ddd"
+            <button
                 className={`transition-colors flex items-center duration-300 h-full px-3 ${
                     active === "ddd" ? "bg-regal-blue/60" : ""
                 }`}
-                onClick={() => window.scrollTo(0, 0)}
+                onClick={() =>
+                    window.scroll({
+                        top: document.body.scrollHeight,
+                        behavior: "smooth",
+                    })
+                }
             >
                 Liên hệ
-            </Link>
+            </button>
         </nav>
     );
 };
