@@ -29,7 +29,7 @@ export const Production = () => {
                 <div className="md:w-3/12 w-3/12 font-verda pr-12 shadow-md bg-white rounded-br-lg">
                     <Filter />
                 </div>
-                <div className="md:w-11/12 w-9/12 md:p-16 md:pl-10 md:ml-4 p-4 shadow-md bg-white rounded-bl-lg">
+                <div className="md:w-11/12 w-9/12 md:p-16 md:pb-12 md:pl-10 md:ml-4 p-4 shadow-md bg-white rounded-bl-lg">
                     <div>
                         <div className="flex flex-col">
                             <div className="flex mb-4">

@@ -1,6 +1,6 @@
 export const Pagination = ({ page, products, setPage }) => {
     return (
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 justify-center mt-3">
             {/* Arrow previous button */}
             {page > 1 ? (
                 <div
