@@ -66,8 +66,8 @@ export const Introduction = () => {
                         Quy trình sản xuất
                     </div>
                     <div className="border p-[0.7px] mt-1.5 w-4/12 m-auto border-cyan-700" />
-                    <div className="p-10 px-48 font-sans text-lg">
-                        <p className="mb-10">
+                    <div className="p-10 px-[300px] font-sans text-lg">
+                        <p className="mb-10 text-xl">
                             Với kinh nghiệm làm việc lâu năm trong ngành Yến
                             Sào, chúng tôi tự hào tạo ra 100% Yến Sào tinh
                             khiết, không dùng chất tẩy rửa, không trộn phụ gia,
@@ -108,7 +108,7 @@ export const Introduction = () => {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="mb-10">
                     <div className="text-3xl font-bold mt-16">
                         Giá trị cốt lõi
                     </div>
@@ -117,9 +117,9 @@ export const Introduction = () => {
                         <img
                             src="https://cdn.dribbble.com/users/1062479/screenshots/5689279/media/6b1f5e2d6eb6ee6ed21140b08fad3d4d.png?compress=1&resize=1000x750&vertical=top&fbclid=IwAR19M9t7zsaffIYto7puAGKMLo7bOoZJbUELX72afkqBjAuq1ddZCG9HORg"
                             alt="benefit of nest"
-                            className="h-[32rem] rounded-md shadow-lg shadow-gray-500"
+                            className="h-[30rem] rounded-md shadow-lg shadow-gray-500"
                         />
-                        <div className="ml-16 text-left text-lg flex flex-col gap-10">
+                        <div className="ml-16 text-left text-lg flex flex-col gap-14 justify-center">
                             <p>
                                 <span className="font-bold">Chất lượng:</span>{" "}
                                 Tổ yến sào Song Ân có nguồn gốc từ yến nuôi và

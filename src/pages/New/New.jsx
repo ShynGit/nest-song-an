@@ -32,6 +32,8 @@ export const New = () => {
         fetchNews();
     }, []);
 
+    console.log(news);
+
     return (
         <>
             {news.loading ? (
@@ -52,7 +54,9 @@ export const New = () => {
                                     <div className="flex my-5 gap-4">
                                         <div className="rounded-sm">
                                             <img
-                                                src={card.listImages[0].imgPath}
+                                                src={
+                                                    card.listImages[0]?.imgPath
+                                                }
                                                 alt={card.title}
                                                 className="aspect-square object-cover w-52 rounded"
                                             />

@@ -18,11 +18,11 @@ export const billApi = {
     getBillByBillId: (bill_id) => {
         return adminAxios.get(`/bill/${bill_id}`);
     },
-    getBillStatus: () =>{
-        return adminAxios.get("/bill_status")
+    getBillStatus: () => {
+        return adminAxios.get("/bill_status");
     },
     getBillByStatus: (status) => {
-        return adminAxios.get(`/bill/status/${status}`)
+        return adminAxios.get(`/bill/status/${status}`);
     },
     payment: (data) => {
         return adminAxios.post("/cart/buy/customer", data);
@@ -45,5 +45,8 @@ export const billApi = {
         return adminAxios.delete(
             `/cart/cart-line-items/user?userId=${userId}&id=${billId}`
         );
+    },
+    cancelBill: (billId) => {
+        return adminAxios.delete(`bill/delete/${billId}`);
     },
 };
