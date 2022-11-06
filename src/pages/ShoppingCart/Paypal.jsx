@@ -52,7 +52,7 @@ export const Paypal = ({ totalPrice, setStep }) => {
 
     return (
         <div>
-            <div ref={paypal}></div>
+            <div ref={paypal} className="w-[22rem]"></div>
         </div>
     );
 };

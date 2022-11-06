@@ -131,7 +131,7 @@ export const Cart = ({ setStep }) => {
                             </div>
                         ) : (
                             cart.cart.listBillDetails?.map((item, index) => {
-                                totalPrice += item.price;
+                                totalPrice += item.price * item.quantity;
                                 return (
                                     <div className="" key={index}>
                                         {cart.loading ? (
