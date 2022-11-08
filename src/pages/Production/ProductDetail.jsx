@@ -131,7 +131,7 @@ export const ProductDetail = () => {
                                 sx={{
                                     position: "fixed",
                                     bottom: 50,
-                                    right: 50,
+                                    left: 50,
                                 }}
                             >
                                 Thêm vào giỏ hàng thành công
@@ -267,15 +267,20 @@ export const ProductDetail = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="absolute right-5 bottom-5">
+                        <div className="absolute right-5 bottom-5 group">
+                            {/* <div className="relative pt-10"> */}
                             <button
                                 onClick={() => navigate(-1)}
-                                className="bg-regal-blue text-white rounded-full w-10 h-10 flex justify-center items-center hover:scale-150 transition-all duration-300 active:scale-90"
+                                className="bg-regal-blue text-white rounded-full w-10 h-10 flex justify-center items-center group-hover:scale-150 transition-all duration-300 active:scale-90"
                             >
                                 <ArrowBackIosNewIcon
                                     style={{ fontSize: "medium" }}
                                 />
+                                <div className="group-hover:scale-100 group-hover:rotate-0 scale-0 transition-all duration-300 absolute text-green-400 text-xs -rotate-180 -top-5 w-14 font-medium">
+                                    Quay lại
+                                </div>
                             </button>
+                            {/* </div> */}
                         </div>
                     </div>
                 </div>

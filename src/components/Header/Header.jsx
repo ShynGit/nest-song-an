@@ -15,10 +15,9 @@ import { Badge } from "@mui/material";
 import { billApi } from "../../api/billApi";
 import { getErrorMessageFromServer } from "../../utils/serverUtils";
 import { useForm } from "react-hook-form";
-import {
-    FILTER_ADD_SEARCH,
-    FILTER_CLEAR_SEARCH,
-} from "../../features/production/filterSlice";
+import { FILTER_ADD_SEARCH } from "../../features/production/filterSlice";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Header = () => {
     const cart = useSelector(selectCart);
@@ -116,11 +115,9 @@ const Header = () => {
                             badgeContent={cart.cart.listBillDetails?.length}
                             color="secondary"
                         >
-                            <img
-                                src="https://yensaokhanhhoa.vn/wp-content/themes/lifenestvietnam/images/icons/shopping-cart.svg"
-                                className="w-[2.1rem] px-1 ml-1 hover:cursor-pointer"
-                                style={{ filter: "brightness(0) invert(1)" }}
-                                onClick={() => window.scrollTo(0, 0)}
+                            <FontAwesomeIcon
+                                icon={faCartShopping}
+                                className={`w-6 px-1 ml-1 h-6 hover:cursor-pointer hover:text-cyan-300 transition-colors duration-100`}
                             />
                         </Badge>
                     </Link>

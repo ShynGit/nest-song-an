@@ -16,6 +16,7 @@ export const ShoppingCart = () => {
     useEffect(() => {
         if (!user.token)
             navigate("/sign-in", { state: { alertNotLogin: true } });
+        window.scroll(0, 0);
     }, []);
     // console.log(step);
     return (
