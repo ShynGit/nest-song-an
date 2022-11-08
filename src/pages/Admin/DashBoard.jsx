@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { ToastSuccess } from "../../components/Toast";
 import { Bar } from "react-chartjs-2";
-import { ProductChart } from "../../components/Chart/ProductChart";
+import { CountOnBill, ProductChart } from "../../components/Chart/ProductChart";
 import { UserChart } from "../../components/Chart/UserChart";
 
 export const DashBoard = () => {
@@ -14,13 +14,16 @@ export const DashBoard = () => {
 
   return (
     // <AdminLayout setRerender={setIsRerender}>
-    <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
-      {/* <ToastSuccess
+    <Box sx={{ marginBottom: "100px" }}>
+      <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+        {/* <ToastSuccess
         successToastStatus={successToastStatus}
         setSuccessToastStatus={setSuccessToastStatus}
       ></ToastSuccess> */}
-      <ProductChart />
-      <UserChart />
+        <ProductChart />
+        <UserChart />
+      </Box>
+      <CountOnBill />
     </Box>
   );
 };

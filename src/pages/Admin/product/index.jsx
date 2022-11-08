@@ -175,6 +175,7 @@ export function Products() {
       </Grid>
       <Grid
         item
+        marginBottom={"52px"}
         sx={{ width: "100%" }}
         variant="outlined"
         style={{ display: "flex" }}

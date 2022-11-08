@@ -1,15 +1,61 @@
 import { Box, Button, Grid, Paper, Typography } from "@mui/material";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { AppButton } from "../../../components/Button";
 import { AppForm } from "../../../components/Form";
+import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
+import { storage } from "../../../utils/firebase";
+import { async } from "@firebase/util";
+import { newApi } from "../../../api/newApi";
+
+export const uploadFiles = (
+  value,
+  setProgress,
+  setValue,
+  name,
+  setListImages
+) => {
+  if (!value) return;
+  const storageRef = ref(storage, `file/${value.name}`);
+  const uploadTask = uploadBytesResumable(storageRef, value);
+
+  uploadTask.on(
+    "stage_changed",
+    (snapshot) => {
+      const prog = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+
+      setProgress(prog);
+    },
+    (err) => console.log(err),
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref)
+        .then((url) => {
+          setValue(name, url);
+          setListImages((prevValue) => {
+            // console.log(prevValue);
+            prevValue.push({ imgPath: url });
+            // console.log(newListImg);
+            return prevValue;
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  );
+};
 
 export function CreateNews() {
+  const [progress, setProgress] = useState(0);
   const methods = useForm({
     defaultValues: {},
   });
 
   const { handleSubmit, setValue } = methods;
+
+  const setUrl = (name, file) => {
+    uploadFiles(file, setProgress, setValue, name);
+  };
 
   const fields = useMemo(() => {
     return [
@@ -31,12 +77,12 @@ export function CreateNews() {
       {
         type: "upload",
         fieldProps: {
-          setValue: setValue,
+          setValue: setUrl,
         },
         formProps: {
-          name: "image",
+          name: "imagePath",
           rules: {
-            required: "Trường này là bắt buộc",
+            validate: (value) => !!value || "Trường này là bắt buộc",
           },
         },
         cols: {
@@ -79,13 +125,16 @@ export function CreateNews() {
   }, []);
 
   const onSubmit = (values) => {
-    console.log(values);
+    newApi
+      .addNews(values)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
   return (
-    <Paper sx={{ padding: "24px" }}>
+    <Paper sx={{ padding: "24px", marginBottom: "50px" }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box container display={"flex"} justifyContent={"center"}>
+          <Box display={"flex"} justifyContent={"center"}>
             <Box width="100%" paddingLeft="24px" marginTop={"24px"}>
               <Box display={"flex"} justifyContent="flex-start">
                 <Typography

@@ -5,7 +5,7 @@ import { billApi } from "../../../../api/billApi";
 import { userApi } from "../../../../api/userApi";
 
 
-export const useGetOrderByStatusId = (status= 2, skipFetch = false ) => {
+export const useGetOrderByStatusId = ({status= 2, skipFetch = false, isRerender} ) => {
   
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -39,7 +39,7 @@ export const useGetOrderByStatusId = (status= 2, skipFetch = false ) => {
         if (!skipFetch) {
             getOrdersByStatus(status);
         }
-    }, [status]);
+    }, [status, isRerender]);
 
 
     return {

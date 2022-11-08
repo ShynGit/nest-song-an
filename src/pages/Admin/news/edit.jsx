@@ -1,9 +1,11 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
+import { useState } from "react";
 import { useMemo, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { newApi } from "../../../api/newApi";
 import { AppButton } from "../../../components/Button";
-import { AppForm } from "../../../components/Form";
+import { AppForm, FIELD_TYPES } from "../../../components/Form";
 import { setInitForm } from "../../../utils/setInitForm";
 import { useGetNewById } from "./api/hook";
 
@@ -16,13 +18,17 @@ export function EditNews() {
       description: "",
     },
   });
+  const navigate = useNavigate();
   const { id } = useParams();
   //TODO getDetailProduct (1)
   const { data: detailNews, loading: loadingNews } = useGetNewById(id);
+  const [listImages, setListImages] = useState([]);
+  const {
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = methods;
 
-  const { handleSubmit, setValue } = methods;
-
-  //
   const fields = useMemo(() => {
     return [
       {
@@ -40,16 +46,18 @@ export function EditNews() {
           xs: 12,
         },
       },
+
       {
-        type: "upload",
+        type: FIELD_TYPES.IMAGE_UPLOAD,
         fieldProps: {
+          images: listImages,
+          title: "Danh sách hình ảnh",
+          max: 5,
+          setListImages: setListImages,
           setValue: setValue,
         },
         formProps: {
           name: "image",
-          rules: {
-            required: "Trường này là bắt buộc",
-          },
         },
         cols: {
           xs: 12,
@@ -86,18 +94,25 @@ export function EditNews() {
         },
       },
     ];
-  }, []);
+  }, [listImages]);
 
   // handleSubmit update it
   const onSubmit = (values) => {
-    console.log(values);
+    const data = { ...values, listImages };
+    delete data.image;
+    console.log(data);
+    newApi
+      .updateNews(id, data)
+      .then(() => navigate("/dashboard/news"))
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     if (detailNews) {
+      setListImages(detailNews?.listImages);
       setInitForm(
         detailNews,
-        ["title", "image", "shortDescription", "description"],
+        ["title", "shortDescription", "description"],
         setValue
       );
     }
@@ -107,7 +122,7 @@ export function EditNews() {
     <Paper sx={{ padding: "24px" }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Box container display={"flex"} justifyContent={"center"}>
+          <Box display={"flex"} justifyContent={"center"}>
             <Box width="100%" paddingLeft="24px" marginTop={"24px"}>
               <Box display={"flex"} justifyContent="flex-start">
                 <Typography
@@ -118,10 +133,11 @@ export function EditNews() {
                     color: "var(--bs-secondary)",
                   }}
                 >
-                  Edit News
+                  Chỉnh sửa bài viết
                 </Typography>
               </Box>
               <AppForm fields={fields} />
+
               <Box display={"flex"} justifyContent="flex-end">
                 <AppButton
                   type="submit"

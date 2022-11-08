@@ -5,6 +5,10 @@ export const productApi = {
         return adminAxios.get("/product");
     },
 
+    getCountProductOnBill: () => {
+        return adminAxios.get("product/count-on-bill");
+    },
+
     getProductByPage: async (offset, limit) => {
         try {
            

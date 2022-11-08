@@ -211,3 +211,45 @@ export const useGetProduct = (id, skipFetch = false) => {
 
 }
 
+export const useGetCountProductOnBill = ( {skipFetch = false}) => {
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("")
+
+    const getProduct = async () => {
+        setLoading(true)
+       
+        try {
+            const response = await productApi.getCountProductOnBill()
+            setProducts(response)
+
+        } catch (error) {
+            console.log(error);
+            if (error.response.status < 500) {
+                setError("Không tìm thấy sản phẩm")
+                return;
+            }
+            setError("Internal Server Error")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        if (!skipFetch) {
+            getProduct()
+        }
+    }, []);
+
+   
+
+
+    return {
+        data: products,
+        loading,
+        error,
+    }
+
+}
+

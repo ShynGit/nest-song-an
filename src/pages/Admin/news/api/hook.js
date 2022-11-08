@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
 import { newApi } from "../../../../api/newApi";
 
@@ -78,3 +79,43 @@ export const useGetNewById = ( id, skipFetch = false ) => {
     }
 
 }
+
+export const useGetCategories = ({ skipFetch = false }) => {
+
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("")
+
+    const getCategories = async () => {
+        setLoading(true)
+        try {
+
+            const response = await newApi.
+            setCategories(response)
+
+        } catch (error) {
+            if (error.response.status < 500) {
+                setError("Không tìm thấy")
+                return;
+            }
+            setError("Internal Server Error")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        if (!skipFetch) {
+            getCategories();
+        }
+    }, []);
+
+
+    return {
+        data: categories,
+        loading,
+        error,
+    }
+
+}  
+

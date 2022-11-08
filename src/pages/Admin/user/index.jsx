@@ -37,7 +37,7 @@ export function Users() {
       {
         field: "dateOfBirth",
         headerName: "Ngày sinh",
-        width: 350,
+        width: 200,
         renderCell: ({ value }) => {
           return <span>{convertMsToDate(value)} </span>;
         },

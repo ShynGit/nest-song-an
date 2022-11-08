@@ -66,6 +66,10 @@ export const UserChart = () => {
         alignItems: "center",
         padding: "24px",
         width: "100%",
+        border: "1px solid gray",
+        borderRadius: "8px",
+        boxShadow: "5px 5px 5px grey",
+        marginLeft: "100px",
       }}
     >
       <Pie

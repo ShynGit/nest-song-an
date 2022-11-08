@@ -46,4 +46,14 @@ export const billApi = {
             `/cart/cart-line-items/user?userId=${userId}&id=${billId}`
         );
     },
+    updateBillById: async (id, status) => {
+        try {
+            const res = await adminAxios.put(
+                `/bill/update-status?id=${id}&status=${status}`
+            );
+            return res;
+        } catch (err) {
+            throw err;
+        }
+    },
 };
