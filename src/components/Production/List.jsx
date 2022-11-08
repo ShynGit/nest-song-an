@@ -151,7 +151,7 @@ export const List = ({ inProductPage, category }) => {
                             sx={{
                                 position: "fixed",
                                 bottom: 50,
-                                right: 50,
+                                left: 50,
                                 zIndex: 1000,
                             }}
                         >
@@ -238,7 +238,7 @@ export const List = ({ inProductPage, category }) => {
                                                                 icon={
                                                                     faCartPlus
                                                                 }
-                                                                className={`w-8 h-8 mt-0.5 hover:cursor-pointer hover:text-regal-blue ${
+                                                                className={`w-8 h-8 mt-0.5 hover:cursor-pointer hover:text-regal-blue transition-colors duration-200 ${
                                                                     cart.loading
                                                                         ? "text-slate-300"
                                                                         : ""

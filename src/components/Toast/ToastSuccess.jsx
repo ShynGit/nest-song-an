@@ -4,7 +4,7 @@ import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { Alert } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AssignmentReturnIcon from "@mui/icons-material/AssignmentReturn";
 
 export const ToastSuccess = ({ successToastStatus, setSuccessToastStatus }) => {
@@ -49,11 +49,28 @@ export const ToastSuccess = ({ successToastStatus, setSuccessToastStatus }) => {
     );
 };
 
-export const ToastPageChange = ({ url, name, onClick }) => {
+export const ToastPageChange = () => {
+    const location = useLocation();
+    const [url, setUrl] = React.useState(
+        location.pathname.includes("dashboard") ? "/" : "/dashboard"
+    );
+    const [name, setName] = React.useState(
+        location.pathname.includes("dashboard") ? "Bán hàng" : "Quản trị"
+    );
+
+    const handleSwitch = () => {
+        if (url.includes("dashboard")) {
+            setName("Bán hàng", setUrl("/"));
+        } else {
+            setName("Quản trị", setUrl("/dashboard"));
+        }
+    };
+
     const navigate = useNavigate();
     const handlePageChange = () => {
+        // console.log("swtich");
         navigate(url);
-        onClick();
+        handleSwitch();
     };
 
     return (

@@ -56,10 +56,12 @@ export const Footer = () => {
                         sx={{ width: "30px", height: "30px" }}
                         className="hover:text-white cursor-pointer"
                     />
-                    <FacebookRoundedIcon
-                        sx={{ width: "32px", height: "32px" }}
-                        className="hover:text-white cursor-pointer"
-                    />
+                    <a href="https://www.facebook.com/SongAnNest/">
+                        <FacebookRoundedIcon
+                            sx={{ width: "32px", height: "32px" }}
+                            className="hover:text-white cursor-pointer"
+                        />
+                    </a>
                     <InstagramIcon
                         sx={{ width: "31px", height: "31px" }}
                         className="hover:text-white cursor-pointer"

@@ -1,10 +1,4 @@
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    useLocation,
-    Outlet,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { SignIn } from "./pages/SignIn";
 import { SignUp } from "./pages/SignUp";
@@ -25,7 +19,6 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./assets/theme";
 import { Order } from "./pages/Order/Order";
 import { ToastPageChange } from "./components/Toast";
-import { useState } from "react";
 import AdminLayout from "./components/layout/AdminLayout";
 import { Products } from "./pages/Admin/product";
 import { CreateProduct } from "./pages/Admin/product/create";
@@ -36,18 +29,10 @@ import { Detail } from "./pages/Admin/order/detail";
 import { News } from "./pages/Admin/news";
 import { EditNews } from "./pages/Admin/news/edit";
 import { CreateNews } from "./pages/Admin/news/create";
+import { ChatBox } from "./components/Messenger/ChatBox";
 
 export const App = () => {
-    const [name, setName] = useState("Bán hàng");
-    const [url, setUrl] = useState("/");
     const user = useSelector(selectUser);
-    const handleSwitch = () => {
-        if (url === "/") {
-            setName("Quản trị", setUrl("/dashboard"));
-        } else {
-            setName("Bán hàng", setUrl("/"));
-        }
-    };
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
@@ -138,14 +123,8 @@ export const App = () => {
                         <Route path="/sign-up" element={<SignUp />} />
                     </Routes>
                 )}
-                {user.userInfor?.role === "ADMIN" && (
-                    <ToastPageChange
-                        url={url}
-                        name={name}
-                        onClick={() => handleSwitch()}
-                    />
-                )}
-                {/* {user.userInfor?.role === "CUSTOMER" && <ChatBox />} */}
+                {user.userInfor?.role === "ADMIN" && <ToastPageChange />}
+                {user.userInfor?.role === "CUSTOMER" && <ChatBox />}
             </BrowserRouter>
         </ThemeProvider>
     );
