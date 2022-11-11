@@ -2,11 +2,12 @@ import { Box, Button, Grid, Paper, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { AppButton } from "../../../components/Button";
-import { AppForm } from "../../../components/Form";
+import { AppForm, FIELD_TYPES } from "../../../components/Form";
 import { ref, getDownloadURL, uploadBytesResumable } from "@firebase/storage";
 import { storage } from "../../../utils/firebase";
 import { async } from "@firebase/util";
 import { newApi } from "../../../api/newApi";
+import { useNavigate } from "react-router-dom";
 
 export const uploadFiles = (
   value,
@@ -47,6 +48,8 @@ export const uploadFiles = (
 
 export function CreateNews() {
   const [progress, setProgress] = useState(0);
+  const [listImages, setListImages] = useState([]);
+  const navigate = useNavigate();
   const methods = useForm({
     defaultValues: {},
   });
@@ -75,14 +78,23 @@ export function CreateNews() {
         },
       },
       {
-        type: "upload",
+        type: FIELD_TYPES.IMAGE_UPLOAD,
         fieldProps: {
-          setValue: setUrl,
+          images: listImages,
+          title: "Danh sách hình ảnh",
+          max: 5,
+          setListImages: setListImages,
+          setValue: setValue,
         },
         formProps: {
-          name: "imagePath",
+          name: "image",
           rules: {
-            validate: (value) => !!value || "Trường này là bắt buộc",
+            validate: () => {
+              const isEmpty = listImages.length === 0;
+              if (isEmpty) {
+                return "Trường này là bắt buộc";
+              }
+            },
           },
         },
         cols: {
@@ -125,9 +137,11 @@ export function CreateNews() {
   }, []);
 
   const onSubmit = (values) => {
+    const data = { ...values, listImages };
+    delete data.image;
     newApi
-      .addNews(values)
-      .then((res) => console.log(res))
+      .addNews(data)
+      .then((res) => navigate("/dashboard/news"))
       .catch((err) => console.log(err));
   };
   return (

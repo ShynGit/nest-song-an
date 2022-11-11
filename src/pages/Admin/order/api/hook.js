@@ -167,3 +167,42 @@ export const useGetUserData = (id, skipFetch = false ) => {
     }
 
 }
+
+export const useGetTotalPriceByMonth = ( skipFetch = false ) => {
+  
+    const [bill, setBill] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("")
+
+    const getPriceByMonth = async () => {
+        setLoading(true)
+        try {
+            const response = await billApi.getTotalPriceByMonth()
+            setBill(response)
+
+        } catch (error) {
+            if (error.response.status < 500) {
+                console.log(error);
+                setError("Không tìm thấy sản phẩm")
+                return;
+            }
+            setError("Internal Server Error")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        if (!skipFetch) {
+            getPriceByMonth();
+        }
+    }, []);
+
+
+    return {
+        data: bill,
+        loading,
+        error,
+    }
+
+}

@@ -4,6 +4,7 @@ import { ToastSuccess } from "../../components/Toast";
 import { Bar } from "react-chartjs-2";
 import { CountOnBill, ProductChart } from "../../components/Chart/ProductChart";
 import { UserChart } from "../../components/Chart/UserChart";
+import { BillChart } from "../../components/Chart/BillChart";
 
 export const DashBoard = () => {
   const [isRerender, setIsRerender] = useState(false);
@@ -21,7 +22,8 @@ export const DashBoard = () => {
         setSuccessToastStatus={setSuccessToastStatus}
       ></ToastSuccess> */}
         <ProductChart />
-        <UserChart />
+        <BillChart />
+        {/* <UserChart /> */}
       </Box>
       <CountOnBill />
     </Box>

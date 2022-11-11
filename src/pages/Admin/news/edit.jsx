@@ -58,6 +58,14 @@ export function EditNews() {
         },
         formProps: {
           name: "image",
+          rules: {
+            validate: () => {
+              const isEmpty = listImages.length === 0;
+              if (isEmpty) {
+                return "Trường này là bắt buộc";
+              }
+            },
+          },
         },
         cols: {
           xs: 12,
@@ -119,7 +127,7 @@ export function EditNews() {
   }, [detailNews]);
 
   return (
-    <Paper sx={{ padding: "24px" }}>
+    <Paper sx={{ padding: "24px", marginBottom: "60px" }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box display={"flex"} justifyContent={"center"}>
