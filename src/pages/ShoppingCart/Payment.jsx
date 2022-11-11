@@ -25,14 +25,18 @@ export const Payment = ({ setStep }) => {
 
     const handlePay = () => {
         const pay = async () => {
-            dispatch(CART_LOADING_REQUEST());
-            const response = await billApi.payment({
-                ...cart.shipInfor,
-                paymentStatusCodeId: method,
-            });
-            dispatch(CART_PAYING_SUCCESS());
-            setStep("receipt");
-            // console.log(response);
+            try {
+                dispatch(CART_LOADING_REQUEST());
+                const response = await billApi.payment({
+                    ...cart.shipInfor,
+                    paymentStatusCodeId: method,
+                });
+                dispatch(CART_PAYING_SUCCESS());
+                setStep("receipt");
+                // console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
         };
         if (method === 1) pay();
     };

@@ -16,8 +16,7 @@ import { billApi } from "../../api/billApi";
 import { getErrorMessageFromServer } from "../../utils/serverUtils";
 import { useForm } from "react-hook-form";
 import { FILTER_ADD_SEARCH } from "../../features/production/filterSlice";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 
 const Header = () => {
     const cart = useSelector(selectCart);
@@ -54,7 +53,7 @@ const Header = () => {
 
     const onSubmit = () => {
         dispatch(FILTER_ADD_SEARCH(search));
-        setSearch("");
+        // setSearch("");
         navigate(`/production`);
     };
 
@@ -101,6 +100,8 @@ const Header = () => {
                                 type="search"
                                 className="border-2 focus:outline-none block p-3 pl-12 w-full text-sm text-gray-900 bg-gray-50 rounded-xl dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white"
                                 placeholder="Tìm kiếm sản phẩm"
+                                pattern="[^'\x22]+"
+                                title="Invalid input"
                                 maxLength={150}
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
@@ -110,15 +111,19 @@ const Header = () => {
                 </div>
                 <div className="md:mr-[7%] flex items-center relative">
                     <UserDropDown />
-                    <Link to="/shopping-cart">
+                    <Link
+                        to="/shopping-cart"
+                        className="flex items-center px-2 hover:text-cyan-300"
+                    >
                         <Badge
                             badgeContent={cart.cart.listBillDetails?.length}
                             color="secondary"
                         >
-                            <FontAwesomeIcon
+                            <LocalMallOutlinedIcon />
+                            {/* <FontAwesomeIcon
                                 icon={faCartShopping}
                                 className={`w-6 px-1 ml-1 h-6 hover:cursor-pointer hover:text-cyan-300 transition-colors duration-100`}
-                            />
+                            /> */}
                         </Badge>
                     </Link>
                     {user.token && (

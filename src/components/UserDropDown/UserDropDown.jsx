@@ -111,11 +111,9 @@ const UserDropDown = () => {
                     onMouseOver={() => setUserDropDown("inline")}
                     onMouseOut={() => setUserDropDown("hidden")}
                 >
-                    <img
-                        src={UserIcon}
-                        className="border-r px-1 w-10"
-                        style={{ filter: "brightness(0) invert(1)" }}
-                    />
+                    <div className="flex items-center px-2.5 border-r hover:text-cyan-300">
+                        <FontAwesomeIcon icon={faUser} className="text-xl" />
+                    </div>
                     <div
                         className={`${userDropDown} absolute right-0 z-10 w-40 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
                         role="menu"

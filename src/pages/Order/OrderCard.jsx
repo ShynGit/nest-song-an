@@ -128,15 +128,20 @@ export const OrderCard = ({ card, handleCancelOrder }) => {
                 </Dialog>
             )}
             <div className="my-9 border p-3 rounded-md shadow-lg bg-white">
-                <div className="flex justify-between p-5 px-2 text-[1.4rem]">
-                    <div className="font-medium text-black">
-                        Giao hàng tới {card.address}, SĐT: {card.phoneNumber}
-                    </div>
-                    <div className="font-medium text-black">
-                        Ngày đặt hàng: {d.toLocaleString()}
+                <div className="flex justify-between p-5 px-2 text-[1.2rem]">
+                    <div>
+                        <div className="font-medium text-black">
+                            Giao hàng tới {card.address}, SĐT:{" "}
+                            {card.phoneNumber}
+                        </div>
+                        <div className="font-medium text-black">
+                            Ngày đặt hàng: {d.toLocaleString()}
+                        </div>
                     </div>
                     <div
-                        className={`${status[card.status].color} font-semibold`}
+                        className={`${
+                            status[card.status].color
+                        } font-semibold text-[1.4rem]`}
                     >
                         {status[card.status].title}
                     </div>
@@ -294,7 +299,7 @@ export const OrderCard = ({ card, handleCancelOrder }) => {
                                 paymentStatus[card.paymentStatusCode]
                             } text-right text-xl font-semibold`}
                         >
-                            {card.paymentStatusCode}
+                            {card.status !== 4 && card.paymentStatusCode}
                         </div>
                     </div>
                 </div>

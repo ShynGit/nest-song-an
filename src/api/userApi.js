@@ -41,6 +41,6 @@ export const userApi = {
         return adminAxios.post("user/insert", input);
     },
     updateProfile: (userId, data) => {
-        return adminAxios.put(`user/${userId}`, data);
+        return adminAxios.post(`user/${userId}`, data);
     },
 };
