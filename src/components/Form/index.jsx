@@ -169,6 +169,14 @@ const renderMultipleUpload = ({ fieldProps, controllerProps }) => {
               setValue={setValue}
               setListImages={setListImages}
             />
+            {restFieldProps?.helperText && (
+              <FormHelperText
+                style={{ color: "var(--bs-danger)" }}
+                id="my-helper-text"
+              >
+                {restFieldProps?.helperText}
+              </FormHelperText>
+            )}
           </FormControl>
         );
       }}

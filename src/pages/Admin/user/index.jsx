@@ -48,7 +48,14 @@ export function Users() {
         headerName: "Trạng thái",
         width: 150,
         renderCell: ({ value }) => {
-          return <span>{value === 0 ? "Đang ẩn" : "Hoạt động"} </span>;
+          const data = {
+            color: value === 1 ? "green" : "red",
+          };
+          return (
+            <span style={{ color: data.color }}>
+              {value === 0 ? "Đang ẩn" : "Hoạt động"}{" "}
+            </span>
+          );
         },
       },
       {
@@ -67,6 +74,7 @@ export function Users() {
           const data = {
             isCustomer: row.role.id === 2,
             isActive: row.status === 1,
+            color: row.status === 1 ? "error" : "success",
           };
           return (
             <Button
@@ -78,6 +86,7 @@ export function Users() {
                 }
               }}
               variant={"contained"}
+              color={data.color}
               style={{ textTransform: "capitalize" }}
               sx={{ display: data.isCustomer ? "" : "none" }}
             >
@@ -88,8 +97,6 @@ export function Users() {
       },
     ];
   }, []);
-
-  if (loading) return <Loading />;
 
   if (error) return <Navigate to="404" />;
 
@@ -115,7 +122,7 @@ export function Users() {
       </Grid>
       <Grid
         item
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", marginBottom: "40px" }}
         variant="outlined"
         style={{ display: "flex" }}
       >

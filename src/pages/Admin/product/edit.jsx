@@ -150,18 +150,13 @@ export function EditProduct() {
   // handleSubmit update it
   const onSubmit = (values) => {
     const data = {
-      name: values.name,
-      quantity: values.quantity,
-      deal: values.deal,
-      description: values.description,
-      basePrice: values.basePrice,
-      cateId: values.cateId,
+      ...values,
+      listImages: listImages,
     };
     productApi
       .updateProductById(id, data)
       .then(() => navigate("/dashboard/product"))
       .catch((err) => console.log(err));
-    console.log(data);
   };
 
   useEffect(() => {
@@ -176,7 +171,7 @@ export function EditProduct() {
   }, [detailProduct]);
 
   return (
-    <Paper sx={{ padding: "24px" }}>
+    <Paper sx={{ padding: "24px", marginBottom: "60px" }}>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box display={"flex"} justifyContent={"center"}>

@@ -47,7 +47,9 @@ export function Products() {
         headerName: "Image",
         width: 150,
         renderCell: (values) => {
-          return <img src={values?.value ? values.value[0].imgPath : ""}></img>;
+          return (
+            <img src={values?.value ? values.value[0]?.imgPath : ""}></img>
+          );
         },
       },
       { field: "description", headerName: "Description", width: 350 },
@@ -81,6 +83,8 @@ export function Products() {
           const submitData = {
             status: value === 1 ? "Đang bán" : "Ngưng bán",
             action: value === 1 ? "Ẩn" : "Hiện",
+            statusColor: value === 0 ? "red" : "green",
+            actionColor: value === 1 ? "error" : "success",
             product_id: row.id,
             status_action: value === 1 ? 0 : 1,
           };
@@ -93,9 +97,12 @@ export function Products() {
               alignItems={"center"}
               width={"100%"}
             >
-              <span>{submitData.status}</span>
+              <span style={{ color: submitData.statusColor }}>
+                {submitData.status}
+              </span>
               <Button
                 sx={{ paddingX: "8px" }}
+                color={submitData.actionColor}
                 onClick={() =>
                   handleSwitchStatus(
                     submitData.product_id,
@@ -130,8 +137,6 @@ export function Products() {
       },
     ];
   }, [categories]);
-
-  if (loading) return <Loading />;
 
   if (error) return <Navigate to="404" />;
 
@@ -168,7 +173,7 @@ export function Products() {
               }}
               style={{ textTransform: "capitalize" }}
             >
-              Create
+              Tạo mới
             </AppButton>
           </Box>
         </Paper>

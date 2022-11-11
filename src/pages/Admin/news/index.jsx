@@ -100,7 +100,14 @@ export function News() {
         variant="outlined"
         style={{ display: "flex" }}
       >
-        <Paper sx={{ width: "100%", padding: "24px", height: "100%" }}>
+        <Paper
+          sx={{
+            width: "100%",
+            padding: "24px",
+            height: "100%",
+            marginBottom: "60px",
+          }}
+        >
           <AppTable
             data={data || []}
             columns={columns}

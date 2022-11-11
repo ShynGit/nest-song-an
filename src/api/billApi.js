@@ -27,6 +27,9 @@ export const billApi = {
     payment: (data) => {
         return adminAxios.post("/cart/buy/customer", data);
     },
+    getTotalPriceByMonth:()=>{
+        return adminAxios.get("bill/total-by-month");
+    },
     addToCart: (userId, product, quantity) => {
         const data = {
             quantity: quantity,
@@ -58,6 +61,5 @@ export const billApi = {
     },
     cancelBill: (billId) => {
         return adminAxios.delete(`bill/delete/${billId}`);
-
     },
 };
