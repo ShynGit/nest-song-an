@@ -49,9 +49,10 @@ export const Order = () => {
                 dispatch(ORDER_LOADING_FAIL(errorMessage));
             }
         };
-        if (user.token) FetchOrder();
-        else navigate("/sign-in", { state: { alertNotLogin: true } });
-    }, [user]);
+        if (user.token) {
+            FetchOrder();
+        } else navigate("/sign-in", { state: { alertNotLogin: true } });
+    }, [user, reRender]);
 
     let orders = [];
     if (order.data !== null) {
@@ -72,17 +73,17 @@ export const Order = () => {
         try {
             dispatch(ORDER_LOADING());
             const response = await billApi.cancelBill(billId);
+            console.log(response);
             dispatch(ORDER_CANCEL(billId));
             setReRender(true);
         } catch (error) {
             const errorMessage = getErrorMessageFromServer(error);
+            console.log(error);
             dispatch(ORDER_LOADING_FAIL(errorMessage));
         }
     };
 
-    useEffect(() => {
-        if (reRender) setReRender(false);
-    }, [reRender]);
+    if (reRender) setReRender(false);
 
     return (
         <div className="bg-gray-200 min-h-[100vh] pt-28">

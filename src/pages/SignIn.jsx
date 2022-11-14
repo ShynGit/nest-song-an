@@ -162,6 +162,7 @@ export const SignIn = () => {
                           type="text"
                           maxLength={70}
                           required
+                          placeholder=" "
                         />
                         <span
                           className={`absolute left-0 mx-2 px-1 my-3 w-fit pointer-events-none transition-all duration-500 rounded-md text-gray-400`}
@@ -175,6 +176,7 @@ export const SignIn = () => {
                           className="px-3 py-3 border focus:border-regal-blue focus:outline-none w-full text-slate-900 rounded-md"
                           type="password"
                           required
+                          placeholder=" "
                         />
                         <span
                           className={`absolute left-0 mx-2 px-1 my-3 w-fit pointer-events-none transition-all duration-500 rounded-md text-gray-400`}

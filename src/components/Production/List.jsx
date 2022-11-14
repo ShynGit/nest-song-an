@@ -32,7 +32,7 @@ import {
     getErrorMessageFromServer,
 } from "../../utils/serverUtils";
 import { Loading } from "../Loading/Loading";
-import { Pagination } from "./Pagination";
+import { Pagination } from "../Pagination/Pagination";
 import {
     Button,
     Dialog,
@@ -272,8 +272,9 @@ export const List = ({ inProductPage, category }) => {
                     {inProductPage && (
                         <Pagination
                             page={page}
-                            products={productList}
+                            data={productList}
                             setPage={setPage}
+                            pageSize={9}
                         />
                     )}
                 </div>

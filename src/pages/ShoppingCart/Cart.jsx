@@ -70,7 +70,6 @@ export const Cart = ({ setStep }) => {
   const handleDelete = async (item, setLoading) => {
     try {
       const response = await billApi.removeFromCart(user.userInfor.id, item.id);
-      console.log(response);
       dispatch(CART_UPDATING_SUCCESS(response));
       setLoading(false);
     } catch (error) {

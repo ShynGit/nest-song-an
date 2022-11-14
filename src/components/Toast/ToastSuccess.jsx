@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Alert } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import AssignmentReturnIcon from "@mui/icons-material/AssignmentReturn";
+import { useEffect } from "react";
 
 export const ToastSuccess = ({ successToastStatus, setSuccessToastStatus }) => {
     const handleClose = (event, reason) => {
@@ -65,6 +66,16 @@ export const ToastPageChange = () => {
             setName("Quản trị", setUrl("/dashboard"));
         }
     };
+
+    // useEffect(() => {
+    //     if (url.includes("dashboard")) {
+    //         setName("Bán hàng");
+    //         setUrl("/");
+    //     } else {
+    //         setName("Quản trị");
+    //         setUrl("/dashboard");
+    //     }
+    // }, [location]);
 
     const navigate = useNavigate();
     const handlePageChange = () => {

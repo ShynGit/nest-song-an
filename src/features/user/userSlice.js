@@ -52,6 +52,10 @@ export const userSlice = createSlice({
             state.isloggedInSuccess = null;
             state.isloggedOutSuccess = null;
         },
+        USER_UPDATE_SUCCESS: (state) => {
+            state.loading = false;
+            state.userInfor = convertTokenToObject();
+        },
     },
 });
 
@@ -62,6 +66,7 @@ export const {
     USER_LOGIN_REQUEST,
     USER_LOGOUT_SUCCESS,
     USER_CLEAR,
+    USER_UPDATE_SUCCESS,
     USER_LOGIN_VIA_GOOGLE_FAIL,
 } = userSlice.actions;
 
