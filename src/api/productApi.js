@@ -56,8 +56,8 @@ export const productApi = {
         return adminAxios.post("/product/filter", data);
     },
 
-    getProductByStatus: (data) => {
-        return adminAxios.post("/product/status", data);
+    getProductByStatus: (status) => {
+        return adminAxios.get(`/product/all?status=${status}`);
     },
 
  
