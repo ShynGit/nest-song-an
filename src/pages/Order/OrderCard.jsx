@@ -324,7 +324,7 @@ export const OrderCard = ({ card, handleCancelOrder, handleSendRating }) => {
                     </div>
 
                     <div className="relative mr-6 mb-4">
-                        {card.status === 3 ? (
+                        {/* {card.status === 3 ? (
                             <Button
                                 variant="contained"
                                 color="success"
@@ -342,8 +342,8 @@ export const OrderCard = ({ card, handleCancelOrder, handleSendRating }) => {
                                 onClick={() => setRatingBox(true)}
                             >
                                 Đánh giá
-                            </Button>
-                        ) : card.status === 2 ? (
+                            </Button> */}
+                        {card.status === 2 ? (
                             <Button
                                 variant="contained"
                                 color="error"
